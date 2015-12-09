@@ -1,3 +1,4 @@
+# encoding:GBK
 import httplib, urllib, urllib2, re, time, json, requests
 
 
@@ -55,14 +56,14 @@ def con_log(*id1):
     x = conn.getresponse()
     conn.close()
 
-    # å‘é€ç­¾åˆ°æŠ¥æ–‡
+    # ·¢ËÍÇ©µ½±¨ÎÄ
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/user.php?do=GetUserinfo&OpenCardChip=1&v=1522&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param2, header1)
     conn.close()
 
-    # å‘é€é¢†å–ç­¾åˆ°å¥–åŠ±æŠ¥æ–‡
+    # ·¢ËÍÁìÈ¡Ç©µ½½±Àø±¨ÎÄ
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/user.php?do=AwardSalary&v=1523&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
