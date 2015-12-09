@@ -14,7 +14,14 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
-    param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    # 樱木
+    param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    # Am
+   # param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    # 赤刀
+    #param0 = "sessionid=jAKPM8ITjIyHr5At&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    # 皮卡丘
+   # param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/mpassport.php?do=plogin&v=1519&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
@@ -77,7 +84,7 @@ def con_log(*id1):
     conn.close()
 
 # 账户列表
-id = [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'], ['#Fm', '2015031960117052', '294557']]
+id = [['樱木', '5047214', '198633']]
 # [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'],, ['樱木', '5047214', '198633']
 #  ['#Fm', '2015031960117052', '294557']]
 #  ['赤刀', '26402923', '283622'], ['骷髅大王', '2014082282360039', '283647'] , ['獠牙', '2014082382723128', '283732'],

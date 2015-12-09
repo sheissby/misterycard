@@ -1,3 +1,4 @@
+# encoding:GBK
 import httplib, urllib, urllib2, re, time, json, requests
 
 
@@ -13,7 +14,7 @@ def con(uid):
     param0 = "sessionid=jAKPM8ITjIyHr5At&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     conn.request("POST",
-                 "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                 "/mpassport.php?do=plogin&v=1520phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                  param0, header1)
     mpassport = conn.getresponse()
     x = mpassport.read()
@@ -54,22 +55,28 @@ def con_log(*id1):
     param2 = 'pvpNewVersion=1'
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
-                 "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                 "/login.php?do=mpLogin&v=1521&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                  param0, header1)
     x = conn.getresponse()
     conn.close()
 
-    # ÂèëÈÄÅÁ≠æÂà∞Êä•Êñá
+    # ∑¢ÀÕ«©µΩ±®Œƒ
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/user.php?do=GetUserinfo&OpenCardChip=1&v=1522&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param2, header1)
+    x = conn.getresponse()
+    y = x.read()
+    print '1======',y
     conn.close()
-    # ÂèëÈÄÅÈ¢ÜÂèñÁ≠æÂà∞Â•ñÂä±Êä•Êñá
+    # ∑¢ÀÕ¡Ï»°«©µΩΩ±¿¯±®Œƒ
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/user.php?do=AwardSalary&v=1523&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param1, header1)
+    x = conn.getresponse()
+    y = x.read()
+    print '2=======',y
     conn.close()
 
 def reset_tower(*id1):
@@ -85,7 +92,7 @@ def reset_tower(*id1):
         param0 = "MapStageId=" + ('%d' % tower_id)
         conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
         conn.request("POST",
-                     "/maze.php?do=Reset&v=6389&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
+                     "/maze.php?do=Reset&v=1524&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param0, header1)
         x = conn.getresponse()
         conn.close()
