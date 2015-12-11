@@ -44,14 +44,13 @@ def con_log(*id):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    params = urllib.urlencode(
-        {'access%5Ftoken': '', 'plat': 'ANDROID%5FXIAOMI', 'nick': '2014092692358474', 'newguide': '1',
-         'time': times, 'ppsign': ppsign, 'sign': sign, 'MUid': '296766', 'Devicetoken': '', 'Origin': 'xiaomi',
-         'IDFA': '', 'uin': '2014092692358474', 'Udid': '58%3A44%3A98%3A53%3A03%3AAA'})
     a = '&ppsign=' + ppsign
     b = '&sign=' + sign
     c = '&time=' + times
-    param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&MUid=285154&newguide=1&uin=2014092692358474&Devicetoken=&Origin=xiaomi&IDFA=&nick=2014092692358474&Udid=58%3A44%3A98%3A53%3A03%3AAA" + c + b + a
+    d = '&MUid=' + Muid
+    e = '&uin=' + uid
+    f = '&nick=' + uid
+    param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=58%3A44%3A98%3A53%3A03%3AAA" + d + e + f + c + b + a
     ##    print param0
     ##    print params
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
@@ -77,7 +76,7 @@ def sweep(*id):
                  "/dungeon.php?do=Sweep&v=8889&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
                  '', header1)
     x = conn.getresponse()
-    ##    print x.status,x.reason,x.read()
+    ##print x.status,x.reason,x.read()
     conn.close()
 
 
@@ -118,7 +117,7 @@ def fight(*id):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    temp = con_log()
+    temp = con_log(*id)
     while 1:
         param0 = "Layer=" + ('%d' % layer) + "&isManual=0"
         ##     print param0
@@ -136,8 +135,9 @@ def fight(*id):
         print layer
         conn.close()
 
-
+#
 id = [['2014092692358474', '285154', 'tbmXwubvxzvP4nHa'], ['2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
       ['2015031960117052', '294557', 'tbmXwubvxzvP4nHa'], ['5047214', '198633', '0niwv4OngcXD5tXg']]
 for id1 in id:
-    fight(*id)
+    print id1
+    fight(*id1)
