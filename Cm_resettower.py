@@ -89,5 +89,6 @@ def reset_tower(*id1):
 
 id = [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'], ['#Fm', '2015031960117052', '294557']]
 for id1 in id:
-    reset_tower(*id1)
+    con_log(*id1)
+#    reset_tower(*id1)
     print 'id1====================', id1
