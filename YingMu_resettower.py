@@ -95,8 +95,11 @@ def reset_tower(*id1):
         x = conn.getresponse()
         conn.close()
 
-
+#
 id = [['5047214', '198633'], ['2013072511431198', '209850'], ['2013072511431214', '209852']]
 for id1 in id:
+    # a=1
+    # for a in range(1, 100, 1):
+    #     con_log(*id1)
     reset_tower(*id1)
     print 'id1====================', id1

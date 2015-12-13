@@ -79,16 +79,25 @@ def reset_tower(*id1):
                    'Content-Type': 'application/x-www-form-urlencoded'
                    }
         param0 = "MapStageId=" + ('%d' % tower_id)
-        conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-        conn.request("POST",
-                     "/maze.php?do=Reset&v=6389&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
-                     param0, header1)
-        conn.close()
-        print id1[0],'  ',tower_id,'À˛÷ÿ÷√≥…π¶'
+        towerstatus = 0
+        while towerstatus == 0:
+            conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+            conn.request("POST",
+                         "/maze.php?do=Reset&v=6389&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
+                         param0, header1)
+            res = conn.getresponse()
+            x = res.read()
+            if len(x) != 0:
+                y = json.loads(x)
+                towerstatus = y.get('status', 0)
+                print id1[0], '  ', tower_id, 'reset success'
+            else:
+                towerstatus = 0
+            conn.close()
 
 
 id = [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'], ['#Fm', '2015031960117052', '294557']]
 for id1 in id:
-    con_log(*id1)
-#    reset_tower(*id1)
-    print 'id1====================', id1
+#    con_log(*id1)
+    reset_tower(*id1)
+

@@ -1,4 +1,4 @@
-# encoding:GBK
+# encoding:utf-8
 import httplib, urllib, urllib2, re, time, json, requests
 
 
@@ -14,13 +14,13 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
-    # Ó£Ä¾
+    # æ¨±æœ¨
     param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     # Am
     #param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # ³àµ¶
+    # èµ¤åˆ€
    # param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # Æ¤¿¨Çğ
+    # çš®å¡ä¸˜
    # param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     conn.request("POST",
@@ -108,7 +108,7 @@ def thievesfight(userthievesid):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    # ½«userthievesid×ªÎªstringÀàĞÍ
+    # å°†userthievesidè½¬ä¸ºstringç±»å‹
     struserthievesid = str(userthievesid)
     thievesid = '&UserThievesId=' + struserthievesid
     print thievesid
@@ -120,8 +120,8 @@ def thievesfight(userthievesid):
                  param0, header1)
 
 
-# ÕË»§ÁĞ±í
-id = [['Ó£Ä¾', '5047214', '198633'], ['Àû×ôÒÁ', '2013072511431198', '209850'], ['À×±´À­', '2013072511431214', '209852']]
+# è´¦æˆ·åˆ—è¡¨
+id = [['æ¨±æœ¨', '5047214', '198633'], ['åˆ©ä½ä¼Š', '2013072511431198', '209850'], ['é›·è´æ‹‰', '2013072511431214', '209852']]
 
 
 for id1 in id:
@@ -129,20 +129,20 @@ for id1 in id:
     status1 = 1
     while len(lenth1) < 400 and status1 == 1:
         lenth1, status1 = mapstage(*id1)
-        if status1 == 0:  # status=0±íÊ¾Ì½Ë÷Ê§°Ü£¬Ìø³ö±¾´ÎÑ­»·
+        if status1 == 0:  # status=0è¡¨ç¤ºæ¢ç´¢å¤±è´¥ï¼Œè·³å‡ºæœ¬æ¬¡å¾ªç¯
             break
         else:
-            #  ·µ»ØÖµ³¤¶È´óÓÚ400£¬±íÊ¾ÓĞµÁÔô
+            #  è¿”å›å€¼é•¿åº¦å¤§äº400ï¼Œè¡¨ç¤ºæœ‰ç›—è´¼
             if len(lenth1) > 400:
                 y = json.loads(lenth1)
-                # »ñµÃµÁÔôÑªÁ¿
+                # è·å¾—ç›—è´¼è¡€é‡
                 HPCount = y.get('data', 0).get('ThievesInfo', 0).get('HPCount', 0)
                 userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                 if HPCount > 40000:
-                    print id1[0], '³öÏÖ¾«Ó¢µÁÔô'
-                    # ³öÏÖ¾«Ó¢µÁÔô×Ô¶¯¹¥»÷
+                    print id1[0], 'å‡ºç°ç²¾è‹±ç›—è´¼'
+                    # å‡ºç°ç²¾è‹±ç›—è´¼è‡ªåŠ¨æ”»å‡»
                     thievesfight(userthievesid)
                 else:
-                    print id1[0], '³öÏÖÆÕÍ¨µÁÔô'
+                    print id1[0], 'å‡ºç°æ™®é€šç›—è´¼'
                 break
 raw_input('End')

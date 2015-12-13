@@ -89,6 +89,8 @@ def play_tower(*id1):
                 conn.request("POST",
                              "/maze.php?do=Battle&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
                              param0, header1)
+                res = conn.getresponse()
+                print res.read()
                 conn.close()
             print map_id, layer
 

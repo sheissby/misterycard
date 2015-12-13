@@ -92,6 +92,7 @@ def play_tower(*id1):
                              param0, header1)
                 x = conn.getresponse()
                 conn.close()
+                time.sleep(0.05)
             print map_id, layer
 
 
