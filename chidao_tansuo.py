@@ -111,7 +111,6 @@ def thievesfight(userthievesid):
     # 将userthievesid转为string类型
     struserthievesid = str(userthievesid)
     thievesid = '&UserThievesId=' + struserthievesid
-    print thievesid
     param0 = 'OpenCardChip=1' + thievesid
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
