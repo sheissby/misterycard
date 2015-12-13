@@ -22,6 +22,7 @@ def con(uid):
                  param0, header1)
     mpassport = conn.getresponse()
     x = mpassport.read()
+    print 'con response:',x
     y = json.loads(x)
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
@@ -55,7 +56,8 @@ def con_log(*id1):
     conn.request("POST",
                  "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                  param0, header1)
- #   x = conn.getresponse()
+    x = conn.getresponse()
+    print 'con_log response:', x.read()
     conn.close()
 
 
@@ -79,6 +81,7 @@ def mapstage(*id1):
                  param0, header1)
     returnstr = conn.getresponse()
     lenth = returnstr.read()
+    print 'mapstage response:', lenth
     y = json.loads(lenth)
     status = y.get('status', 0)
     conn.close()
@@ -106,6 +109,7 @@ def thievesfight(userthievesid):
                  "/arena.php?do=ThievesFight&v=9785&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1"
                  "&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param0, header1)
+    conn.close()
 
 
 # 账户列表
