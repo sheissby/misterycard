@@ -12,15 +12,21 @@ def con(uid, sessionid):
     uid1 = '&uid=' + uid
     sessionid1 = '&sessionid=' + sessionid
     param0 = "Udid=58%3A44%3A98%3A53%3A03%3AAA&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1 + sessionid1
-    conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                 "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                 param0, header1)
-    mpassport = conn.getresponse()
-    ##    print mpassport.status
-    ##    print mpassport.reason
-    x = mpassport.read()
-    y = json.loads(x)
+    con_status = 0
+
+    while con_status == 0:
+        conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
+        conn.request("POST",
+                     "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                     param0, header1)
+        res = conn.getresponse()
+        x = res.read()
+        if len(x) != 0:
+            y = json.loads(x)
+            con_status = y.get('status', 0)
+        else:
+            con_status = 0
+    print id1[0], 'con success'
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = y.get('data', 0).get('uinfo', 0).get('time', 0)
@@ -50,15 +56,21 @@ def con_log(*id):
     d = '&MUid=' + Muid
     e = '&uin=' + uid
     f = '&nick=' + uid
-    param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=58%3A44%3A98%3A53%3A03%3AAA" + d + e + f + c + b + a
-    ##    print param0
-    ##    print params
-    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                 "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                 param0, header1)
-    x = conn.getresponse()
-    ##    print x.status,x.reason,x.read()
+    con_log_status = 0
+    param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    while con_log_status == 0:
+        conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+        conn.request("POST",
+                     "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                     param0, header1)
+        res = conn.getresponse()
+        x = res.read()
+        if len(x) != 0:
+            y = json.loads(x)
+            con_log_status = y.get('status', 0)
+        else:
+            con_log_status = 0
+    print id1[0], 'con_log success'
     conn.close()
 
 

@@ -89,10 +89,11 @@ def legionattack(*id1):
     while instatus == 0:
         conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
         conn.request("POST",
-                     "/legionattack.php?do=join&v=4103&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
+                     "/legionattack.php?do=join&v=3339&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param0, header1)
         res = conn.getresponse()
         x = res.read()
+        print x
         if len(x) != 0:
             y = json.loads(x)
             instatus = y.get('status', 0)
@@ -103,7 +104,7 @@ def legionattack(*id1):
     while outstatus == 0:
         conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
         conn.request("POST",
-                     "/legionattack.php?do=exit&v=4103&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
+                     "/legionattack.php?do=exit&v=3340&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param1, header1)
         res = conn.getresponse()
         x = res.read()
@@ -116,20 +117,8 @@ def legionattack(*id1):
     conn.close()
 
 
-id = [
+id = [#['Am','1592626','279696'],
     ['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'], ['#Fm', '2015031960117052', '294557']
-    # ['妙蛙种子', '2014052561883286', '278956'], ['绿毛虫', '2014061766465489', '278958'],
-    #   ['大针蜂', '2014061866519659', '278984'], ['比比鸟', '2014061866519756', '278986'],
-    #   ['超音蝠', '2014061866528941', '279006'], ['隆隆岩', '2014061866529032', '279007'],
-    #   ['大岩蛇', '2014061866529097', '279009'], ['乘龙', '2014061866529223', '279045'],
-    #   ['耿鬼', '2014061866529231', '279049'], ['烈焰马', '2014061866529288', '279053'],
-    #   ['吸盘魔偶', '2014061866529337', '279054'], ['胖丁', '2014061866529346', '279080'],
-    #   ['阿柏蛇', '2014061866529379', '279081'], ['椰蛋树', '2014061866529407', '279083'],
-    #   ['火爆猴', '2014061866529462', '279085'], ['派拉斯', '2014061866529470', '279086'],
-    #   ['比雕', '2014061866529500', '279117'], ['雷精灵', '2014061866529554', '279119'],
-    #   ['皮卡西', '2014061866529628', '279122'], ['水精灵', '2014061866529641', '279131'],
-    #   ['火精灵', '2014061866529643', '279137'], ['胡地', '2014061866529675', '279164'],
-    #   ['风速狗', '2014061866529735', '279165'], ['喷火龙', '2014061866529744', '279166']
       ]
 
 for id1 in id:

@@ -89,7 +89,7 @@ def play_tower(*id1):
                              "/maze.php?do=Battle&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
                              param0, header1)
                 conn.close()
-                time.sleep(0.05)
+                time.sleep(0.01)
             print map_id, layer
 
 

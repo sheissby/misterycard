@@ -11,6 +11,8 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
+    #param0 = "sessionid=rUP529O9fB7ZKX38&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+
     param0 = "sessionid=rUP529O9fB7ZKX38&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     con_status = 0
     while con_status == 0:
@@ -87,10 +89,11 @@ def legionattack(*id1):
     while instatus == 0:
         conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
         conn.request("POST",
-                     "/legionattack.php?do=join&v=4103&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
+                     "/legionattack.php?do=join&v=3339&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param0, header1)
         res = conn.getresponse()
         x = res.read()
+        print x
         if len(x) != 0:
             y = json.loads(x)
             instatus = y.get('status', 0)
@@ -101,7 +104,7 @@ def legionattack(*id1):
     while outstatus == 0:
         conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
         conn.request("POST",
-                     "/legionattack.php?do=exit&v=4103&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
+                     "/legionattack.php?do=exit&v=3340&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param1, header1)
         res = conn.getresponse()
         x = res.read()
@@ -114,8 +117,7 @@ def legionattack(*id1):
     conn.close()
 
 
-id = [
-    ['妙蛙种子', '2014052561883286', '278956'], ['绿毛虫', '2014061766465489', '278958'],
+id = [['妙蛙种子', '2014052561883286', '278956'], ['绿毛虫', '2014061766465489', '278958'],
       ['大针蜂', '2014061866519659', '278984'], ['比比鸟', '2014061866519756', '278986'],
       ['超音蝠', '2014061866528941', '279006'], ['隆隆岩', '2014061866529032', '279007'],
       ['大岩蛇', '2014061866529097', '279009'], ['乘龙', '2014061866529223', '279045'],
