@@ -1,4 +1,4 @@
-# encoding:utf-8
+# encoding:GBK
 import httplib, urllib, urllib2, re, time, json, requests
 
 
@@ -14,13 +14,13 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
-    # æ¨±æœ¨
+    # Ó£Ä¾
     #param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     # Am
    # param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # èµ¤åˆ€
+    # ³àµ¶
     param0 = "sessionid=jAKPM8ITjIyHr5At&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # çš®å¡ä¸˜
+    # Æ¤¿¨Çğ
    # param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     conn.request("POST",
@@ -108,7 +108,7 @@ def thievesfight(userthievesid):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    # å°†userthievesidè½¬ä¸ºstringç±»å‹
+    # ½«userthievesid×ªÎªstringÀàĞÍ
     struserthievesid = str(userthievesid)
     thievesid = '&UserThievesId=' + struserthievesid
     param0 = 'OpenCardChip=1' + thievesid
@@ -119,17 +119,17 @@ def thievesfight(userthievesid):
                  param0, header1)
 
 
-# è´¦æˆ·åˆ—è¡¨
-id = [['èµ¤åˆ€', '26402923', '283622'], ['éª·é«…å¤§ç‹', '2014082282360039', '283647'] , ['ç ç‰™', '2014082382723128', '283732'],
-  ['è¡€åˆƒ', '2014082382762366', '283739'], ['å†›åˆº', '2014082382896209', '283757'], ['è¢–ç®­', '2014082382896212', '283765']]
+# ÕË»§ÁĞ±í
+id = [['³àµ¶', '26402923', '283622'], ['÷¼÷Ã´óÍõ', '2014082282360039', '283647'] , ['â²ÑÀ', '2014082382723128', '283732'],
+  ['ÑªÈĞ', '2014082382762366', '283739'], ['¾ü´Ì', '2014082382896209', '283757'], ['Ğä¼ı', '2014082382896212', '283765']]
 
 # [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'],
 #  ['#Fm', '2015031960117052', '294557']]
 
-#  ['èµ¤åˆ€', '26402923', '283622'], ['éª·é«…å¤§ç‹', '2014082282360039', '283647'] , ['ç ç‰™', '2014082382723128', '283732'],
-#  ['è¡€åˆƒ', '2014082382762366', '283739'], ['å†›åˆº', '2014082382896209', '283757'], ['è¢–ç®­', '2014082382896212', '283765']
+#  ['³àµ¶', '26402923', '283622'], ['÷¼÷Ã´óÍõ', '2014082282360039', '283647'] , ['â²ÑÀ', '2014082382723128', '283732'],
+#  ['ÑªÈĞ', '2014082382762366', '283739'], ['¾ü´Ì', '2014082382896209', '283757'], ['Ğä¼ı', '2014082382896212', '283765']
 
-#  ['æ¨±æœ¨', '5047214', '198633'], ['åˆ©ä½ä¼Š', '2013072511431198', '209850']
+#  ['Ó£Ä¾', '5047214', '198633'], ['Àû×ôÒÁ', '2013072511431198', '209850']
 
 
 for id1 in id:
@@ -137,20 +137,20 @@ for id1 in id:
     status1 = 1
     while len(lenth1) < 400 and status1 == 1:
         lenth1, status1 = mapstage(*id1)
-        if status1 == 0:  # status=0è¡¨ç¤ºæ¢ç´¢å¤±è´¥ï¼Œè·³å‡ºæœ¬æ¬¡å¾ªç¯
+        if status1 == 0:  # status=0±íÊ¾Ì½Ë÷Ê§°Ü£¬Ìø³ö±¾´ÎÑ­»·
             break
         else:
-            #  è¿”å›å€¼é•¿åº¦å¤§äº400ï¼Œè¡¨ç¤ºæœ‰ç›—è´¼
+            #  ·µ»ØÖµ³¤¶È´óÓÚ400£¬±íÊ¾ÓĞµÁÔô
             if len(lenth1) > 400:
                 y = json.loads(lenth1)
-                # è·å¾—ç›—è´¼è¡€é‡
+                # »ñµÃµÁÔôÑªÁ¿
                 HPCount = y.get('data', 0).get('ThievesInfo', 0).get('HPCount', 0)
                 userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                 if HPCount > 40000:
-                    print id1[0], 'å‡ºç°ç²¾è‹±ç›—è´¼'
-                    # å‡ºç°ç²¾è‹±ç›—è´¼è‡ªåŠ¨æ”»å‡»
+                    print id1[0], '³öÏÖ¾«Ó¢µÁÔô'
+                    # ³öÏÖ¾«Ó¢µÁÔô×Ô¶¯¹¥»÷
                     thievesfight(userthievesid)
                 else:
-                    print id1[0], 'å‡ºç°æ™®é€šç›—è´¼'
+                    print id1[0], '³öÏÖÆÕÍ¨µÁÔô'
                 break
 raw_input('End')

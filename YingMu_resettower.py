@@ -62,8 +62,6 @@ def con_log(*id1):
                  "/user.php?do=GetUserinfo&OpenCardChip=1&v=1522&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param2, header1)
     x = conn.getresponse()
-    y = x.read()
-    print '1======',y
     conn.close()
 
     # 发送领取签到奖励报文
@@ -72,8 +70,6 @@ def con_log(*id1):
                  "/user.php?do=AwardSalary&v=1523&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param1, header1)
     x = conn.getresponse()
-    y = x.read()
-    print '2=======',y
     conn.close()
 
 

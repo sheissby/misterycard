@@ -14,22 +14,22 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
-    # Ó£Ä¾
-    #param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # Am
-   # param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # ³àµ¶
-    #param0 = "sessionid=jAKPM8ITjIyHr5At&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # Æ¤¿¨Çð
     param0 = "sessionid=rUP529O9fB7ZKX38&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    con_status = 0
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                 "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
-                 "&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                 param0, header1)
-    mpassport = conn.getresponse()
-    x = mpassport.read()
-    y = json.loads(x)
+    while con_status == 0:
+        conn.request("POST",
+                     "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
+                     "&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                     param0, header1)
+        res = conn.getresponse()
+        x = res.read()
+        if len(x) != 0:
+            y = json.loads(x)
+            con_status = y.get('status', 0)
+        else:
+            con_status = 0
+ #   print id1[0], 'con success'
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = y.get('data', 0).get('uinfo', 0).get('time', 0)
@@ -51,10 +51,6 @@ def con_log(*id1):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    params = urllib.urlencode(
-        {'access%5Ftoken': '', 'plat': 'ANDROID%5FXIAOMI', 'nick': '2015031960117052', 'newguide': '1',
-         'time': times, 'ppsign': ppsign, 'sign': sign, 'MUid': '294557', 'Devicetoken': '', 'Origin': 'xiaomi',
-         'IDFA': '', 'uin': '2015031960117052', 'Udid': '64%3A09%3A80%3AD3%3AF3%3A0E'})
     a = '&ppsign=' + ppsign
     b = '&sign=' + sign
     c = '&time=' + times
@@ -62,11 +58,20 @@ def con_log(*id1):
     e = '&uin=' + uid
     f = '&nick=' + uid
     param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    con_log_status = 0
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                 "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                 param0, header1)
-    x = conn.getresponse()
+    while con_log_status == 0:
+        conn.request("POST",
+                     "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                     param0, header1)
+        res = conn.getresponse()
+        x = res.read()
+        if len(x) != 0:
+            y = json.loads(x)
+            con_log_status = y.get('status', 0)
+        else:
+            con_log_status = 0
+#    print id1[0], 'con_log success'
     conn.close()
 
 
@@ -82,7 +87,7 @@ def mapstage(*id1):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    param0 = "MapStageDetailId=70"
+    param0 = "MapStageDetailId=20"
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/mapstage.php?do=Explore&v=4581&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1"
@@ -90,6 +95,7 @@ def mapstage(*id1):
                  param0, header1)
     returnstr = conn.getresponse()
     lenth = returnstr.read()
+#    print 'mapstage response:', lenth
     y = json.loads(lenth)
     status = y.get('status', 0)
     conn.close()
@@ -117,26 +123,20 @@ def thievesfight(userthievesid):
                  "/arena.php?do=ThievesFight&v=9785&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1"
                  "&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param0, header1)
+    conn.close()
 
 
 # ÕË»§ÁÐ±í
-id = [['½ÜÄá¹ê', '2014041855227765', '273122'], ['Ð¡»ðÁú', '2014042155811563', '273419'], ['ÃîÍÜÖÖ×Ó', '2014052561883286', '278956'],
-      ['ÂÌÃ«³æ', '2014061766465489', '278958'], ['´óÕë·ä', '2014061866519659', '278984'], ['±È±ÈÄñ', '2014061866519756', '278986'],
-      ['³¬Òôòð', '2014061866528941', '279006'], ['Â¡Â¡ÑÒ', '2014061866529032', '279007'], ['´óÑÒÉß', '2014061866529097', '279009'],
-      ['³ËÁú', '2014061866529223', '279045'], ['¹¢¹í', '2014061866529231', '279049'], ['ÁÒÑæÂí', '2014061866529288', '279053'],
+id = [#['½ÜÄá¹ê', '2014041855227765', '273122'], ['Ð¡»ðÁú', '2014042155811563', '273419'], ['ÃîÍÜÖÖ×Ó', '2014052561883286', '278956'],
+      # ['ÂÌÃ«³æ', '2014061766465489', '278958'], ['´óÕë·ä', '2014061866519659', '278984'], ['±È±ÈÄñ', '2014061866519756', '278986'],
+      # ['³¬Òôòð', '2014061866528941', '279006'], ['Â¡Â¡ÑÒ', '2014061866529032', '279007'], ['´óÑÒÉß', '2014061866529097', '279009'],
+      # ['³ËÁú', '2014061866529223', '279045'], ['¹¢¹í', '2014061866529231', '279049'],
+      ['ÁÒÑæÂí', '2014061866529288', '279053'],
       ['ÎüÅÌÄ§Å¼', '2014061866529337', '279054'], ['ÅÖ¶¡', '2014061866529346', '279080'], ['°¢°ØÉß', '2014061866529379', '279081'],
       ['Ò¬µ°Ê÷', '2014061866529407', '279083'], ['»ð±¬ºï', '2014061866529462', '279085'], ['ÅÉÀ­Ë¹', '2014061866529470', '279086'],
       ['±Èµñ', '2014061866529500', '279117'], ['À×¾«Áé', '2014061866529554', '279119'], ['Æ¤¿¨Î÷', '2014061866529628', '279122'],
       ['Ë®¾«Áé', '2014061866529641', '279131'], ['»ð¾«Áé', '2014061866529643', '279137'], ['ºúµØ', '2014061866529675', '279164'],
       ['·çËÙ¹·', '2014061866529735', '279165'], ['Åç»ðÁú', '2014061866529744', '279166']]
-
-# [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'],
-#  ['#Fm', '2015031960117052', '294557']]
-
-#  ['³àµ¶', '26402923', '283622'], ['÷¼÷Ã´óÍõ', '2014082282360039', '283647'] , ['â²ÑÀ', '2014082382723128', '283732'],
-#  ['ÑªÈÐ', '2014082382762366', '283739'], ['¾ü´Ì', '2014082382896209', '283757'], ['Ðä¼ý', '2014082382896212', '283765']
-
-#  ['Ó£Ä¾', '5047214', '198633'], ['Àû×ôÒÁ', '2013072511431198', '209850']
 
 
 for id1 in id:
@@ -160,4 +160,5 @@ for id1 in id:
                 else:
                     print id1[0], '³öÏÖÆÕÍ¨µÁÔô'
                 break
+    time.sleep(0.1)
 raw_input('End')

@@ -1,4 +1,4 @@
-# encoding:utf-8
+# encoding:GBK
 import httplib, urllib, urllib2, re, time, json, requests
 
 
@@ -15,15 +15,21 @@ def con(uid):
                }
     uid1 = '&uid=' + uid
     param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    con_status = 0
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                 "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
-                 "&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                 param0, header1)
-    mpassport = conn.getresponse()
-    x = mpassport.read()
-    print 'con response:',x
-    y = json.loads(x)
+    while con_status == 0:
+        conn.request("POST",
+                     "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
+                     "&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                     param0, header1)
+        res = conn.getresponse()
+        x = res.read()
+        if len(x) != 0:
+            y = json.loads(x)
+            con_status = y.get('status', 0)
+        else:
+            con_status = 0
+    print id1[0], 'con success'
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = y.get('data', 0).get('uinfo', 0).get('time', 0)
@@ -52,12 +58,20 @@ def con_log(*id1):
     e = '&uin=' + uid
     f = '&nick=' + uid
     param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    con_log_status = 0
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                 "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                 param0, header1)
-    x = conn.getresponse()
-    print 'con_log response:', x.read()
+    while con_log_status == 0:
+        conn.request("POST",
+                     "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                     param0, header1)
+        res = conn.getresponse()
+        x = res.read()
+        if len(x) != 0:
+            y = json.loads(x)
+            con_log_status = y.get('status', 0)
+        else:
+            con_log_status = 0
+    print id1[0], 'con_log success'
     conn.close()
 
 
@@ -100,7 +114,7 @@ def thievesfight(userthievesid):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    # å°†userthievesidè½¬ä¸ºstringç±»åž‹
+    # ½«userthievesid×ªÎªstringÀàÐÍ
     struserthievesid = str(userthievesid)
     thievesid = '&UserThievesId=' + struserthievesid
     param0 = 'OpenCardChip=1' + thievesid
@@ -112,7 +126,7 @@ def thievesfight(userthievesid):
     conn.close()
 
 
-# è´¦æˆ·åˆ—è¡¨
+# ÕË»§ÁÐ±í
 id = [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'], ['#Fm', '2015031960117052', '294557']]
 
 
@@ -121,20 +135,22 @@ for id1 in id:
     status1 = 1
     while len(lenth1) < 400 and status1 == 1:
         lenth1, status1 = mapstage(*id1)
-        if status1 == 0:  # status=0è¡¨ç¤ºæŽ¢ç´¢å¤±è´¥ï¼Œè·³å‡ºæœ¬æ¬¡å¾ªçŽ¯
+        if status1 == 0:  # status=0±íÊ¾Ì½Ë÷Ê§°Ü£¬Ìø³ö±¾´ÎÑ­»·
             break
         else:
-            #  è¿”å›žå€¼é•¿åº¦å¤§äºŽ400ï¼Œè¡¨ç¤ºæœ‰ç›—è´¼
+            #  ·µ»ØÖµ³¤¶È´óÓÚ400£¬±íÊ¾ÓÐµÁÔô
             if len(lenth1) > 400:
                 y = json.loads(lenth1)
-                # èŽ·å¾—ç›—è´¼è¡€é‡
+                # »ñµÃµÁÔôÑªÁ¿
                 HPCount = y.get('data', 0).get('ThievesInfo', 0).get('HPCount', 0)
                 userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                 if HPCount > 40000:
-                    print id1[0], 'å‡ºçŽ°ç²¾è‹±ç›—è´¼'
-                    # å‡ºçŽ°ç²¾è‹±ç›—è´¼è‡ªåŠ¨æ”»å‡»
+                    print id1[0], '³öÏÖ¾«Ó¢µÁÔô'
+                    # ³öÏÖ¾«Ó¢µÁÔô×Ô¶¯¹¥»÷
                     thievesfight(userthievesid)
                 else:
-                    print id1[0], 'å‡ºçŽ°æ™®é€šç›—è´¼'
+                    print id1[0], '³öÏÖÆÕÍ¨µÁÔô'
                 break
+
+    time.sleep(0.1)
 raw_input('End')

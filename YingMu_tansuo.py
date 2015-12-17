@@ -1,4 +1,4 @@
-# encoding:utf-8
+# encoding:GBK
 import httplib, urllib, urllib2, re, time, json, requests
 
 
@@ -14,22 +14,22 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
-    # Ê®±Êú®
     param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # Am
-    #param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # Ëµ§ÂàÄ
-   # param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
-    # ÁöÆÂç°‰∏ò
-   # param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    con_status = 0
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                 "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
-                 "&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                 param0, header1)
-    mpassport = conn.getresponse()
-    x = mpassport.read()
-    y = json.loads(x)
+    while con_status == 0:
+        conn.request("POST",
+                     "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
+                     "&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                     param0, header1)
+        res = conn.getresponse()
+        x = res.read()
+        if len(x) != 0:
+            y = json.loads(x)
+            con_status = y.get('status', 0)
+        else:
+            con_status = 0
+    print id1[0], 'con success'
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = y.get('data', 0).get('uinfo', 0).get('time', 0)
@@ -51,10 +51,6 @@ def con_log(*id1):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    params = urllib.urlencode(
-        {'access%5Ftoken': '', 'plat': 'ANDROID%5FXIAOMI', 'nick': '2015031960117052', 'newguide': '1',
-         'time': times, 'ppsign': ppsign, 'sign': sign, 'MUid': '294557', 'Devicetoken': '', 'Origin': 'xiaomi',
-         'IDFA': '', 'uin': '2015031960117052', 'Udid': '64%3A09%3A80%3AD3%3AF3%3A0E'})
     a = '&ppsign=' + ppsign
     b = '&sign=' + sign
     c = '&time=' + times
@@ -62,11 +58,20 @@ def con_log(*id1):
     e = '&uin=' + uid
     f = '&nick=' + uid
     param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    con_log_status = 0
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                 "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                 param0, header1)
-    x = conn.getresponse()
+    while con_log_status == 0:
+        conn.request("POST",
+                     "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                     param0, header1)
+        res = conn.getresponse()
+        x = res.read()
+        if len(x) != 0:
+            y = json.loads(x)
+            con_log_status = y.get('status', 0)
+        else:
+            con_log_status = 0
+    print id1[0], 'con_log success'
     conn.close()
 
 
@@ -82,7 +87,7 @@ def mapstage(*id1):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    param0 = "MapStageDetailId=70"
+    param0 = "MapStageDetailId=30"
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/mapstage.php?do=Explore&v=4581&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1"
@@ -90,6 +95,7 @@ def mapstage(*id1):
                  param0, header1)
     returnstr = conn.getresponse()
     lenth = returnstr.read()
+    print 'mapstage response:', lenth
     y = json.loads(lenth)
     status = y.get('status', 0)
     conn.close()
@@ -108,7 +114,7 @@ def thievesfight(userthievesid):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    # Â∞ÜuserthievesidËΩ¨‰∏∫stringÁ±ªÂûã
+    # Ω´userthievesid◊™Œ™string¿‡–Õ
     struserthievesid = str(userthievesid)
     thievesid = '&UserThievesId=' + struserthievesid
     param0 = 'OpenCardChip=1' + thievesid
@@ -117,10 +123,11 @@ def thievesfight(userthievesid):
                  "/arena.php?do=ThievesFight&v=9785&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1"
                  "&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param0, header1)
+    conn.close()
 
 
-# Ë¥¶Êà∑ÂàóË°®
-id = [['Ê®±Êú®', '5047214', '198633'], ['Âà©‰Ωê‰ºä', '2013072511431198', '209850'], ['Èõ∑Ë¥ùÊãâ', '2013072511431214', '209852']]
+# ’Àªß¡–±Ì
+id = [['”£ƒæ', '5047214', '198633'], ['¿˚◊Ù“¡', '2013072511431198', '209850'], ['¿◊±¥¿≠', '2013072511431214', '209852']]
 
 
 for id1 in id:
@@ -128,20 +135,21 @@ for id1 in id:
     status1 = 1
     while len(lenth1) < 400 and status1 == 1:
         lenth1, status1 = mapstage(*id1)
-        if status1 == 0:  # status=0Ë°®Á§∫Êé¢Á¥¢Â§±Ë¥•ÔºåË∑≥Âá∫Êú¨Ê¨°Âæ™ÁéØ
+        if status1 == 0:  # status=0±Ì æÃΩÀ˜ ß∞‹£¨Ã¯≥ˆ±æ¥Œ—≠ª∑
             break
         else:
-            #  ËøîÂõûÂÄºÈïøÂ∫¶Â§ß‰∫é400ÔºåË°®Á§∫ÊúâÁõóË¥º
+            #  ∑µªÿ÷µ≥§∂»¥Û”⁄400£¨±Ì æ”–µ¡‘Ù
             if len(lenth1) > 400:
                 y = json.loads(lenth1)
-                # Ëé∑ÂæóÁõóË¥ºË°ÄÈáè
+                # ªÒµ√µ¡‘Ù—™¡ø
                 HPCount = y.get('data', 0).get('ThievesInfo', 0).get('HPCount', 0)
                 userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                 if HPCount > 40000:
-                    print id1[0], 'Âá∫Áé∞Á≤æËã±ÁõóË¥º'
-                    # Âá∫Áé∞Á≤æËã±ÁõóË¥ºËá™Âä®ÊîªÂáª
+                    print id1[0], '≥ˆœ÷æ´”¢µ¡‘Ù'
+                    # ≥ˆœ÷æ´”¢µ¡‘Ù◊‘∂Øπ•ª˜
                     thievesfight(userthievesid)
                 else:
-                    print id1[0], 'Âá∫Áé∞ÊôÆÈÄöÁõóË¥º'
+                    print id1[0], '≥ˆœ÷∆’Õ®µ¡‘Ù'
                 break
+    time.sleep(0.1)
 raw_input('End')

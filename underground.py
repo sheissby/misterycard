@@ -26,7 +26,6 @@ def con(uid, sessionid):
             con_status = y.get('status', 0)
         else:
             con_status = 0
-    print id1[0], 'con success'
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = y.get('data', 0).get('uinfo', 0).get('time', 0)
@@ -70,7 +69,6 @@ def con_log(*id):
             con_log_status = y.get('status', 0)
         else:
             con_log_status = 0
-    print id1[0], 'con_log success'
     conn.close()
 
 

@@ -12,7 +12,6 @@ def con(uid):
     uid1 = '&uid=' + uid
     param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     con_status = 0
-
     while con_status == 0:
         conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
         conn.request("POST",
@@ -55,8 +54,8 @@ def con_log(*id1):
     f = '&nick=' + uid
     con_log_status = 0
     param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     while con_log_status == 0:
-        conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
         conn.request("POST",
                      "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                      param0, header1)

@@ -54,13 +54,13 @@ def con_log(*id1):
                  "/login.php?do=mpLogin&v=1521&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                  param0, header1)
     conn.close()
-    # 发送签到报文
+
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/user.php?do=GetUserinfo&OpenCardChip=1&v=1522&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                  param2, header1)
     conn.close()
-    # 发送领取签到奖励报文
+
     conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/user.php?do=AwardSalary&v=1523&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",

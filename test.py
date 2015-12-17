@@ -10,10 +10,10 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
-    param0 = "sessionid=rUP529O9fB7ZKX38&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    param0 = "sessionid=tbmXwubvxzvP4nHa&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     con_status = 0
+    conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     while con_status == 0:
-        conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
         conn.request("POST",
                      "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                      param0, header1)
@@ -22,6 +22,7 @@ def con(uid):
         if len(x) != 0:
             y = json.loads(x)
             con_status = y.get('status', 0)
+            print 'con:',y
         else:
             con_status = 0
     print id1[0], 'con success'
@@ -54,13 +55,14 @@ def con_log(*id1):
     f = '&nick=' + uid
     con_log_status = 0
     param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     while con_log_status == 0:
-        conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
         conn.request("POST",
                      "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                      param0, header1)
         res = conn.getresponse()
         x = res.read()
+        print 'con_log', x
         if len(x) != 0:
             y = json.loads(x)
             con_log_status = y.get('status', 0)
@@ -71,6 +73,7 @@ def con_log(*id1):
 
 
 def play_tower(*id1):
+    conn1 = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     for map_id in [8, 7, 6]:
         for layer in range(1, 6):
             con_log(*id1)
@@ -84,23 +87,18 @@ def play_tower(*id1):
                            }
                 param0 = "Layer=" + ('%d' % layer) + "&ItemIndex=" + (
                 '%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
-                conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-                conn.request("POST",
+                print 'Location:', param0
+                #conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+                conn1.request("POST",
                              "/maze.php?do=Battle&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
                              param0, header1)
-                conn.close()
-            print map_id, layer
+                res = conn1.getresponse()
+                print 'play_tower result:', res.read()
+                #conn.close()
+            time.sleep(0.1)
+            #print map_id, layer
+    conn1.close()
 
-
-id = [['No.1', '2014041855227765', '273122'], ['No.2', '2014061866519756', '278986'], ['No.3', '2014042155811563', '273419'],
-      ['No.4', '2014052561883286', '278956'], ['No.5', '2014061766465489', '278958'], ['No.6', '2014061866519659', '278984'],
-      ['No.7', '2014061866528941', '279006'], ['No.8', '2014061866529032', '279007'], ['No.9', '2014061866529097', '279009'],
-      ['No.10', '2014061866529223', '279045'], ['No.11', '2014061866529231', '279049'], ['No.12', '2014061866529288', '279053'],
-      ['No.13', '2014061866529337', '279054'], ['No.14', '2014061866529346', '279080'], ['No.15', '2014061866529379', '279081'],
-      ['No.16', '2014061866529407', '279083'], ['No.17', '2014061866529462', '279085'], ['No.18', '2014061866529470', '279086'],
-      ['No.19', '2014061866529500', '279117'], ['No.20', '2014061866529554', '279119'], ['No.21', '2014061866529628', '279122'],
-      ['No.22', '2014061866529641', '279131'], ['No.23', '2014061866529643', '279137'], ['No.24', '2014061866529675', '279164'],
-      ['No.25', '2014061866529735', '279165'], ['No.26', '2014061866529744', '279166']]
+id = [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'], ['#Fm', '2015031960117052', '294557']]
 for id1 in id:
-    con_log(*id1)
-
+  play_tower(*id1)
