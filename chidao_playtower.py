@@ -12,9 +12,8 @@ def con(uid):
     uid1 = '&uid=' + uid
     param0 = "sessionid=jAKPM8ITjIyHr5At&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     con_status = 0
-
+    conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     while con_status == 0:
-        conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
         conn.request("POST",
                      "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                      param0, header1)
@@ -55,8 +54,8 @@ def con_log(*id1):
     f = '&nick=' + uid
     con_log_status = 0
     param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
     while con_log_status == 0:
-        conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
         conn.request("POST",
                      "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                      param0, header1)
@@ -85,13 +84,18 @@ def play_tower(*id1):
                            }
                 param0 = "Layer=" + ('%d' % layer) + "&ItemIndex=" + (
                 '%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
+                print param0
                 conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
                 conn.request("POST",
                              "/maze.php?do=Battle&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
                              param0, header1)
+                x = conn.getresponse()
+                y = x.read()
+                print x.read()
+                print len(y)
                 conn.close()
-                time.sleep(0.01)
-            print map_id, layer
+                time.sleep(0.1)
+
 
 #
 id = [['No.1', '2014082282360039', '283647'], ['No.2', '26402923', '283622'], ['No.3', '2014082382723128', '283732'],

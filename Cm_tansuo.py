@@ -151,6 +151,6 @@ for id1 in id:
                 else:
                     print id1[0], '³öÏÖÆÕÍ¨µÁÔô'
                 break
-
     time.sleep(0.1)
 raw_input('End')
+

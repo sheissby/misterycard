@@ -84,14 +84,23 @@ def play_tower(*id1):
                            }
                 param0 = "Layer=" + ('%d' % layer) + "&ItemIndex=" + (
                 '%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
+                print param0
                 conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
                 conn.request("POST",
                              "/maze.php?do=Battle&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
                              param0, header1)
                 res = conn.getresponse()
-                print res.read()
+                x = res.read()
+                print x
+                # y = json.loads(x)
+                # message = y.get('message', 0)
+                # if message == '\u884c\u52a8\u529b\u4e0d\u8db3!\u6bcf10\u5206\u949f\u53ef\u6062\u590d1\u70b9!\u60a8' \
+                #               '\u4e5f\u53ef\u4ee5\u4f7f\u7528\u6676\u94bb\u8d2d\u4e70\u884c\u52a8\u529b\u54e6!' :
+                #     print 'out of power!'
+                #     conn.close()
+                #     return
                 conn.close()
-            print map_id, layer
+                time.sleep(0.1)
 
 
 id = [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'], ['#Fm', '2015031960117052', '294557']]
