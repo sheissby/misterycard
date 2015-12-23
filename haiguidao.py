@@ -84,36 +84,18 @@ def legionattack(*id1):
                }
     param0 = '&Id=10&Type=1'
     param1 = '&Id=10&Type=2'
-    instatus = 0
-    outstatus = 0
-    while instatus == 0:
-        conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-        conn.request("POST",
+
+    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+    conn.request("POST",
                      "/legionattack.php?do=join&v=3339&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param0, header1)
-        res = conn.getresponse()
-        x = res.read()
-        print x
-        if len(x) != 0:
-            y = json.loads(x)
-            instatus = y.get('status', 0)
-        else:
-            instatus = 0
-    print id1[0], 'login success'
+    res = conn.getresponse()
 
-    while outstatus == 0:
-        conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-        conn.request("POST",
+    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+    conn.request("POST",
                      "/legionattack.php?do=exit&v=3340&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param1, header1)
-        res = conn.getresponse()
-        x = res.read()
-        if len(x) != 0:
-            y = json.loads(x)
-            outstatus = y.get('status', 0)
-        else:
-            outstatus = 0
-    print id1[0], 'logout success'
+    res = conn.getresponse()
     conn.close()
 
 

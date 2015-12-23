@@ -1,4 +1,4 @@
-import httplib, urllib, urllib2, re, time, json, requests
+import httplib, urllib, urllib2, re, time, json
 
 
 def con(uid):
@@ -91,8 +91,9 @@ def play_tower(*id1):
                              param0, header1)
                 x = conn.getresponse()
                 y = x.read()
-                print len(y)
-                print y
+                if len(y) == 196:
+                    print ('out of power!')
+                    break
                 conn.close()
                 time.sleep(0.1)
 

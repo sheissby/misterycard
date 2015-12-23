@@ -1,5 +1,5 @@
 # encoding:GBK
-import httplib, urllib, urllib2, re, time, json, requests
+import httplib, urllib, urllib2, re, time, json
 
 
 def con(uid):
@@ -102,7 +102,6 @@ def reset_tower(*id1):
 
 id = [['No.1', '5047214', '198633'], ['No.2', '2013072511431198', '209850'], ['No.3', '2013072511431214', '209852']]
 for id1 in id:
-#    con_log(*id1)
     reset_tower(*id1)
     time.sleep(0.1)
 

@@ -1,4 +1,4 @@
-import httplib, urllib, urllib2, re, time, json, requests
+import httplib, urllib, urllib2, re, time, json
 
 
 def con(uid):
@@ -91,13 +91,13 @@ def play_tower(*id1):
                              param0, header1)
                 x = conn.getresponse()
                 y = x.read()
-                print x.read()
-                print len(y)
+                if len(y) == 196:
+                    print ('out of power!')
+                    break
                 conn.close()
                 time.sleep(0.1)
 
 
-#
 id = [['No.1', '2014082282360039', '283647'], ['No.2', '26402923', '283622'], ['No.3', '2014082382723128', '283732'],
       ['No.4', '2014082382762366', '283739'], ['No.5', '2014082382896209', '283757'], ['No.6', '2014082382896212', '283765']]
 for id1 in id:
