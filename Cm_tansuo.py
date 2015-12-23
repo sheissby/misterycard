@@ -1,5 +1,5 @@
 # encoding:GBK
-import httplib, urllib, urllib2, re, time, json, requests
+import httplib, urllib, urllib2, re, time, json
 
 
 def con(uid):
@@ -95,7 +95,7 @@ def mapstage(*id1):
                  param0, header1)
     returnstr = conn.getresponse()
     lenth = returnstr.read()
-    print 'mapstage response:', lenth
+    # print 'mapstage response:', lenth
     y = json.loads(lenth)
     status = y.get('status', 0)
     conn.close()
@@ -142,9 +142,9 @@ for id1 in id:
             if len(lenth1) > 400:
                 y = json.loads(lenth1)
                 # 获得盗贼血量
-                HPCount = y.get('data', 0).get('ThievesInfo', 0).get('HPCount', 0)
+                Type = y.get('data', 0).get('ThievesInfo', 0).get('Type', 0)
                 userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
-                if HPCount > 40000:
+                if Type == 2:
                     print id1[0], '出现精英盗贼'
                     # 出现精英盗贼自动攻击
                     thievesfight(userthievesid)
