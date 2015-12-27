@@ -93,7 +93,7 @@ def play_tower(*id1):
                 y = res.read()
                 if len(y) == 196:
                     print ('out of power!')
-                    break
+                    return
                 conn.close()
                 time.sleep(0.1)
 
