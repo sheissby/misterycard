@@ -143,6 +143,7 @@ for id1 in id:
                     thievesfight(userthievesid)
                 else:
                     print id1[0], '³öÏÖÆÕÍ¨µÁÔô'
+                    thievesfight(userthievesid)
                 break
     time.sleep(0.1)
 raw_input('End')

@@ -152,11 +152,12 @@ for id1 in id:
                 Type = y.get('data', 0).get('ThievesInfo', 0).get('Type', 0)
                 userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                 if Type == 2:
-                    print id1[0], '出现精英盗贼'
+                    print id1[0], '出现精英盗贼！！！'
                     # 出现精英盗贼自动攻击
-                    thievesfight(userthievesid)
+                    # thievesfight(userthievesid)
                 else:
                     print id1[0], '出现普通盗贼'
+                    thievesfight(userthievesid)
                 break
     time.sleep(0.1)
 raw_input('End')

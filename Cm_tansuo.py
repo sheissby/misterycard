@@ -141,7 +141,7 @@ for id1 in id:
             #  返回值长度大于400，表示有盗贼
             if len(lenth1) > 400:
                 y = json.loads(lenth1)
-                # 获得盗贼血量
+                # 获得盗贼类型
                 Type = y.get('data', 0).get('ThievesInfo', 0).get('Type', 0)
                 userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                 if Type == 2:
@@ -150,6 +150,7 @@ for id1 in id:
                     thievesfight(userthievesid)
                 else:
                     print id1[0], '出现普通盗贼'
+                    thievesfight(userthievesid)
                 break
     time.sleep(0.1)
 raw_input('End')
