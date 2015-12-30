@@ -1,5 +1,6 @@
 # encoding:GBK
-import httplib, urllib, urllib2, re, time, json
+import httplib
+import json
 import StringIO
 import gzip
 
@@ -108,10 +109,20 @@ def GetThieves(*id1):
     #     list = ThievesinfoStatus, Thievesinfouid
     #     print  list
     conn.close()
-#    list = lenth, status
-#    return list
 
 
+
+def ExistThief(thievesinfo):
+    Thieves = thievesinfo.get('data', 0).get('Thieves', 0)
+    print Thieves
+    thief = 0
+    a = 0
+    for a in Thieves:
+        while thief == 0:
+            thievesuid = a.get('Uid', 0)
+            thievesstatus = a.get('Status', 0)
+            if ():
+                thief = 1
 
 
 
@@ -120,12 +131,7 @@ id = [['#Cm', '2014092692358474', '285154'], ['Em', '2014121327096245', '288121'
 for id1 in id:
     thievesinfo = GetThieves(*id1)
     print thievesinfo
-    for a in thievesinfo:
-        Thieves = thievesinfo.get('data', 0).get('Thieves', 0)
-        thievesuid = Thieves[a].get('Uid', 0)
-        thievesstatus = Thieves[a].get('Status', 0)
-        print thievesuid
-        print thievesstatus
+
 
 
 
