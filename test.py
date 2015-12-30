@@ -117,12 +117,12 @@ def ExistThief(thievesinfo):
     print Thieves
     thief = 0
     a = 0
-    for a in Thieves:
-        while thief == 0:
+    while thief == 0:
+        for a in Thieves:
             thievesuid = a.get('Uid', 0)
             thievesstatus = a.get('Status', 0)
             if ():
-                thief = 1
+                return
 
 
 
