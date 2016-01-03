@@ -1,4 +1,6 @@
-import httplib, urllib, urllib2, re, time, json
+import httplib
+import time
+import json
 
 
 def con(uid):
@@ -12,8 +14,8 @@ def con(uid):
     uid1 = '&uid=' + uid
     param0 = "sessionid=0niwv4OngcXD5tXg&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     con_status = 0
-    conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     while con_status == 0:
+        conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
         conn.request("POST",
                      "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                      param0, header1)
@@ -24,12 +26,12 @@ def con(uid):
             con_status = y.get('status', 0)
         else:
             con_status = 0
-    conn.close()
     print id1[0], 'con success'
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = y.get('data', 0).get('uinfo', 0).get('time', 0)
     return y
+    conn.close()
 
 
 def con_log(*id1):
@@ -66,35 +68,63 @@ def con_log(*id1):
             con_log_status = y.get('status', 0)
         else:
             con_log_status = 0
-    conn.close()
     print id1[0], 'con_log success'
+    conn.close()
 
 
 def play_tower(*id1):
     for map_id in [8, 7, 6]:
         for layer in range(1, 6):
             con_log(*id1)
-            for cord in range(1, 31):
-                header1 = {'Host': 's2.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
+            header = {'Host': 's2.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
                            'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
                            'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
                            'x-flash-version': '18,0,0,161',
                            'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache',
                            'Referer': 'app:/assets/CardMain.swf', 'Content-Type': 'application/x-www-form-urlencoded'
                            }
-                param0 = "Layer=" + ('%d' % layer) + "&ItemIndex=" + (
-                '%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
-                print param0
-                conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
-                conn.request("POST",
-                             "/maze.php?do=Battle&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
-                             param0, header1)
-                x = conn.getresponse()
-                y = x.read()
-                if len(y) == 196:
-                    print ('out of power!')
-                    return
-                conn.close()
+            param = "Layer=" + ('%d' % layer) + '&MapStageId=' + ('%d' % map_id)
+            conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+            conn.request("POST",
+                         "/maze.php?do=Info&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
+                          param, header)
+            res = conn.getresponse()
+            layerinfo = res.read()
+            y = json.loads(layerinfo)
+            if len(layerinfo) == 62:
+                print map_id, 'end'
+                break
+            else:
+                y = json.loads(layerinfo)
+                items = y.get('data', 0).get('Map', 0).get('Items', 0)
+                item = []
+                count = 0
+                for cords in items:
+                    cords = int(cords)
+                    if cords == 2 or cords == 3 or cords == 5:
+                       item.append(count)
+                    count = count + 1
+                for cord in item:
+                    header1 = {'Host': 's2.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
+                               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
+                               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
+                               'x-flash-version': '18,0,0,161',
+                               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache',
+                               'Referer': 'app:/assets/CardMain.swf', 'Content-Type': 'application/x-www-form-urlencoded'
+                               }
+                    param0 = "Layer=" + ('%d' % layer) + "&ItemIndex=" + (
+                    '%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
+                    print param0
+                    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+                    conn.request("POST",
+                                 "/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",param0, header1)
+                    res = conn.getresponse()
+                    y = res.read()
+                    print y
+                    if len(y) == 196:
+                        print ('out of power!')
+                        return
+                    conn.close()
                 time.sleep(0.1)
 
 
