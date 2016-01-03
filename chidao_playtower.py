@@ -120,7 +120,6 @@ def play_tower(*id1):
                                  "/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",param0, header1)
                     res = conn.getresponse()
                     y = res.read()
-                    print y
                     if len(y) == 196:
                         print ('out of power!')
                         return
