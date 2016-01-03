@@ -1,3 +1,4 @@
+# encoding:GBK
 import httplib
 import time
 import json
@@ -101,6 +102,7 @@ def play_tower(*id1):
                 count = 0
                 for cords in items:
                     cords = int(cords)
+                    # 1表示空；2表示宝箱；3表示盗贼；4表示入口；5表示出口
                     if cords == 2 or cords == 3 or cords == 5:
                        item.append(count)
                     count = count + 1
