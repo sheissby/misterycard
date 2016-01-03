@@ -130,7 +130,7 @@ def ExistThief(thievesinfo):
         thievesfleetime = a.get('FleeTime', 0)
         thieveshpcurrent = a.get('HPCurrent', 0)
         # ÅÐ¶ÏÓÐÔôÎ´ËÀ»òÓÐÔôÎ´ÅÜ£¬²»ÐèÌ½Ë÷
-        if (thievesNickName == currentuid and thievesstatus == 1 and thieveshpcurrent > 0) \
+        if (thievesNickName == currentuid and thievesstatus == 1 and thieveshpcurrent > 0 and thievesfleetime > 0) \
                 or (thievesNickName == currentuid and thievesstatus == 0 and thievesfleetime > 0):
             return 1, Countdown
     return 0, Countdown

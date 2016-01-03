@@ -130,7 +130,7 @@ def ExistThief(thievesinfo):
         thievesfleetime = a.get('FleeTime', 0)
         thieveshpcurrent = a.get('HPCurrent', 0)
         # 判断有贼未死或有贼未跑，不需探索
-        if (thievesNickName == currentuid and thievesstatus == 1 and thieveshpcurrent > 0) \
+        if (thievesNickName == currentuid and thievesstatus == 1 and thieveshpcurrent > 0 and thievesfleetime > 0) \
                 or (thievesNickName == currentuid and thievesstatus == 0 and thievesfleetime > 0):
             return 1, Countdown
     return 0, Countdown
@@ -189,17 +189,22 @@ def thievesfight(userthievesid):
     conn.close()
 
 # 账户列表
-id = [['赤刀', '26402923', '283622'], ['骷髅大王出货了', '2014082282360039', '283647'] , ['獠牙', '2014082382723128', '283732'],
-   ['血刃', '2014082382762366', '283739'], ['军刺', '2014082382896209', '283757'], ['袖箭', '2014082382896212', '283765']]
+id = [['赤刀', '26402923', '283622'],
+      ['骷髅大王出货了', '2014082282360039', '283647'] ,
+      ['獠牙', '2014082382723128', '283732'],
+      ['血刃', '2014082382762366', '283739'],
+      ['军刺', '2014082382896209', '283757'],
+      ['袖箭', '2014082382896212', '283765']
+      ]
 for id1 in id:
     thievesinfo = GetThieves(*id1)
     thief = ExistThief(thievesinfo)
     thievesfightCD = thief[1]    #打贼cd时间
     if thief[0] == 1:
-        print id1[0],'不需探索'
+        print id1[0], '不需探索'
         continue
     else:
-        print id1[0],'可以探索'
+        print id1[0], '可以探索'
         lenth1 = ''
         status1 = 1
         while len(lenth1) < 400 and status1 == 1:
