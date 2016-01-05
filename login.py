@@ -1,6 +1,8 @@
 # encoding:GBK
 import httplib
 import json
+import StringIO
+import gzip
 import time
 
 
@@ -44,7 +46,7 @@ def con_log(*id1):
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = '%d' % y.get('data', 0).get('uinfo', 0).get('time', 0)
-    header1 = {'Host': 's2.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
+    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
                'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
                'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
                'x-flash-version': '18,0,0,161',
@@ -61,7 +63,7 @@ def con_log(*id1):
     param1 = ''
     param2 = 'pvpNewVersion=1'
     con_log_status = 0
-    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
     while con_log_status == 0:
         conn.request("POST",
                      "/login.php?do=mpLogin&v=1521&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
@@ -75,7 +77,7 @@ def con_log(*id1):
             con_log_status = 0
     print id1[0], 'con_log success!'
 
-#    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+#    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
     GetUserinfo_status = 0
     while GetUserinfo_status == 0:
         conn.request("POST",
@@ -94,7 +96,7 @@ def con_log(*id1):
 
 
     AwardSalary_status = 0
-#    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+#    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
     while AwardSalary_status == 0:
         conn.request("POST",
                      "/user.php?do=AwardSalary&v=1523&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
@@ -108,6 +110,84 @@ def con_log(*id1):
             AwardSalary_status = 0
     conn.close()
     print id1[0], 'AwardSalaryres sucess!'
+
+
+def GetUserMapStages(*id1):
+    con_log(*id1)
+    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
+               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
+               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
+               'x-flash-version': '18,0,0,161',
+               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
+               'Content-Type': 'application/x-www-form-urlencoded'
+               }
+    param0 = ''
+    status = 0
+    # 得到入侵盗贼信息
+    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
+    while status == 0:
+        conn.request("POST",
+                     "/mapstage.php?do=GetUserMapStages&v=7002&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
+                     param0, header1)
+        returnstr = conn.getresponse()
+        responseheader = returnstr.getheaders()
+        isgzipped = responseheader[0]
+        if isgzipped[1] == 'gzip':
+            compresseddata = returnstr.read()
+            compressedstream = StringIO.StringIO(compresseddata)
+            gzipper = gzip.GzipFile(fileobj=compressedstream)
+            data = gzipper.read()
+            y = json.loads(data)
+            status = y.get('status', 0)
+        else:
+            data = returnstr.read()
+            y = json.loads(data)
+            status = y.get('status', 0)
+    conn.close()
+    data = y.get('data', 0)
+    arr = []
+    for i in data:
+        counterattacktime = data.get(i, 0).get('CounterAttackTime', 0)
+        counterattacktime = int(counterattacktime)
+        if counterattacktime != 0:
+            arr.append(i)
+    return arr
+
+
+def EditUserMapStages(arr):
+    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
+               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
+               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
+               'x-flash-version': '18,0,0,161',
+               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
+               'Content-Type': 'application/x-www-form-urlencoded'
+               }
+    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
+    for i in arr:
+        param0 = 'isManual=0&MapStageDetailId=' + i
+        conn.request("POST",
+                     "/mapstage.php?do=EditUserMapStages&v=7003&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
+                     param0, header1)
+        resstr = conn.getresponse()
+        resstr.read()
+
+        # returnstr = conn.getresponse()
+        # responseheader = returnstr.getheaders()
+        # isgzipped = responseheader[0]
+        # if isgzipped[1] == 'gzip':
+        #     compresseddata = returnstr.read()
+        #     compressedstream = StringIO.StringIO(compresseddata)
+        #     gzipper = gzip.GzipFile(fileobj=compressedstream)
+        #     data = gzipper.read()
+        #     y = json.loads(data)
+        #     print y
+        #     status = y.get('status', 0)
+        # else:
+        #     data = returnstr.read()
+        #     y = json.loads(data)
+        #     print y
+        #     status = y.get('status', 0)
+    conn.close()
 
 
 id = [['Am', '1592626', '279696', 'ILjEr8jamXWQSf4v'], ['#Cm', '2014092692358474', '285154', 'ILjEr8jamXWQSf4v'],
@@ -134,5 +214,8 @@ id = [['Am', '1592626', '279696', 'ILjEr8jamXWQSf4v'], ['#Cm', '2014092692358474
       ]
 
 for id1 in id:
-    con_log(*id1)
+    arr = GetUserMapStages(*id1)
+    print arr
+    if arr:
+        EditUserMapStages(arr)
     time.sleep(0.1)

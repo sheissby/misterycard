@@ -41,7 +41,7 @@ def con_log(*id1):
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = '%d' % y.get('data', 0).get('uinfo', 0).get('time', 0)
-    header1 = {'Host': 's2.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
+    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
                'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
                'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
                'x-flash-version': '18,0,0,161',
@@ -57,7 +57,7 @@ def con_log(*id1):
     con_log_status = 0
     param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
     while con_log_status == 0:
-        conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+        conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
         conn.request("POST",
                      "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
                      param0, header1)
@@ -74,7 +74,7 @@ def con_log(*id1):
 def legionattack(*id1):
     con_log(*id1)
     legionId = str(legionid)
-    header1 = {'Host': 's2.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
+    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
                'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
                'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
                'x-flash-version': '16,0,0,276',
@@ -84,13 +84,13 @@ def legionattack(*id1):
     param0 = '&Type=1&Id='+ legionId
     param1 = '&Type=2&Id='+ legionId
 
-    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
     conn.request("POST",
                      "/legionattack.php?do=join&v=3339&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param0, header1)
     res = conn.getresponse()
 
-    conn = httplib.HTTPConnection("s2.xiaomi.mysticalcard.com")
+    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
     conn.request("POST",
                      "/legionattack.php?do=exit&v=3340&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param1, header1)
@@ -98,7 +98,9 @@ def legionattack(*id1):
     conn.close()
 
 
-id = [['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
+
+id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
+      ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
       ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
       ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
       ['jinxiaoxi', '2014011514924154', '289074', 'TqctVYyZJmA6JrGC'],
