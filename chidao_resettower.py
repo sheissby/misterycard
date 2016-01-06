@@ -1,5 +1,7 @@
 # encoding:GBK
-import httplib, urllib, urllib2, re, time, json, requests
+import httplib
+import time
+import json
 
 
 def con(uid):
