@@ -99,7 +99,7 @@ def legionattack(*id1):
 
 
 
-id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
+id = [#['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
       ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
       ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
       ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
@@ -112,8 +112,8 @@ id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
       ['cong', '2015052882088503', '296352', 'TqctVYyZJmA6JrGC'],
       ['feng', '2015052882090943', '296354', 'TqctVYyZJmA6JrGC'],
       ['yu', '2015052882090503', '296353', 'v1soiQ8I8RgIvg2p'],
-      ['R1', '2014021515603023', '264491', 'A6ETQDCm9hfpPXYG'],
-      ['R2', '2014040452624347', '289393', 'A6ETQDCm9hfpPXYG'],
+      ['R1', '2014021515603023', '264491', 'ekyOlt6j4VLipThy'],
+      ['R2', '2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
       ['XiaoXiaoZhu', '59079768', '289074', 'lVMmfvcdVHKt1OeA'],
       ['妙蛙种子', '2014052561883286', '278956', 'rUP529O9fB7ZKX38'],
       ['绿毛虫', '2014061766465489', '278958', 'rUP529O9fB7ZKX38'],
@@ -143,19 +143,20 @@ id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
 
 
 global legionid
-x = raw_input('选择战场：1.海龟岛；2.海底界')
-if x.strip() == '' or not x.isdigit():
+print '1.试炼森林'
+print '2.落日荒原'
+print '3.西风岛'
+print '4.翡翠森林'
+print '5.燃烧平原'
+print '6.乌木地下城'
+print '7.末日峡谷'
+print '8.天上界'
+print '9.海龟岛'
+print '10.海底界'
+legionid = raw_input('选择战场：')
+if legionid.strip() == '' or not legionid.isdigit():
     print 'error'
 else:
     for id1 in id:
-        x = int(x)
-        if x == 1:
-            legionid = 9
-            legionattack(*id1)
-        if x == 2:
-            legionid = 10
-            legionattack(*id1)
-        else:
-            print 'error'
-            break
+        legionattack(*id1)
 raw_input('The End')
