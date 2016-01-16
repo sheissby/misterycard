@@ -149,7 +149,7 @@ def mapstage(*id1):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    param0 = "MapStageDetailId=50"
+    param0 = "MapStageDetailId=25"
     conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/mapstage.php?do=Explore&v=4581&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1"
@@ -221,16 +221,16 @@ for id1 in id:
                     userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                     if Type == 2:
                         print id1[0], '出现精英盗贼'
-                        if thievesfightCD <= 0:
-                            thievesfight(userthievesid)    # 出现精英盗贼自动攻击
-                        else:
-                            print id1[0], '打贼cd中......'
+                        # if thievesfightCD <= 0:
+                        #     thievesfight(userthievesid)    # 出现精英盗贼自动攻击
+                        # else:
+                        #     print id1[0], '打贼cd中......'
                     else:
                         print id1[0], '出现普通盗贼'
-                        if thievesfightCD <= 0:
-                            thievesfight(userthievesid)
-                        else:
-                            print id1[0], '打贼cd中......'
+                        # if thievesfightCD <= 0:
+                        #     thievesfight(userthievesid)
+                        # else:
+                        #     print id1[0], '打贼cd中......'
                     break
         time.sleep(0.1)
 
