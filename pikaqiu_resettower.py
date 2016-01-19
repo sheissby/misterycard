@@ -13,7 +13,7 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
-    param0 = "sessionid=rUP529O9fB7ZKX38&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    param0 = "sessionid=6ANyAXvi6sC76fNP&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     con_status = 0
     while con_status == 0:
         conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")

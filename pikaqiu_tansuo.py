@@ -18,7 +18,7 @@ def con(uid):
                'Content-Type': 'application/x-www-form-urlencoded'
                }
     uid1 = '&uid=' + uid
-    param0 = "sessionid=rUP529O9fB7ZKX38&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
+    param0 = "sessionid=6ANyAXvi6sC76fNP&Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1
     con_status = 0
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     while con_status == 0:
@@ -203,10 +203,10 @@ for id1 in id:
     thief = ExistThief(thievesinfo)
     thievesfightCD = thief[1]    #打贼cd时间
     if thief[0] == 1:
-        print id1[0],'不需探索'
+        # print id1[0],'不需探索'
         continue
     else:
-        print id1[0],'可以探索'
+        # print id1[0],'可以探索'
         lenth1 = ''
         status1 = 1
         while len(lenth1) < 400 and status1 == 1:
