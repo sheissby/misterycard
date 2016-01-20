@@ -196,12 +196,12 @@ id = [['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
       ['樱木花道', '5047214', '198633', '0niwv4OngcXD5tXg'],
       ['利佐伊', '2013072511431198', '209850', '0niwv4OngcXD5tXg'],
       ['雷贝拉', '2013072511431214', '209852', '0niwv4OngcXD5tXg'],
-      ['赤刀', '26402923', '283622', 'jAKPM8ITjIyHr5At'],
-      ['骷髅大王出货了', '2014082282360039', '283647', 'jAKPM8ITjIyHr5At'] ,
-      ['獠牙', '2014082382723128', '283732', 'jAKPM8ITjIyHr5At'],
-      ['血刃', '2014082382762366', '283739', 'jAKPM8ITjIyHr5At'],
-      ['军刺', '2014082382896209', '283757', 'jAKPM8ITjIyHr5At'],
-      ['袖箭', '2014082382896212', '283765', 'jAKPM8ITjIyHr5At']
+      # ['赤刀', '26402923', '283622', 'jAKPM8ITjIyHr5At'],
+      # ['骷髅大王出货了', '2014082282360039', '283647', 'jAKPM8ITjIyHr5At'] ,
+      # ['獠牙', '2014082382723128', '283732', 'jAKPM8ITjIyHr5At'],
+      # ['血刃', '2014082382762366', '283739', 'jAKPM8ITjIyHr5At'],
+      # ['军刺', '2014082382896209', '283757', 'jAKPM8ITjIyHr5At'],
+      # ['袖箭', '2014082382896212', '283765', 'jAKPM8ITjIyHr5At']
       ]
 alwaystansuo = raw_input('有贼是否探索：1.否 2.是：')
 if alwaystansuo.strip() == '' or not alwaystansuo.isdigit():
@@ -212,10 +212,10 @@ else:
         thief = ExistThief(thievesinfo)
         thievesfightCD = thief[1]    #打贼cd时间
         if thief[0] == 1 and alwaystansuo == '1':
-            print id1[0],'不需探索'
+            # print id1[0],'不需探索'
             continue
         else:
-            print id1[0],'可以探索'
+            # print id1[0],'可以探索'
             lenth1 = ''
             status1 = 1
             while len(lenth1) < 400 and status1 == 1:
