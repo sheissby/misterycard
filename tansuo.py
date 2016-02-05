@@ -158,7 +158,8 @@ def mapstage(*id1):
                  param0, header1)
     returnstr = conn.getresponse()
     lenth = returnstr.read()
-    # print 'mapstage response:', lenth
+    print 'mapstage response:', lenth
+    print 'mapstage response:', len(lenth)
     y = json.loads(lenth)
     mapstagestatus = y.get('status', 0)
     conn.close()
@@ -202,12 +203,18 @@ id = [['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
       # ['ÑªÈÐ', '2014082382762366', '283739', 'jAKPM8ITjIyHr5At'],
       # ['¾ü´Ì', '2014082382896209', '283757', 'jAKPM8ITjIyHr5At'],
       # ['Ðä¼ý', '2014082382896212', '283765', 'jAKPM8ITjIyHr5At']
+      ['¸Ö°å', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
+      ['Ä¾°å', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'],
+      ['Ê¯°å', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
+      ['Í­°å', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'],
+      ['Ìú°å', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk']
       ]
 alwaystansuo = raw_input('ÓÐÔôÊÇ·ñÌ½Ë÷£º1.·ñ 2.ÊÇ£º')
 if alwaystansuo.strip() == '' or not alwaystansuo.isdigit():
     print 'error'
 else:
     for id1 in id:
+        print id1
         thievesinfo = GetThieves(*id1)
         thief = ExistThief(thievesinfo)
         thievesfightCD = thief[1]    #´òÔôcdÊ±¼ä
