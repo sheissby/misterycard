@@ -20,16 +20,20 @@ def con(uid, sessionid):
     con_status = 0
     conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     while con_status == 0:
-        conn.request("POST",
-                     "/mpassport.php?do=plogin&v=1520&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                     param0, header1)
-        res = conn.getresponse()
-        x = res.read()
-        if len(x) != 0:
-            y = json.loads(x)
-            con_status = y.get('status', 0)
-        else:
-            con_status = 0
+        try:
+            conn.request("POST",
+                         "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
+                         "&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                         param0, header1)
+            res = conn.getresponse()
+            x = res.read()
+            if len(x) != 0:
+                y = json.loads(x)
+                con_status = y.get('status', 0)
+            else:
+                con_status = 0
+        except Exception, e:
+            con_status == 0
     print id1[0], 'con success!'
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
@@ -170,23 +174,6 @@ def EditUserMapStages(arr):
                      param0, header1)
         resstr = conn.getresponse()
         resstr.read()
-
-        # returnstr = conn.getresponse()
-        # responseheader = returnstr.getheaders()
-        # isgzipped = responseheader[0]
-        # if isgzipped[1] == 'gzip':
-        #     compresseddata = returnstr.read()
-        #     compressedstream = StringIO.StringIO(compresseddata)
-        #     gzipper = gzip.GzipFile(fileobj=compressedstream)
-        #     data = gzipper.read()
-        #     y = json.loads(data)
-        #     print y
-        #     status = y.get('status', 0)
-        # else:
-        #     data = returnstr.read()
-        #     y = json.loads(data)
-        #     print y
-        #     status = y.get('status', 0)
     conn.close()
 
 
@@ -218,21 +205,22 @@ id = [['Am', '1592626', '279696', 'ILjEr8jamXWQSf4v'], ['#Cm', '2014092692358474
       # ['÷¼÷Ã´óÍõ', '2014082282360039', '283647', 'jAKPM8ITjIyHr5At'], ['â²ÑÀ', '2014082382723128', '283732', 'jAKPM8ITjIyHr5At'],
       # ['ÑªÈÐ', '2014082382762366', '283739', 'jAKPM8ITjIyHr5At'], ['¾ü´Ì', '2014082382896209', '283757', 'jAKPM8ITjIyHr5At'],
       # ['Ðä¼ý', '2014082382896212', '283765', 'jAKPM8ITjIyHr5At'],
-      ['½ÜÄá¹ê','2014041855227765','273122', 'rUP529O9fB7ZKX38'],
-      ['Ð¡»ðÁú','2014042155811563','273419', 'rUP529O9fB7ZKX38'], ['ÃîÍÜÖÖ×Ó','2014052561883286','278956', 'rUP529O9fB7ZKX38'],
-      ['ÂÌÃ«³æ','2014061766465489','278958', 'rUP529O9fB7ZKX38'], ['´óÕë·ä','2014061866519659','278984', 'rUP529O9fB7ZKX38'],
-      ['±È±ÈÄñ','2014061866519756','278986', 'rUP529O9fB7ZKX38'], ['³¬Òôòð','2014061866528941','279006', 'rUP529O9fB7ZKX38'],
-      ['Â¡Â¡ÑÒ','2014061866529032','279007', 'rUP529O9fB7ZKX38'], ['´óÑÒÉß','2014061866529097','279009', 'rUP529O9fB7ZKX38'],
-      ['³ËÁú','2014061866529223','279045', 'rUP529O9fB7ZKX38'], ['¹¢¹í','2014061866529231','279049', 'rUP529O9fB7ZKX38'],
-      ['ÁÒÑæÂí','2014061866529288','279053', 'rUP529O9fB7ZKX38'], ['ÎüÅÌÄ§Å¼','2014061866529337','279054', 'rUP529O9fB7ZKX38'],
-      ['ÅÖ¶¡','2014061866529346','279080', 'rUP529O9fB7ZKX38'], ['°¢°ØÉß','2014061866529379','279081', 'rUP529O9fB7ZKX38'],
-      ['Ò¬µ°Ê÷','2014061866529407','279083', 'rUP529O9fB7ZKX38'], ['»ð±¬ºï','2014061866529462','279085', 'rUP529O9fB7ZKX38'],
-      ['ÅÉÀ­Ë¹','2014061866529470','279086', 'rUP529O9fB7ZKX38'], ['±Èµñ','2014061866529500','279117', 'rUP529O9fB7ZKX38'],
-      ['À×¾«Áé','2014061866529554','279119', 'rUP529O9fB7ZKX38'], ['Æ¤¿¨Î÷','2014061866529628','279122', 'rUP529O9fB7ZKX38'],
-      ['Ë®¾«Áé','2014061866529641','279131', 'rUP529O9fB7ZKX38'], ['»ð¾«Áé','2014061866529643','279137', 'rUP529O9fB7ZKX38'],
-      ['ºúµØ','2014061866529675','279164', 'rUP529O9fB7ZKX38'], ['·çËÙ¹·','2014061866529735','279165', 'rUP529O9fB7ZKX38'],
-      ['Åç»ðÁú','2014061866529744','279166', 'rUP529O9fB7ZKX38'], ['¸Ö°å', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
-      ['Ä¾°å', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'], ['Ê¯°å', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk']
+      ['½ÜÄá¹ê','2014041855227765','273122', '6ANyAXvi6sC76fNP'],
+      ['Ð¡»ðÁú','2014042155811563','273419', '6ANyAXvi6sC76fNP'], ['ÃîÍÜÖÖ×Ó','2014052561883286','278956', '6ANyAXvi6sC76fNP'],
+      ['ÂÌÃ«³æ','2014061766465489','278958', '6ANyAXvi6sC76fNP'], ['´óÕë·ä','2014061866519659','278984', '6ANyAXvi6sC76fNP'],
+      ['±È±ÈÄñ','2014061866519756','278986', '6ANyAXvi6sC76fNP'], ['³¬Òôòð','2014061866528941','279006', '6ANyAXvi6sC76fNP'],
+      ['Â¡Â¡ÑÒ','2014061866529032','279007', '6ANyAXvi6sC76fNP'], ['´óÑÒÉß','2014061866529097','279009', '6ANyAXvi6sC76fNP'],
+      ['³ËÁú','2014061866529223','279045', '6ANyAXvi6sC76fNP'], ['¹¢¹í','2014061866529231','279049', '6ANyAXvi6sC76fNP'],
+      ['ÁÒÑæÂí','2014061866529288','279053', '6ANyAXvi6sC76fNP'], ['ÎüÅÌÄ§Å¼','2014061866529337','279054', '6ANyAXvi6sC76fNP'],
+      ['ÅÖ¶¡','2014061866529346','279080', '6ANyAXvi6sC76fNP'], ['°¢°ØÉß','2014061866529379','279081', '6ANyAXvi6sC76fNP'],
+      ['Ò¬µ°Ê÷','2014061866529407','279083', '6ANyAXvi6sC76fNP'], ['»ð±¬ºï','2014061866529462','279085', '6ANyAXvi6sC76fNP'],
+      ['ÅÉÀ­Ë¹','2014061866529470','279086', '6ANyAXvi6sC76fNP'], ['±Èµñ','2014061866529500','279117', '6ANyAXvi6sC76fNP'],
+      ['À×¾«Áé','2014061866529554','279119', '6ANyAXvi6sC76fNP'], ['Æ¤¿¨Î÷','2014061866529628','279122', '6ANyAXvi6sC76fNP'],
+      ['Ë®¾«Áé','2014061866529641','279131', '6ANyAXvi6sC76fNP'], ['»ð¾«Áé','2014061866529643','279137', '6ANyAXvi6sC76fNP'],
+      ['ºúµØ','2014061866529675','279164', '6ANyAXvi6sC76fNP'], ['·çËÙ¹·','2014061866529735','279165', '6ANyAXvi6sC76fNP'],
+      ['Åç»ðÁú','2014061866529744','279166', '6ANyAXvi6sC76fNP'], ['¸Ö°å', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
+      ['Ä¾°å', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'], ['Ê¯°å', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
+      ['Í­°å', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'], ['Ìú°å', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk']
       ]
 
 for id1 in id:
