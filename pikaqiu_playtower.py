@@ -33,7 +33,6 @@ def con(uid):
     return y
     conn.close()
 
-
 def con_log(*id1):
     uid = id1[1]
     Muid = id1[2]
