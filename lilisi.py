@@ -36,13 +36,14 @@ def con(uid):
             else:
                 con_status = 0
         except Exception, e:
+            print e
             con_status == 0
     # print id1[0], 'con success'
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = y.get('data', 0).get('uinfo', 0).get('time', 0)
-    return y
     conn.close()
+    return y
 
 
 def con_log(*id1):
@@ -127,6 +128,7 @@ def ExistLilisi(Lilisiinfo):
     Lilisiinfo = Lilisiinfo.get('data', 0).get('journeyList', 0).get('journeyList', 0)
     currentuid = id1[0]
     currentuid = currentuid.decode('GBK')
+    enableAwardList = []
     for a in Lilisiinfo:
         llsNickName = a.get('NickName', 0)   #Ì½Ë÷Õß
         llsstatus = a.get('Status', 0)       #lls×´Ì¬
@@ -134,13 +136,16 @@ def ExistLilisi(Lilisiinfo):
         llshpcurrent = a.get('HPCurrent', 0) #llsµ±Ç°ÑªÁ¿
         llsgrade = a.get('Grade', 0)         #llsÄÑ¶È
         llsid = a.get('UserJourneyId', 0)    #llsµÄid
+        llsenableAward = a.get('enableAward', 0) #ÊÇ·ñ¿ÉÁì·Ö:1±íÊ¾¿ÉÒÔÁì·Ö£»0±íÊ¾²»¿ÉÁì·Ö
+        if llsenableAward == 1:
+            enableAwardList.append(llsid)
         # ÅÐ¶ÏÓÐllsÎ´ËÀ»òÎ´ÅÜ£¬²»ÐèÌ½Ë÷
         if (llsNickName == currentuid and llsstatus == 1 and llshpcurrent > 0 and llsfleetime > 0) \
                 or (llsNickName == currentuid and llsstatus == 0 and llsfleetime > 0):
-            return 1, llsgrade, llsid
+            return 1, llsgrade, llsid, enableAwardList
     llsgrade = 0
     llsid = 0
-    return 0, llsgrade, llsid
+    return 0, llsgrade, llsid, enableAwardList
 
 
 # ½øÐÐÌ½Ë÷
@@ -217,8 +222,43 @@ def llsfight(llsid):
             return 0
     conn.close()
 
+
+#ÁìÈ¡lls·ÖÊý
+def GetJourneyPointReward(awardList):
+    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
+           'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, '
+                     'text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;'
+                     'q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application'
+                     '/futuresplash, */*;q=0.5',
+           'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
+           'x-flash-version': '16,0,0,276',
+           'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
+           'Content-Type': 'application/x-www-form-urlencoded'
+           }
+
+    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
+    for awardllsid in awardList:
+        param0 = 'userJourneyId=' + str(awardllsid)
+        conn.request("POST",
+                     "/Journey.php?do=GetJourneyPointReward&v=9156&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1",
+                     param0, header1)
+        returnaward = conn.getresponse()
+        responseheader = returnaward.getheaders()
+        isgzipped = responseheader[0]
+        if isgzipped[1] == 'gzip':
+            compresseddata = returnaward.read()
+            compressedstream = StringIO.StringIO(compresseddata)
+            gzipper = gzip.GzipFile(fileobj=compressedstream)
+            awarddata = gzipper.read()
+        else:
+            awarddata = returnaward.read()
+    conn.close()
+    # return awarddata
+
+
 # ÕË»§ÁÐ±í
-id = [['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
+id = [
+      ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
       ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
       ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
       ['Ó£Ä¾»¨µÀa', '5047214', '198633', '0jOBCWaqFzYqZsNi'],
@@ -226,16 +266,27 @@ id = [['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
       ['ÈÕ´¨¸ÚÛà', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
       ['Ä¾°åa', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'],
       ['Ê¯°å', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk']
+
+      # ['½ÜÄá¹ê','2014041855227765','273122', '6ANyAXvi6sC76fNP'],
+      # ['Ð¡»ðÁú','2014042155811563','273419', '6ANyAXvi6sC76fNP'], ['ÃîÍÜÖÖ×Ó','2014052561883286','278956', '6ANyAXvi6sC76fNP'],
+      # ['ÂÌÃ«³æ','2014061766465489','278958', '6ANyAXvi6sC76fNP'], ['´óÕë·ä','2014061866519659','278984', '6ANyAXvi6sC76fNP'],
+      # ['±È±ÈÄñ','2014061866519756','278986', '6ANyAXvi6sC76fNP'], ['³¬Òôòð','2014061866528941','279006', '6ANyAXvi6sC76fNP'],
+      # ['Â¡Â¡ÑÒ','2014061866529032','279007', '6ANyAXvi6sC76fNP'], ['´óÑÒÉß','2014061866529097','279009', '6ANyAXvi6sC76fNP'],
+      # ['³ËÁú','2014061866529223','279045', '6ANyAXvi6sC76fNP'], ['¹¢¹í','2014061866529231','279049', '6ANyAXvi6sC76fNP'],
+      # ['ÁÒÑæÂí','2014061866529288','279053', '6ANyAXvi6sC76fNP'], ['ÎüÅÌÄ§Å¼','2014061866529337','279054', '6ANyAXvi6sC76fNP'],
+      # ['ÅÖ¶¡a','2014061866529346','279080', '6ANyAXvi6sC76fNP'], ['°¢°ØÉß','2014061866529379','279081', '6ANyAXvi6sC76fNP'],
+      # ['»ð±¬ºï','2014061866529462','279085', '6ANyAXvi6sC76fNP'],['±Èµñ','2014061866529500','279117', '6ANyAXvi6sC76fNP'],
+      # ['À×¾«Áé','2014061866529554','279119', '6ANyAXvi6sC76fNP'],
+      # ['Ë®¾«Áé','2014061866529641','279131', '6ANyAXvi6sC76fNP'],
+      # ['Åç»ðÁú','2014061866529744','279166', '6ANyAXvi6sC76fNP']
       ]
 for id1 in id:
-    # Lilisiinfo = GetLilisi(*id1)
-    # isLilisi = ExistLilisi(Lilisiinfo)
-    # thievesfightCD = thief[1]    #´òÔôcdÊ±¼ä
     mapstagestatus = 1
     isLilisi = 0
+    awardList = []
     while isLilisi == 0 and mapstagestatus == 1:
         Lilisiinfo = GetLilisi(*id1)
-        isLilisi, llsgrade, llsid = ExistLilisi(Lilisiinfo)
+        isLilisi, llsgrade, llsid, awardList = ExistLilisi(Lilisiinfo)
         if isLilisi == 1:
             # print id1[0], '²»ÐèÌ½Ë÷'
             if llsgrade == 1 or llsgrade == 2:
@@ -244,13 +295,13 @@ for id1 in id:
                     break
                 isLilisi = 0      #ÖØÖÃÊÇ·ñ´æÔÚlls±êÊ¶£¬ÒÔ±ã½øÈëÑ­»·ÔÙ´Î¹¥»÷
             elif llsgrade == 3:
-                print id1[0], 'À§ÄÑµÄ´ò²»¹ý'
+                print id1[0], 'À§ÄÑµÄ´ò²»¹ý', llsid
                 break
             elif llsgrade == 4:
-                print id1[0], 'Ø¬ÃÎ»¹Ã»ÅÜÄØ'
+                print id1[0], 'Ø¬ÃÎ»¹Ã»ÅÜÄØ', llsid
                 break
             elif llsgrade == 5:
-                print id1[0], 'Á¶Óü¶¼²»´ò£¡'
+                print id1[0], 'Á¶Óü¶¼²»´ò£¡', llsid
                 break
         else:
             data = mapstage(*id1)
@@ -263,39 +314,41 @@ for id1 in id:
                 llsid = datajson.get('data', 0).get('JourneyInfo', 0).get('UserJourneyId', 0)
                 if lilisiHP > 150000:
                     if lilisiHP == 236520:
-                        print id1[0], 'ÁÒ»ðØ¬ÃÎ'
+                        print id1[0], 'ÁÒ»ðØ¬ÃÎ', llsid
                         break
                     elif lilisiHP == 238980:
-                        print id1[0], 'Ð°ÎüØ¬ÃÎ'
+                        print id1[0], 'Ð°ÎüØ¬ÃÎ', llsid
                         break
                     elif lilisiHP == 232340:
-                        print id1[0], 'Ë«¾ÑØ¬ÃÎ'
+                        print id1[0], 'Ë«¾ÑØ¬ÃÎ', llsid
                         break
                     elif lilisiHP == 226540:
-                        print id1[0], '½µ´«Ø¬ÃÎ'
+                        print id1[0], '½µ´«Ø¬ÃÎ', llsid
                         break
                     elif lilisiHP == 241060:
-                        print id1[0], '±©»÷Ø¬ÃÎ'
+                        print id1[0], '±©»÷Ø¬ÃÎ', llsid
                         break
                     elif lilisiHP == 353600:
-                        print id1[0], 'ÏÝÚåÁ¶Óü£¡£¡£¡'
+                        print id1[0], 'ÏÝÚåÁ¶Óü£¡£¡£¡', llsid
                         break
                     elif lilisiHP == 350450:
-                        print id1[0], 'ËÍ»¹Á¶Óü£¡£¡£¡£¡£¡£¡'
+                        print id1[0], 'ËÍ»¹Á¶Óü£¡£¡£¡£¡£¡£¡', llsid
                         break
                     elif lilisiHP == 356800:
-                        print id1[0], '·¨ÇÖÁ¶Óü£¡£¡£¡'
+                        print id1[0], '·¨ÇÖÁ¶Óü£¡£¡£¡', llsid
                         break
                     elif lilisiHP == 350275:
-                        print id1[0], '¶Ü´ÌÁ¶Óü£¡£¡£¡'
+                        print id1[0], '¶Ü´ÌÁ¶Óü£¡£¡£¡', llsid
                         break
                     elif lilisiHP == 352800:
-                        print id1[0], 'Ð°ÎüÁ¶Óü£¡£¡£¡'
+                        print id1[0], 'Ð°ÎüÁ¶Óü£¡£¡£¡', llsid
                         break
-                    print id1[0], '³öÏÖ²»Ã÷ÉÁµç'
+                    print id1[0], '³öÏÖ²»Ã÷ÉÁµç', llsid
                     break
+                # elif lilisiHP > 140000 and lilisiHP < 150000:   #ÊÇ·ñ¹¥»÷À§ÄÑ
+                #     print id1[0], '³öÏÖÀòÀòË¿'
+                #     break
                 else:
-                    # print id1[0], '³öÏÖÀòÀòË¿'
                     fightresult = llsfight(llsid)
                     if fightresult == 0:
                         break
@@ -310,5 +363,6 @@ for id1 in id:
                     print id1[0], 'out of power'
                     break
         time.sleep(0.1)
+    GetJourneyPointReward(awardList)
 
 raw_input('End')
