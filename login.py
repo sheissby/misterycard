@@ -27,6 +27,7 @@ def con(uid, sessionid):
                          param0, header1)
             res = conn.getresponse()
             x = res.read()
+            # print x
             if len(x) != 0:
                 y = json.loads(x)
                 con_status = y.get('status', 0)
@@ -38,8 +39,8 @@ def con(uid, sessionid):
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = y.get('data', 0).get('uinfo', 0).get('time', 0)
-    return y
     conn.close()
+    return y
 
 
 def con_log(*id1):
@@ -88,13 +89,18 @@ def con_log(*id1):
                      "/user.php?do=GetUserinfo&OpenCardChip=1&v=1522&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
                      param2, header1)
         GetUserinfo = conn.getresponse()
-        x = GetUserinfo.read()
-#        print len(x)
-        if len(x) < 900:
-            y = json.loads(x)
-            GetUserinfo_status = y.get('status', 0)
+        responseheader = GetUserinfo.getheaders()
+        isgzipped = responseheader[0]
+        if isgzipped[1] == 'gzip':
+            compresseddata = GetUserinfo.read()
+            compressedstream = StringIO.StringIO(compresseddata)
+            gzipper = gzip.GzipFile(fileobj=compressedstream)
+            GetUserinfodata = gzipper.read()
         else:
-            break
+            GetUserinfodata = GetUserinfo.read()
+        # print GetUserinfodata
+        y = json.loads(GetUserinfodata)
+        GetUserinfo_status = y.get('status', 0)
     print id1[0], 'GetUserinfo sucess!'
 #    conn.close()
 
@@ -197,7 +203,8 @@ def Worship(*id1):
 
 
 
-id = [['Am', '1592626', '279696', 'ILjEr8jamXWQSf4v'], ['#Cm', '2014092692358474', '285154', 'ILjEr8jamXWQSf4v'],
+id = [
+      ['Am', '1592626', '279696', 'ILjEr8jamXWQSf4v'], ['#Cm', '2014092692358474', '285154', 'ILjEr8jamXWQSf4v'],
       ['Em', '2014121327096245', '288121', 'ILjEr8jamXWQSf4v'], ['#Fm', '2015031960117052', '294557', 'ILjEr8jamXWQSf4v'],
       ['Ó£Ä¾', '5047214', '198633', '0jOBCWaqFzYqZsNi'], ['Àû×ôÒÁ', '2013072511431198', '209850', '0jOBCWaqFzYqZsNi'],
       ['À×±´À­', '2013072511431214', '209852', '0jOBCWaqFzYqZsNi'],
@@ -220,7 +227,8 @@ id = [['Am', '1592626', '279696', 'ILjEr8jamXWQSf4v'], ['#Cm', '2014092692358474
       ['ºúµØ','2014061866529675','279164', '6ANyAXvi6sC76fNP'], ['·çËÙ¹·','2014061866529735','279165', '6ANyAXvi6sC76fNP'],
       ['Åç»ðÁú','2014061866529744','279166', '6ANyAXvi6sC76fNP'], ['¸Ö°å', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
       ['Ä¾°å', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'], ['Ê¯°å', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
-      ['Í­°å', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'], ['Ìú°å', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk']
+      ['Í­°å', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'],
+      ['Ìú°å', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk']
       ]
 
 for id1 in id:
