@@ -124,12 +124,15 @@ def basicInfo(*id1):
     userTicket = userinfo.get('data', 0).get('Ticket', 0)  #屌丝券
     userEnergy = userinfo.get('data', 0).get('Energy', 0)  #体力
     userThievesTimes = userinfo.get('data', 0).get('ThievesTimes', 0) #不明
+    userName = userinfo.get('data', 0).get('NickName', 0)  #游戏名字
     # userPrevExp = userinfo.get('data', 0).get('PrevExp', 0)
     # userNextExp = userinfo.get('data', 0).get('NextExp', 0)
     # LevelUpExp = int(userNextExp) - int(userPrevExp)
     LeaderShip = userinfo.get('data', 0).get('LeaderShip', 0)  #Cost
     # print id1[0], userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip
-    print('{0: ^8}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^5}{7: ^6}'.format(id1[0], userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip))
+    print('{0: ^18}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^5}{7: ^6}'
+          .format(id1[0], userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip))
+    # print userName
 
 #获取好友腿毛信息
 def GetFriendContributeList(*id1):
@@ -299,28 +302,37 @@ id = [
       # ['血刃', '2014082382762366', '283739', 'jAKPM8ITjIyHr5At'], ['军刺', '2014082382896209', '283757', 'jAKPM8ITjIyHr5At'],
       # ['袖箭', '2014082382896212', '283765', 'jAKPM8ITjIyHr5At'],
 
-      # ['杰尼龟','2014041855227765','273122', 'L2QLMsVNoY4VYwND'],
-      # ['小火龙','2014042155811563','273419', 'L2QLMsVNoY4VYwND'], ['妙蛙种子','2014052561883286','278956', 'L2QLMsVNoY4VYwND'],
-      # ['绿毛虫','2014061766465489','278958', 'L2QLMsVNoY4VYwND'], ['大针蜂','2014061866519659','278984', 'L2QLMsVNoY4VYwND'],
-      # ['比比鸟','2014061866519756','278986', 'L2QLMsVNoY4VYwND'], ['超音蝠','2014061866528941','279006', 'L2QLMsVNoY4VYwND'],
-      # ['隆隆岩','2014061866529032','279007', 'L2QLMsVNoY4VYwND'], ['大岩蛇','2014061866529097','279009', 'L2QLMsVNoY4VYwND'],
-      # ['乘龙','2014061866529223','279045', 'L2QLMsVNoY4VYwND'], ['耿鬼','2014061866529231','279049', 'L2QLMsVNoY4VYwND'],
-      # ['烈焰马','2014061866529288','279053', 'L2QLMsVNoY4VYwND'], ['吸盘魔偶','2014061866529337','279054', 'L2QLMsVNoY4VYwND'],
-      # ['胖丁','2014061866529346','279080', 'L2QLMsVNoY4VYwND'], ['阿柏蛇','2014061866529379','279081', 'L2QLMsVNoY4VYwND'],
-      # ['椰蛋树','2014061866529407','279083', 'L2QLMsVNoY4VYwND'], ['火爆猴','2014061866529462','279085', 'L2QLMsVNoY4VYwND'],
-      # ['派拉斯','2014061866529470','279086', 'L2QLMsVNoY4VYwND'], ['比雕','2014061866529500','279117', 'L2QLMsVNoY4VYwND'],
-      # ['雷精灵','2014061866529554','279119', 'L2QLMsVNoY4VYwND'], ['皮卡西','2014061866529628','279122', 'L2QLMsVNoY4VYwND'],
-      # ['水精灵','2014061866529641','279131', 'L2QLMsVNoY4VYwND'], ['火精灵','2014061866529643','279137', 'L2QLMsVNoY4VYwND'],
-      # ['胡地','2014061866529675','279164', 'L2QLMsVNoY4VYwND'], ['风速狗','2014061866529735','279165', 'L2QLMsVNoY4VYwND'],
-      # ['喷火龙','2014061866529744','279166', 'L2QLMsVNoY4VYwND'],
-      #
-      # ['钢板', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
-      # ['木板', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'], ['石板', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
-      # ['铜板', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'], ['铁板', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk'],
+      ['杰尼龟','2014041855227765','273122', 'L2QLMsVNoY4VYwND'],
+      ['小火龙','2014042155811563','273419', 'L2QLMsVNoY4VYwND'], ['妙蛙种子','2014052561883286','278956', 'L2QLMsVNoY4VYwND'],
+      ['绿毛虫','2014061766465489','278958', 'L2QLMsVNoY4VYwND'], ['大针蜂','2014061866519659','278984', 'L2QLMsVNoY4VYwND'],
+      ['比比鸟','2014061866519756','278986', 'L2QLMsVNoY4VYwND'], ['超音蝠','2014061866528941','279006', 'L2QLMsVNoY4VYwND'],
+      ['隆隆岩','2014061866529032','279007', 'L2QLMsVNoY4VYwND'], ['大岩蛇','2014061866529097','279009', 'L2QLMsVNoY4VYwND'],
+      ['乘龙','2014061866529223','279045', 'L2QLMsVNoY4VYwND'], ['耿鬼','2014061866529231','279049', 'L2QLMsVNoY4VYwND'],
+      ['烈焰马','2014061866529288','279053', 'L2QLMsVNoY4VYwND'], ['吸盘魔偶','2014061866529337','279054', 'L2QLMsVNoY4VYwND'],
+      ['胖丁','2014061866529346','279080', 'L2QLMsVNoY4VYwND'], ['阿柏蛇','2014061866529379','279081', 'L2QLMsVNoY4VYwND'],
+      ['椰蛋树','2014061866529407','279083', 'L2QLMsVNoY4VYwND'], ['火爆猴','2014061866529462','279085', 'L2QLMsVNoY4VYwND'],
+      ['派拉斯','2014061866529470','279086', 'L2QLMsVNoY4VYwND'], ['比雕','2014061866529500','279117', 'L2QLMsVNoY4VYwND'],
+      ['雷精灵','2014061866529554','279119', 'L2QLMsVNoY4VYwND'], ['皮卡西','2014061866529628','279122', 'L2QLMsVNoY4VYwND'],
+      ['水精灵','2014061866529641','279131', 'L2QLMsVNoY4VYwND'], ['火精灵','2014061866529643','279137', 'L2QLMsVNoY4VYwND'],
+      ['胡地','2014061866529675','279164', 'L2QLMsVNoY4VYwND'], ['风速狗','2014061866529735','279165', 'L2QLMsVNoY4VYwND'],
+      ['喷火龙','2014061866529744','279166', 'L2QLMsVNoY4VYwND'],
+
+      ['钢板', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
+      ['木板', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'], ['石板', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
+      ['铜板', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'], ['铁板', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk'],
 
       ['Reao1st','2014021515603023', '264491', 'ekyOlt6j4VLipThy'], ['Reao2nd','2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
       ['R3','2015032863087404', '295303', 'ekyOlt6j4VLipThy'], ['R4','2015072214671030', '297875', 'ekyOlt6j4VLipThy'],
-      ['R5','2015072214675611', '297876', 'ekyOlt6j4VLipThy'], ['小小主','59079768', '289074', 'lVMmfvcdVHKt1OeA']
+      ['R5','2015072214675611', '297876', 'ekyOlt6j4VLipThy'], ['小小主','59079768', '289074', 'lVMmfvcdVHKt1OeA'],
+
+      ['鱼丸号旗舰','2013042910219954', '132168', 'wALTg8x1Axg8FNIi'], ['鱼丸号巡洋舰','2013050510338482', '138002', 'wALTg8x1Axg8FNIi'],
+      ['鱼丸号驱逐舰','2013051110431066', '144222', 'wALTg8x1Axg8FNIi'], ['鱼丸号护卫舰','2013072911496244', '213117', 'wALTg8x1Axg8FNIi'],
+      ['鱼丸号炮舰','2013072911496578', '213119', 'wALTg8x1Axg8FNIi'], ['鱼丸号潜水艇','2013082111852712', '223399', 'wALTg8x1Axg8FNIi'],
+      ['鱼丸洲际导弹','2013110613340617', '244513', 'wALTg8x1Axg8FNIi'], ['鱼丸舰队五纵队','2013112813880389', '249308', 'wALTg8x1Axg8FNIi'],
+      ['鱼丸舰队四纵队','2013112813880397', '249307', 'wALTg8x1Axg8FNIi'], ['鱼丸舰队三纵队','2013112813880401', '249306', 'wALTg8x1Axg8FNIi'],
+      ['鱼丸舰队二纵队','2013112813880408', '249303', 'wALTg8x1Axg8FNIi'], ['鱼丸舰队一纵队','2013112813880415', '249301', 'wALTg8x1Axg8FNIi'],
+      ['鱼丸舰队七纵队','2013112813880453', '249274', 'wALTg8x1Axg8FNIi'], ['鱼丸号战列舰','2013112813880485', '249258', 'wALTg8x1Axg8FNIi'],
+      ['鱼丸舰队六纵队','2013112813892037', '249363', 'wALTg8x1Axg8FNIi']
       ]
 print '1. 查询基本信息'
 print '2. 查询lls腿毛'
@@ -328,7 +340,7 @@ print '3. 领取全部腿毛'
 print '4. 查询lls积分排名'
 property = input('查询类型:')
 if property == 1:
-    print ('{0: ^8}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^6}{7: ^6}'.format('id', '等级', '金币','晶钻','屌丝券','体力','不明','cost'))
+    print ('{0: ^18}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^6}{7: ^6}{8: ^6}'.format('id', '等级', '金币','晶钻','屌丝券','体力','不明','cost','mingzi'))
     for id1 in id:
         basicInfo(*id1)
 elif property == 2 or property == 3:
