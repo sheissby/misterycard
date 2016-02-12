@@ -340,7 +340,7 @@ print '3. 领取全部腿毛'
 print '4. 查询lls积分排名'
 property = input('查询类型:')
 if property == 1:
-    print ('{0: ^18}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^6}{7: ^6}{8: ^6}'.format('id', '等级', '金币','晶钻','屌丝券','体力','不明','cost','mingzi'))
+    print ('{0: ^18}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^6}{7: ^6}'.format('id', '等级', '金币','晶钻','屌丝券','体力','不明','cost'))
     for id1 in id:
         basicInfo(*id1)
 elif property == 2 or property == 3:
