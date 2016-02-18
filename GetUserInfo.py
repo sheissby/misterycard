@@ -288,6 +288,22 @@ def getUserJourneysInfo(UserJourneysInfo):
     print ('{0: ^8}{1: ^10}{2: ^5}' .format(id1[0], userpoint, userrank))
 
 
+# 送自己体力
+def giveEnergy(*id1):
+    con_log(*id1)
+    url = 'http://s1.xiaomi.mysticalcard.com/fenergy.php?do=SendFEnergy&v=2007&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
+    # values = {'username' : 'cqc',  'password' : 'XXXX' }
+    headers = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
+               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
+               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
+               'x-flash-version': '18,0,0,161',
+               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
+               'Content-Type': 'application/x-www-form-urlencoded'
+               }
+    data = 'Fid=105009'
+    request = urllib2.Request(url, data, headers)
+    response = urllib2.urlopen(request)
+
 
 id = [
       ['Am', '1592626', '279696', 'ILjEr8jamXWQSf4v'],
@@ -302,24 +318,24 @@ id = [
       # ['血刃', '2014082382762366', '283739', 'jAKPM8ITjIyHr5At'], ['军刺', '2014082382896209', '283757', 'jAKPM8ITjIyHr5At'],
       # ['袖箭', '2014082382896212', '283765', 'jAKPM8ITjIyHr5At'],
 
-      ['杰尼龟','2014041855227765','273122', 'd6YpW93AIdMBso3Z'],
-      ['小火龙','2014042155811563','273419', 'd6YpW93AIdMBso3Z'], ['妙蛙种子','2014052561883286','278956', 'd6YpW93AIdMBso3Z'],
-      ['绿毛虫','2014061766465489','278958', 'd6YpW93AIdMBso3Z'], ['大针蜂','2014061866519659','278984', 'd6YpW93AIdMBso3Z'],
-      ['比比鸟','2014061866519756','278986', 'd6YpW93AIdMBso3Z'], ['超音蝠','2014061866528941','279006', 'd6YpW93AIdMBso3Z'],
-      ['隆隆岩','2014061866529032','279007', 'd6YpW93AIdMBso3Z'], ['大岩蛇','2014061866529097','279009', 'd6YpW93AIdMBso3Z'],
-      ['乘龙','2014061866529223','279045', 'd6YpW93AIdMBso3Z'], ['耿鬼','2014061866529231','279049', 'd6YpW93AIdMBso3Z'],
-      ['烈焰马','2014061866529288','279053', 'd6YpW93AIdMBso3Z'], ['吸盘魔偶','2014061866529337','279054', 'd6YpW93AIdMBso3Z'],
-      ['胖丁','2014061866529346','279080', 'd6YpW93AIdMBso3Z'], ['阿柏蛇','2014061866529379','279081', 'd6YpW93AIdMBso3Z'],
-      ['椰蛋树','2014061866529407','279083', 'd6YpW93AIdMBso3Z'], ['火爆猴','2014061866529462','279085', 'd6YpW93AIdMBso3Z'],
-      ['派拉斯','2014061866529470','279086', 'd6YpW93AIdMBso3Z'], ['比雕','2014061866529500','279117', 'd6YpW93AIdMBso3Z'],
-      ['雷精灵','2014061866529554','279119', 'd6YpW93AIdMBso3Z'], ['皮卡西','2014061866529628','279122', 'd6YpW93AIdMBso3Z'],
-      ['水精灵','2014061866529641','279131', 'd6YpW93AIdMBso3Z'], ['火精灵','2014061866529643','279137', 'd6YpW93AIdMBso3Z'],
-      ['胡地','2014061866529675','279164', 'd6YpW93AIdMBso3Z'], ['风速狗','2014061866529735','279165', 'd6YpW93AIdMBso3Z'],
-      ['喷火龙','2014061866529744','279166', 'd6YpW93AIdMBso3Z'],
-
-      ['钢板', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
-      ['木板', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'], ['石板', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
-      ['铜板', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'], ['铁板', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk'],
+      # ['杰尼龟','2014041855227765','273122', 'd6YpW93AIdMBso3Z'],
+      # ['小火龙','2014042155811563','273419', 'd6YpW93AIdMBso3Z'], ['妙蛙种子','2014052561883286','278956', 'd6YpW93AIdMBso3Z'],
+      # ['绿毛虫','2014061766465489','278958', 'd6YpW93AIdMBso3Z'], ['大针蜂','2014061866519659','278984', 'd6YpW93AIdMBso3Z'],
+      # ['比比鸟','2014061866519756','278986', 'd6YpW93AIdMBso3Z'], ['超音蝠','2014061866528941','279006', 'd6YpW93AIdMBso3Z'],
+      # ['隆隆岩','2014061866529032','279007', 'd6YpW93AIdMBso3Z'], ['大岩蛇','2014061866529097','279009', 'd6YpW93AIdMBso3Z'],
+      # ['乘龙','2014061866529223','279045', 'd6YpW93AIdMBso3Z'], ['耿鬼','2014061866529231','279049', 'd6YpW93AIdMBso3Z'],
+      # ['烈焰马','2014061866529288','279053', 'd6YpW93AIdMBso3Z'], ['吸盘魔偶','2014061866529337','279054', 'd6YpW93AIdMBso3Z'],
+      # ['胖丁','2014061866529346','279080', 'd6YpW93AIdMBso3Z'], ['阿柏蛇','2014061866529379','279081', 'd6YpW93AIdMBso3Z'],
+      # ['椰蛋树','2014061866529407','279083', 'd6YpW93AIdMBso3Z'], ['火爆猴','2014061866529462','279085', 'd6YpW93AIdMBso3Z'],
+      # ['派拉斯','2014061866529470','279086', 'd6YpW93AIdMBso3Z'], ['比雕','2014061866529500','279117', 'd6YpW93AIdMBso3Z'],
+      # ['雷精灵','2014061866529554','279119', 'd6YpW93AIdMBso3Z'], ['皮卡西','2014061866529628','279122', 'd6YpW93AIdMBso3Z'],
+      # ['水精灵','2014061866529641','279131', 'd6YpW93AIdMBso3Z'], ['火精灵','2014061866529643','279137', 'd6YpW93AIdMBso3Z'],
+      # ['胡地','2014061866529675','279164', 'd6YpW93AIdMBso3Z'], ['风速狗','2014061866529735','279165', 'd6YpW93AIdMBso3Z'],
+      # ['喷火龙','2014061866529744','279166', 'd6YpW93AIdMBso3Z'],
+      #
+      # ['钢板', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
+      # ['木板', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'], ['石板', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
+      # ['铜板', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'], ['铁板', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk'],
 
       ['Reao1st','2014021515603023', '264491', 'ekyOlt6j4VLipThy'], ['Reao2nd','2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
       ['R3','2015032863087404', '295303', 'ekyOlt6j4VLipThy'], ['R4','2015072214671030', '297875', 'ekyOlt6j4VLipThy'],
@@ -334,10 +350,12 @@ id = [
       ['鱼丸舰队七纵队','2013112813880453', '249274', 'wALTg8x1Axg8FNIi'], ['鱼丸号战列舰','2013112813880485', '249258', 'wALTg8x1Axg8FNIi'],
       ['鱼丸舰队六纵队','2013112813892037', '249363', 'wALTg8x1Axg8FNIi']
       ]
+
 print '1. 查询基本信息'
 print '2. 查询lls腿毛'
 print '3. 领取全部腿毛'
 print '4. 查询lls积分排名'
+print '5. 送自己体力'
 property = input('查询类型:')
 if property == 1:
     print ('{0: ^18}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^6}{7: ^6}'.format('id', '等级', '金币','晶钻','屌丝券','体力','不明','cost'))
@@ -356,3 +374,17 @@ elif property == 4:
             continue
         else:
             getUserJourneysInfo(UserJourneysInfo)
+elif property == 5:
+    id = [
+        ['#Cm', '2014092692358474', '285154', 'ILjEr8jamXWQSf4v'],
+        ['Em', '2014121327096245', '288121', 'ILjEr8jamXWQSf4v'], ['#Fm', '2015031960117052', '294557', 'ILjEr8jamXWQSf4v'],
+
+        ['樱木', '5047214', '198633', '0jOBCWaqFzYqZsNi'], ['利佐伊', '2013072511431198', '209850', '0jOBCWaqFzYqZsNi'],
+        ['雷贝拉', '2013072511431214', '209852', '0jOBCWaqFzYqZsNi'],
+
+        ['钢板', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
+        ['木板', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'], ['石板', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
+        ['铜板', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'], ['铁板', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk']
+       ]
+    for id1 in id:
+        giveEnergy(*id1)

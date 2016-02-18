@@ -158,9 +158,18 @@ def mapstage(*id1):
                  param0, header1)
     returnstr = conn.getresponse()
     lenth = returnstr.read()
-    # print 'mapstage response:', lenth
-    y = json.loads(lenth)
-    mapstagestatus = y.get('status', 0)
+    if 'message' in lenth:
+        y = json.loads(lenth)
+        message = y.get('message', 0)
+        message = message.encode('utf-8')
+        mapstagestatus = y.get('status', 0)
+        string = '行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!'
+        if mapstagestatus == 0 and cmp(message, string):
+            print id1[0], 'out of power'
+            return lenth, mapstagestatus
+    else:
+        y = json.loads(lenth)
+        mapstagestatus = y.get('status', 0)
     conn.close()
     list = lenth, mapstagestatus
     return list
@@ -206,16 +215,35 @@ id = [
       ['胡地','2014061866529675','279164', 'd6YpW93AIdMBso3Z'], ['风速狗','2014061866529735','279165', 'd6YpW93AIdMBso3Z'],
       ['喷火龙','2014061866529744','279166', 'd6YpW93AIdMBso3Z'],
 
-      ['Reao1st','2014021515603023', '264491', 'ekyOlt6j4VLipThy'], ['Reao2nd','2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
-      ['R3','2015032863087404', '295303', 'ekyOlt6j4VLipThy'], ['R4','2015072214671030', '297875', 'ekyOlt6j4VLipThy'],
-      ['R5','2015072214675611', '297876', 'ekyOlt6j4VLipThy'], ['小小主','59079768', '289074', 'lVMmfvcdVHKt1OeA']
+      # ['Reao1st','2014021515603023', '264491', 'ekyOlt6j4VLipThy'], ['Reao2nd','2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
+      # ['R3','2015032863087404', '295303', 'ekyOlt6j4VLipThy'], ['R4','2015072214671030', '297875', 'ekyOlt6j4VLipThy'],
+      # ['R5','2015072214675611', '297876', 'ekyOlt6j4VLipThy'], ['小小主','59079768', '289074', 'lVMmfvcdVHKt1OeA'],
+
+      # ['鱼丸号旗舰','2013042910219954', '132168', 'wALTg8x1Axg8FNIi'], ['鱼丸号巡洋舰','2013050510338482', '138002', 'wALTg8x1Axg8FNIi'],
+      # ['鱼丸号驱逐舰','2013051110431066', '144222', 'wALTg8x1Axg8FNIi'], ['鱼丸号护卫舰','2013072911496244', '213117', 'wALTg8x1Axg8FNIi'],
+      # ['鱼丸号炮舰','2013072911496578', '213119', 'wALTg8x1Axg8FNIi'], ['鱼丸号潜水艇','2013082111852712', '223399', 'wALTg8x1Axg8FNIi'],
+      # ['鱼丸洲际导弹','2013110613340617', '244513', 'wALTg8x1Axg8FNIi'], ['鱼丸舰队五纵队','2013112813880389', '249308', 'wALTg8x1Axg8FNIi'],
+      # ['鱼丸舰队四纵队','2013112813880397', '249307', 'wALTg8x1Axg8FNIi'], ['鱼丸舰队三纵队','2013112813880401', '249306', 'wALTg8x1Axg8FNIi'],
+      # ['鱼丸舰队二纵队','2013112813880408', '249303', 'wALTg8x1Axg8FNIi'], ['鱼丸舰队一纵队','2013112813880415', '249301', 'wALTg8x1Axg8FNIi'],
+      # ['鱼丸舰队七纵队','2013112813880453', '249274', 'wALTg8x1Axg8FNIi'], ['鱼丸号战列舰','2013112813880485', '249258', 'wALTg8x1Axg8FNIi'],
+      # ['鱼丸舰队六纵队','2013112813892037', '249363', 'wALTg8x1Axg8FNIi'],
+
+      # ['jinxiaoxi', '2014011514924154', '289074', 'TqctVYyZJmA6JrGC'],
+      # ['jinxiaoxiaoxi', '2014021715652853', '265008', 'TqctVYyZJmA6JrGC'],
+      # ['jinxiaoxiaoxiaoxi', '2015010132895122', '289017', 'TqctVYyZJmA6JrGC'],
+      # ['jinxixi', '2015011837740716', '289647', 'TqctVYyZJmA6JrGC'],
+      # ['jinxiaoxixi', '2015013142224275', '290057', 'TqctVYyZJmA6JrGC'],
+      # ['hong', '2015052882084219', '296351', 'TqctVYyZJmA6JrGC'],
+      # ['cong', '2015052882088503', '296352', 'TqctVYyZJmA6JrGC'],
+      # ['feng', '2015052882090943', '296354', 'TqctVYyZJmA6JrGC'],
+      # ['yu', '2015052882090503', '296353', 'v1soiQ8I8RgIvg2p'],
       ]
 for id1 in id:
     thievesinfo = GetThieves(*id1)
     thief = ExistThief(thievesinfo)
     thievesfightCD = thief[1]    #打贼cd时间
     if thief[0] == 1:
-        # print id1[0],'不需探索'
+        print id1[0],'不需探索'
         continue
     else:
         # print id1[0],'可以探索'
