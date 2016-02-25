@@ -2,7 +2,7 @@
 import httplib
 import time
 import json
-
+from id import id4
 
 def con(uid):
     header1 = {'Host': 'master.xiaomi.mysticalcard.com', 'Cookie': '_sid=57t4jueeikn507j59png1gq7q1',
@@ -103,19 +103,7 @@ def reset_tower(*id1):
         conn.close()
 
 
-id = [
-      ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
-      ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
-      ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
-      ['Ó£Ä¾»¨µÀ', '5047214', '198633', '0niwv4OngcXD5tXg'],
-      ['Àû×ôÒÁ', '2013072511431198', '209850', '0niwv4OngcXD5tXg'],
-      ['À×±´À­', '2013072511431214', '209852', '0niwv4OngcXD5tXg'],
-      ['¸Ö°å', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
-      ['Ä¾°å', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'],
-      ['Ê¯°å', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
-      ['Í­°å', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'],
-      ['Ìú°å', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk']
-     ]
+id = id4()
 for id1 in id:
     reset_tower(*id1)
     time.sleep(0.1)

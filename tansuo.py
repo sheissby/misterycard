@@ -4,7 +4,7 @@ import json
 import StringIO
 import gzip
 import time
-
+from id import id4
 
 def con(uid):
     header1 = {'Host': 'master.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
@@ -124,7 +124,6 @@ def ExistThief(thievesinfo):
     Countdown = thievesinfo.get('data', 0).get('Countdown', 0)
     currentuid = id1[0]
     currentuid = currentuid.decode('GBK')
-    a = 0
     for a in Thievesinfo:
         thievesNickName = a.get('NickName', 0)
         thievesstatus = a.get('Status', 0)
@@ -150,7 +149,7 @@ def mapstage(*id1):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    param0 = "MapStageDetailId=70"
+    param0 = "MapStageDetailId=72"
     conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
     conn.request("POST",
                  "/mapstage.php?do=Explore&v=4581&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1"
@@ -158,8 +157,8 @@ def mapstage(*id1):
                  param0, header1)
     returnstr = conn.getresponse()
     lenth = returnstr.read()
-    print 'mapstage response:', lenth
-    print 'mapstage response:', len(lenth)
+    # print 'mapstage response:', lenth
+    # print 'mapstage response:', len(lenth)
     y = json.loads(lenth)
     mapstagestatus = y.get('status', 0)
     conn.close()
@@ -191,36 +190,46 @@ def thievesfight(userthievesid):
     conn.close()
 
 # 账户列表
-id = [['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
-      ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
-      ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
-      ['樱木花道', '5047214', '198633', '0niwv4OngcXD5tXg'],
-      ['利佐伊', '2013072511431198', '209850', '0niwv4OngcXD5tXg'],
-      ['雷贝拉', '2013072511431214', '209852', '0niwv4OngcXD5tXg'],
-      # ['赤刀', '26402923', '283622', 'jAKPM8ITjIyHr5At'],
-      # ['骷髅大王出货了', '2014082282360039', '283647', 'jAKPM8ITjIyHr5At'] ,
-      # ['獠牙', '2014082382723128', '283732', 'jAKPM8ITjIyHr5At'],
-      # ['血刃', '2014082382762366', '283739', 'jAKPM8ITjIyHr5At'],
-      # ['军刺', '2014082382896209', '283757', 'jAKPM8ITjIyHr5At'],
-      # ['袖箭', '2014082382896212', '283765', 'jAKPM8ITjIyHr5At']
-      ['钢板', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
-      ['木板', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'],
-      ['石板', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
-      ['铜板', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'],
-      ['铁板', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk']
-      ]
+id = id4()
 alwaystansuo = raw_input('有贼是否探索：1.否 2.是：')
 if alwaystansuo.strip() == '' or not alwaystansuo.isdigit():
     print 'error'
 else:
     for id1 in id:
-        print id1
+        # print id1
         thievesinfo = GetThieves(*id1)
         thief = ExistThief(thievesinfo)
         thievesfightCD = thief[1]    #打贼cd时间
         if thief[0] == 1 and alwaystansuo == '1':
-            # print id1[0],'不需探索'
+            print id1[0],'不需探索'
             continue
+        elif alwaystansuo == '2':
+            lenth1, status1 = mapstage(*id1)
+            lenth1 = ''
+            status1 = 1
+            while len(lenth1) < 400 and status1 == 1:
+                lenth1, status1 = mapstage(*id1)
+                if status1 == 0:  # status=0表示探索失败，跳出本次循环
+                    break
+                else:
+                    if len(lenth1) > 400:    #  返回值长度大于400，表示有盗贼
+                        y = json.loads(lenth1)
+                        # 获得盗贼类型
+                        Type = y.get('data', 0).get('ThievesInfo', 0).get('Type', 0)
+                        userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
+                        if Type == 2:
+                            print id1[0], '出现精英盗贼'
+                            if thievesfightCD <= 0:
+                                thievesfight(userthievesid)    # 出现精英盗贼自动攻击
+                            else:
+                                print id1[0], '打贼cd中......'
+                        else:
+                            print id1[0], '出现普通盗贼'
+                            if thievesfightCD <= 0:
+                                thievesfight(userthievesid)
+                            else:
+                                print id1[0], '打贼cd中......'
+                    lenth1 = 'go on'
         else:
             # print id1[0],'可以探索'
             lenth1 = ''
@@ -248,5 +257,4 @@ else:
                             else:
                                 print id1[0], '打贼cd中......'
                         break
-            time.sleep(0.1)
 raw_input('End')

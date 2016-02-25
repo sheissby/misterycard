@@ -2,6 +2,7 @@
 import httplib
 import time
 import json
+from id import id4
 
 
 def con(uid):
@@ -16,24 +17,26 @@ def con(uid):
     sessionid = '&sessionid=' + id1[3]
     param0 = "Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1 + sessionid
     con_status = 0
+    conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     while con_status == 0:
-        conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
-        conn.request("POST",
-                     "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                     param0, header1)
-        res = conn.getresponse()
-        x = res.read()
-        if len(x) != 0:
-            y = json.loads(x)
-            con_status = y.get('status', 0)
-        else:
-            con_status = 0
+        try:
+            conn.request("POST",
+                         "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
+                         param0, header1)
+            res = conn.getresponse()
+            x = res.read()
+            if res.status == 502:
+                print 'bad gateway'
+                con_status = 0
+            elif 'message' in x:
+                con_status = 0
+            else:
+                y = json.loads(x)
+                con_status = y.get('status', 0)
+        except httplib.error, e:
+            print e
     print id1[0], 'con success'
-    ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
-    sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
-    times = y.get('data', 0).get('uinfo', 0).get('time', 0)
     return y
-    conn.close()
 
 
 def con_log(*id1):
@@ -129,25 +132,7 @@ def play_tower(*id1):
                 time.sleep(0.1)
 
 
-id = [#['Am','1592626','279696', 'tbmXwubvxzvP4nHa'],
-      ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
-      ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
-      ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
-      ['Ó£Ä¾»¨µÀ', '5047214', '198633', '0niwv4OngcXD5tXg'],
-      ['Àû×ôÒÁ', '2013072511431198', '209850', '0niwv4OngcXD5tXg'],
-      ['À×±´À­', '2013072511431214', '209852', '0niwv4OngcXD5tXg'],
-      # ['³àµ¶', '26402923', '283622', 'jAKPM8ITjIyHr5At'],
-      # ['÷¼÷Ã´óÍõ³ö»õÁË', '2014082282360039', '283647', 'jAKPM8ITjIyHr5At'] ,
-      # ['â²ÑÀ', '2014082382723128', '283732', 'jAKPM8ITjIyHr5At'],
-      # ['ÑªÈÐ', '2014082382762366', '283739', 'jAKPM8ITjIyHr5At'],
-      # ['¾ü´Ì', '2014082382896209', '283757', 'jAKPM8ITjIyHr5At'],
-      # ['Ðä¼ý', '2014082382896212', '283765', 'jAKPM8ITjIyHr5At']
-      ['¸Ö°å', '3586030', '212385', 'fgTUvLEu1B3rVcUk'],
-      ['Ä¾°å', '2013082711940981', '225069', 'fgTUvLEu1B3rVcUk'],
-      ['Ê¯°å', '2013083112015559', '226603', 'fgTUvLEu1B3rVcUk'],
-      ['Í­°å', '2013100612632387', '234854', 'fgTUvLEu1B3rVcUk'],
-      ['Ìú°å', '2013100912693148', '236003', 'fgTUvLEu1B3rVcUk']
-      ]
+id = id4()
 for id1 in id:
     play_tower(*id1)
 raw_input('The End')
