@@ -1,4 +1,4 @@
-# encoding:GBK
+# encoding:utf-8
 import httplib
 import json
 import StringIO
@@ -80,7 +80,7 @@ def con_log(*id1):
     conn.close()
 
 
-# µÃµ½µÁÔôĞÅÏ¢
+# å¾—åˆ°ç›—è´¼ä¿¡æ¯
 def GetThieves(*id1):
     con_log(*id1)
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
@@ -118,25 +118,25 @@ def GetThieves(*id1):
     conn.close()
 
 
-# ·µ»Ø0±íÊ¾Ã»ÓĞÔô£¬¿ÉÒÔÌ½Ë÷£»·µ»Ø1±íÊ¾ÓĞÔô£¬²»ĞèÌ½Ë÷
+# è¿”å›0è¡¨ç¤ºæ²¡æœ‰è´¼ï¼Œå¯ä»¥æ¢ç´¢ï¼›è¿”å›1è¡¨ç¤ºæœ‰è´¼ï¼Œä¸éœ€æ¢ç´¢
 def ExistThief(thievesinfo):
     Thievesinfo = thievesinfo.get('data', 0).get('Thieves', 0)
     Countdown = thievesinfo.get('data', 0).get('Countdown', 0)
     currentuid = id1[0]
-    currentuid = currentuid.decode('GBK')
+    currentuid = currentuid.decode('utf-8')
     for a in Thievesinfo:
         thievesNickName = a.get('NickName', 0)
         thievesstatus = a.get('Status', 0)
         thievesfleetime = a.get('FleeTime', 0)
         thieveshpcurrent = a.get('HPCurrent', 0)
-        # ÅĞ¶ÏÓĞÔôÎ´ËÀ»òÓĞÔôÎ´ÅÜ£¬²»ĞèÌ½Ë÷
+        # åˆ¤æ–­æœ‰è´¼æœªæ­»æˆ–æœ‰è´¼æœªè·‘ï¼Œä¸éœ€æ¢ç´¢
         if (thievesNickName == currentuid and thievesstatus == 1 and thieveshpcurrent > 0 and thievesfleetime > 0) \
                 or (thievesNickName == currentuid and thievesstatus == 0 and thievesfleetime > 0):
             return 1, Countdown
     return 0, Countdown
 
 
-# ½øĞĞÌ½Ë÷
+# è¿›è¡Œæ¢ç´¢
 def mapstage(*id1):
     con_log(*id1)
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
@@ -166,7 +166,7 @@ def mapstage(*id1):
     return list
 
 
-# ¹¥»÷µÁÔô
+# æ”»å‡»ç›—è´¼
 def thievesfight(userthievesid):
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
                'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, '
@@ -178,7 +178,7 @@ def thievesfight(userthievesid):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    # ½«userthievesid×ªÎªstringÀàĞÍ
+    # å°†userthievesidè½¬ä¸ºstringç±»å‹
     struserthievesid = str(userthievesid)
     thievesid = '&UserThievesId=' + struserthievesid
     param0 = 'OpenCardChip=1' + thievesid
@@ -189,9 +189,9 @@ def thievesfight(userthievesid):
                  param0, header1)
     conn.close()
 
-# ÕË»§ÁĞ±í
+# è´¦æˆ·åˆ—è¡¨
 id = id4()
-alwaystansuo = raw_input('ÓĞÔôÊÇ·ñÌ½Ë÷£º1.·ñ 2.ÊÇ£º')
+alwaystansuo = raw_input('æœ‰è´¼æ˜¯å¦æ¢ç´¢ï¼š1.å¦ 2.æ˜¯ï¼š')
 if alwaystansuo.strip() == '' or not alwaystansuo.isdigit():
     print 'error'
 else:
@@ -199,9 +199,9 @@ else:
         # print id1
         thievesinfo = GetThieves(*id1)
         thief = ExistThief(thievesinfo)
-        thievesfightCD = thief[1]    #´òÔôcdÊ±¼ä
+        thievesfightCD = thief[1]    #æ‰“è´¼cdæ—¶é—´
         if thief[0] == 1 and alwaystansuo == '1':
-            print id1[0],'²»ĞèÌ½Ë÷'
+            print id1[0],'ä¸éœ€æ¢ç´¢'
             continue
         elif alwaystansuo == '2':
             lenth1, status1 = mapstage(*id1)
@@ -209,52 +209,52 @@ else:
             status1 = 1
             while len(lenth1) < 400 and status1 == 1:
                 lenth1, status1 = mapstage(*id1)
-                if status1 == 0:  # status=0±íÊ¾Ì½Ë÷Ê§°Ü£¬Ìø³ö±¾´ÎÑ­»·
+                if status1 == 0:  # status=0è¡¨ç¤ºæ¢ç´¢å¤±è´¥ï¼Œè·³å‡ºæœ¬æ¬¡å¾ªç¯
                     break
                 else:
-                    if len(lenth1) > 400:    #  ·µ»ØÖµ³¤¶È´óÓÚ400£¬±íÊ¾ÓĞµÁÔô
+                    if len(lenth1) > 400:    #  è¿”å›å€¼é•¿åº¦å¤§äº400ï¼Œè¡¨ç¤ºæœ‰ç›—è´¼
                         y = json.loads(lenth1)
-                        # »ñµÃµÁÔôÀàĞÍ
+                        # è·å¾—ç›—è´¼ç±»å‹
                         Type = y.get('data', 0).get('ThievesInfo', 0).get('Type', 0)
                         userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                         if Type == 2:
-                            print id1[0], '³öÏÖ¾«Ó¢µÁÔô'
+                            print id1[0], 'å‡ºç°ç²¾è‹±ç›—è´¼'
                             if thievesfightCD <= 0:
-                                thievesfight(userthievesid)    # ³öÏÖ¾«Ó¢µÁÔô×Ô¶¯¹¥»÷
+                                thievesfight(userthievesid)    # å‡ºç°ç²¾è‹±ç›—è´¼è‡ªåŠ¨æ”»å‡»
                             else:
-                                print id1[0], '´òÔôcdÖĞ......'
+                                print id1[0], 'æ‰“è´¼cdä¸­......'
                         else:
-                            print id1[0], '³öÏÖÆÕÍ¨µÁÔô'
+                            print id1[0], 'å‡ºç°æ™®é€šç›—è´¼'
                             if thievesfightCD <= 0:
                                 thievesfight(userthievesid)
                             else:
-                                print id1[0], '´òÔôcdÖĞ......'
+                                print id1[0], 'æ‰“è´¼cdä¸­......'
                     lenth1 = 'go on'
         else:
-            # print id1[0],'¿ÉÒÔÌ½Ë÷'
+            # print id1[0],'å¯ä»¥æ¢ç´¢'
             lenth1 = ''
             status1 = 1
             while len(lenth1) < 400 and status1 == 1:
                 lenth1, status1 = mapstage(*id1)
-                if status1 == 0:  # status=0±íÊ¾Ì½Ë÷Ê§°Ü£¬Ìø³ö±¾´ÎÑ­»·
+                if status1 == 0:  # status=0è¡¨ç¤ºæ¢ç´¢å¤±è´¥ï¼Œè·³å‡ºæœ¬æ¬¡å¾ªç¯
                     break
                 else:
-                    if len(lenth1) > 400:    #  ·µ»ØÖµ³¤¶È´óÓÚ400£¬±íÊ¾ÓĞµÁÔô
+                    if len(lenth1) > 400:    #  è¿”å›å€¼é•¿åº¦å¤§äº400ï¼Œè¡¨ç¤ºæœ‰ç›—è´¼
                         y = json.loads(lenth1)
-                        # »ñµÃµÁÔôÀàĞÍ
+                        # è·å¾—ç›—è´¼ç±»å‹
                         Type = y.get('data', 0).get('ThievesInfo', 0).get('Type', 0)
                         userthievesid = y.get('data', 0).get('ThievesInfo', 0).get('UserThievesId', 0)
                         if Type == 2:
-                            print id1[0], '³öÏÖ¾«Ó¢µÁÔô'
+                            print id1[0], 'å‡ºç°ç²¾è‹±ç›—è´¼'
                             if thievesfightCD <= 0:
-                                thievesfight(userthievesid)    # ³öÏÖ¾«Ó¢µÁÔô×Ô¶¯¹¥»÷
+                                thievesfight(userthievesid)    # å‡ºç°ç²¾è‹±ç›—è´¼è‡ªåŠ¨æ”»å‡»
                             else:
-                                print id1[0], '´òÔôcdÖĞ......'
+                                print id1[0], 'æ‰“è´¼cdä¸­......'
                         else:
-                            print id1[0], '³öÏÖÆÕÍ¨µÁÔô'
+                            print id1[0], 'å‡ºç°æ™®é€šç›—è´¼'
                             if thievesfightCD <= 0:
                                 thievesfight(userthievesid)
                             else:
-                                print id1[0], '´òÔôcdÖĞ......'
+                                print id1[0], 'æ‰“è´¼cdä¸­......'
                         break
 raw_input('End')

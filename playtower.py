@@ -1,4 +1,4 @@
-# encoding:GBK
+# encoding:utf-8
 import httplib
 import time
 import json

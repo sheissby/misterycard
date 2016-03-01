@@ -1,4 +1,4 @@
-# encoding:GBK
+# encoding:utf-8
 import httplib
 import json
 import StringIO
@@ -81,7 +81,7 @@ def con_log(*id1):
     # print id1[0], 'con_log success!'
     conn.close()
 
-#»ñÈ¡¸öÈË»ù±¾ĞÅÏ¢
+#è·å–ä¸ªäººåŸºæœ¬ä¿¡æ¯
 def GetUserInfo(*id1):
     con_log(*id1)
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
@@ -116,26 +116,26 @@ def GetUserInfo(*id1):
     conn.close()
     return userinfojson
 
-#½âÎö¸öÈË»ù±¾ĞÅÏ¢
+#è§£æä¸ªäººåŸºæœ¬ä¿¡æ¯
 def basicInfo(*id1):
     userinfo = GetUserInfo(*id1)
-    userLevel = userinfo.get('data', 0).get('Level', 0)    #µÈ¼¶
-    userCoins = userinfo.get('data', 0).get('Coins', 0)    #½ğ±Ò
-    userCash = userinfo.get('data', 0).get('Cash', 0)      #¾§×ê
-    userTicket = userinfo.get('data', 0).get('Ticket', 0)  #ŒÅË¿È¯
-    userEnergy = userinfo.get('data', 0).get('Energy', 0)  #ÌåÁ¦
-    userThievesTimes = userinfo.get('data', 0).get('ThievesTimes', 0) #²»Ã÷
-    userName = userinfo.get('data', 0).get('NickName', 0)  #ÓÎÏ·Ãû×Ö
+    userLevel = userinfo.get('data', 0).get('Level', 0)    #ç­‰çº§
+    userCoins = userinfo.get('data', 0).get('Coins', 0)    #é‡‘å¸
+    userCash = userinfo.get('data', 0).get('Cash', 0)      #æ™¶é’»
+    userTicket = userinfo.get('data', 0).get('Ticket', 0)  #å±Œä¸åˆ¸
+    userEnergy = userinfo.get('data', 0).get('Energy', 0)  #ä½“åŠ›
+    userThievesTimes = userinfo.get('data', 0).get('ThievesTimes', 0) #ä¸æ˜
+    userName = userinfo.get('data', 0).get('NickName', 0)  #æ¸¸æˆåå­—
     # userPrevExp = userinfo.get('data', 0).get('PrevExp', 0)
     # userNextExp = userinfo.get('data', 0).get('NextExp', 0)
     # LevelUpExp = int(userNextExp) - int(userPrevExp)
     LeaderShip = userinfo.get('data', 0).get('LeaderShip', 0)  #Cost
     # print id1[0], userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip
-    print('{0: ^18}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^5}{7: ^6}'
+    print('{0: ^18}{1: ^5}{2: ^15}{3: ^8}{4: ^8}{5: ^5}{6: ^5}{7: ^6}'
           .format(id1[0], userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip))
     # print userName
 
-#»ñÈ¡ºÃÓÑÍÈÃ«ĞÅÏ¢
+#è·å–å¥½å‹è…¿æ¯›ä¿¡æ¯
 def GetFriendContributeList(*id1):
     con_log(*id1)
     url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=GetFriendContributeList&v=8501&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
@@ -157,14 +157,14 @@ def GetFriendContributeList(*id1):
             compressedstream = StringIO.StringIO(compresseddata)
             gzipper = gzip.GzipFile(fileobj=compressedstream)
             data = gzipper.read()
-            if 'message' in data:           #·ÇÕı³£·µ»ØÖµ
+            if 'message' in data:           #éæ­£å¸¸è¿”å›å€¼
                 Contribute = json.loads(data)
                 ContributeStatus = Contribute.get('status', 0)
                 Contributemessage = Contribute.get('message', 0)
-                if ContributeStatus == 0 and cmp(Contributemessage.encode('utf-8'), '»î¶¯Î´¿ªÆô'):  #ÎŞ·¨²Î¼Ó»î¶¯
+                if ContributeStatus == 0 and cmp(Contributemessage.encode('utf-8'), 'æ´»åŠ¨æœªå¼€å¯'):  #æ— æ³•å‚åŠ æ´»åŠ¨
                     return 0
                 else:
-                    print 'ÕâÊÇÊ²Ã´Çé¿ö' #Î´¼û¹ıµÄ·µ»ØÖµ
+                    print 'è¿™æ˜¯ä»€ä¹ˆæƒ…å†µ' #æœªè§è¿‡çš„è¿”å›å€¼
                     return 0
             else:
                 Contribute = json.loads(data)
@@ -175,28 +175,28 @@ def GetFriendContributeList(*id1):
                 Contribute = json.loads(data)
                 ContributeStatus = Contribute.get('status', 0)
                 Contributemessage = Contribute.get('message', 0)
-                if ContributeStatus == 0 and cmp(Contributemessage.encode('utf-8'), '»î¶¯Î´¿ªÆô'):
+                if ContributeStatus == 0 and cmp(Contributemessage.encode('utf-8'), 'æ´»åŠ¨æœªå¼€å¯'):
                     return 0
                 else:
-                    print 'ÕâÊÇÊ²Ã´Çé¿ö'
+                    print 'è¿™æ˜¯ä»€ä¹ˆæƒ…å†µ'
                     return 0
             else:
                 Contribute = json.loads(data)
                 ContributeStatus = Contribute.get('status', 0)
     return Contribute
 
-#½âÎöºÃÓÑÍÈÃ«ĞÅÏ¢
+#è§£æå¥½å‹è…¿æ¯›ä¿¡æ¯
 def getFriendContribute(*id1):
-    friendidAndpointAll = []      #ËùÓĞºÃÓÑid£¬·ÖÊı¼¯ºÏ
+    friendidAndpointAll = []      #æ‰€æœ‰å¥½å‹idï¼Œåˆ†æ•°é›†åˆ
     sum = 0
     FriendContribute = GetFriendContributeList(*id1)
     if FriendContribute == 0:
         if property == 2:
-            print id1[0], 'ÎŞ·¨²Î¼Ó»î¶¯'
+            print id1[0], 'æ— æ³•å‚åŠ æ´»åŠ¨'
     else:
         ContributeList = FriendContribute.get('data', 0).get('friendPointsList', 0)
         for friendPointsList in ContributeList:
-            friendidAndpoint = []          #Ã¿¸öºÃÓÑid£¬·ÖÊı¼¯ºÏ
+            friendidAndpoint = []          #æ¯ä¸ªå¥½å‹idï¼Œåˆ†æ•°é›†åˆ
             friendId = friendPointsList.get('friendId', 0)
             contributePoint = friendPointsList.get('contributePoint', 0)
             nickName = friendPointsList.get('nickName', 0)
@@ -210,7 +210,7 @@ def getFriendContribute(*id1):
             print id1[0], sum
     return friendidAndpointAll, sum
 
-#ÁìÈ¡ºÃÓÑÍÈÃ«
+#é¢†å–å¥½å‹è…¿æ¯›
 def GetContributePoints(friendidAndpontList, sum):
     con_log(*id1)
     for FriendContributeId in friendidAndpontList:
@@ -238,9 +238,9 @@ def GetContributePoints(friendidAndpontList, sum):
                 data = response.read()
                 GetPointsStatus = json.loads(data)
                 GetPointsStatus = GetPointsStatus.get('status', 0)
-    print id1[0], 'ÁìÈ¡', sum
+    print id1[0], 'é¢†å–', sum
 
-#»ñÈ¡¸öÈËllsĞÅÏ¢
+#è·å–ä¸ªäººllsä¿¡æ¯
 def GetUserJourneysStatus(*id1):
     con_log(*id1)
     url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=GetUserJourneysStatus&v=4701&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
@@ -262,7 +262,7 @@ def GetUserJourneysStatus(*id1):
             compressedstream = StringIO.StringIO(compresseddata)
             gzipper = gzip.GzipFile(fileobj=compressedstream)
             data = gzipper.read()
-            if 'message' in data:           #·ÇÕı³£·µ»ØÖµ
+            if 'message' in data:           #éæ­£å¸¸è¿”å›å€¼
                 print 'error'
                 return 0
             else:
@@ -279,17 +279,17 @@ def GetUserJourneysStatus(*id1):
     return UserJourneys
 
 
-#½âÎö¸öÈËllsĞÅÏ¢
+#è§£æä¸ªäººllsä¿¡æ¯
 def getUserJourneysInfo(UserJourneysInfo):
     data = UserJourneysInfo.get('data', 0).get('journeyList', 0)
-    userpoint = data.get('userPoints', 0)    #¸öÈËlls»ı·Ö
-    userrank = data.get('userPointRank', 0)  #¸öÈËllsÅÅÃû
+    userpoint = data.get('userPoints', 0)    #ä¸ªäººllsç§¯åˆ†
+    userrank = data.get('userPointRank', 0)  #ä¸ªäººllsæ’å
     type = data.get('nextPointAward', 0).get('type', 0)
     value = data.get('nextPointAward', 0).get('value', 0)
     print ('{0: ^8}{1: ^10}{2: ^5}' .format(id1[0], userpoint, userrank))
 
 
-# ËÍ×Ô¼ºÌåÁ¦
+# é€è‡ªå·±ä½“åŠ›
 def giveEnergy(*id1):
     con_log(*id1)
     url = 'http://s1.xiaomi.mysticalcard.com/fenergy.php?do=SendFEnergy&v=2007&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
@@ -308,22 +308,22 @@ def giveEnergy(*id1):
 
 id = id3()
 
-print '1. ²éÑ¯»ù±¾ĞÅÏ¢'
-print '2. ²éÑ¯llsÍÈÃ«'
-print '3. ÁìÈ¡È«²¿ÍÈÃ«'
-print '4. ²éÑ¯lls»ı·ÖÅÅÃû'
-print '5. ËÍ×Ô¼ºÌåÁ¦'
-property = input('²éÑ¯ÀàĞÍ:')
+print '1. æŸ¥è¯¢åŸºæœ¬ä¿¡æ¯'
+print '2. æŸ¥è¯¢llsè…¿æ¯›'
+print '3. é¢†å–å…¨éƒ¨è…¿æ¯›'
+print '4. æŸ¥è¯¢llsç§¯åˆ†æ’å'
+print '5. é€è‡ªå·±ä½“åŠ›'
+property = input('æŸ¥è¯¢ç±»å‹:')
 if property == 1:
-    print ('{0: ^18}{1: ^5}{2: ^11}{3: ^8}{4: ^8}{5: ^5}{6: ^6}{7: ^6}'.format('id', 'µÈ¼¶', '½ğ±Ò','¾§×ê','ŒÅË¿È¯','ÌåÁ¦','²»Ã÷','cost'))
+    print ('{0: ^18}{1: ^7}{2: ^18}{3: ^8}{4: ^12}{5: ^10}{6: ^10}{7: ^10}'.format('id', 'ç­‰çº§', 'é‡‘å¸','æ™¶é’»','å±Œä¸åˆ¸','ä½“åŠ›','ä¸æ˜','cost'))
     for id1 in id:
         basicInfo(*id1)
 elif property == 2 or property == 3:
     AllfriendidAndpointList = []
     for id1 in id:
-        AllfriendidAndpointList, sum = getFriendContribute(*id1)   #»ñµÃÍÈÃ«ÁĞ±í
+        AllfriendidAndpointList, sum = getFriendContribute(*id1)   #è·å¾—è…¿æ¯›åˆ—è¡¨
         if property == 3:
-            GetContributePoints(AllfriendidAndpointList, sum)         #°ÎÍÈÃ«
+            GetContributePoints(AllfriendidAndpointList, sum)         #æ‹”è…¿æ¯›
 elif property == 4:
     for id1 in id:
         UserJourneysInfo = GetUserJourneysStatus(*id1)

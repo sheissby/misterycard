@@ -1,4 +1,4 @@
-# encoding: GBK
+# encoding: utf-8
 import httplib
 import json
 from id import id2
@@ -91,7 +91,7 @@ def play_tower(*id1):
             param = "Layer=" + ('%d' % layer) + '&MapStageId=' + ('%d' % map_id)
             conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
 
-            # »ñµÃÃ¿²ãĞÅÏ¢
+            # è·å¾—æ¯å±‚ä¿¡æ¯
             while layerinfostatus == 0:
                 try:
                     conn.request("POST",
@@ -106,23 +106,23 @@ def play_tower(*id1):
                         print message
                         break
                 except Exception:
-                    print '»ñµÃÃ¿²ãĞÅÏ¢´íÎó'
+                    print 'è·å¾—æ¯å±‚ä¿¡æ¯é”™è¯¯'
                     layerinfostatus = 0
             if len(layerinfo) == 62:
                 print map_id, 'end'
                 break
             else:
                 y = json.loads(layerinfo)
-                items = y.get('data', 0).get('Map', 0).get('Items', 0)  # ËùÓĞ¸ñ×ÓµÄĞÅÏ¢
-                item = []   # ĞèÒª¹¥»÷µÄ¸ñ×Ó¼¯ºÏ
-                count = 0   # ¼ÆËã¸ñ×ÓºÅ
-                for cords in items:                            # Ñ­»·ËùÓĞ¸ñ×Ó£¬»ñµÃĞèÒª¹¥»÷µÄĞÅÏ¢
+                items = y.get('data', 0).get('Map', 0).get('Items', 0)  # æ‰€æœ‰æ ¼å­çš„ä¿¡æ¯
+                item = []   # éœ€è¦æ”»å‡»çš„æ ¼å­é›†åˆ
+                count = 0   # è®¡ç®—æ ¼å­å·
+                for cords in items:                            # å¾ªç¯æ‰€æœ‰æ ¼å­ï¼Œè·å¾—éœ€è¦æ”»å‡»çš„ä¿¡æ¯
                     cords = int(cords)
                     if cords == 2 or cords == 3 or cords == 5:
-                       item.append(count)                       # Ìí¼Ó¸ñ×ÓºÅµ½¹¥»÷¼¯ºÏ
-                    count = count + 1                           # ¼ÆËãĞèÒª¹¥»÷µÄ¸ñ×ÓºÅ
+                       item.append(count)                       # æ·»åŠ æ ¼å­å·åˆ°æ”»å‡»é›†åˆ
+                    count = count + 1                           # è®¡ç®—éœ€è¦æ”»å‡»çš„æ ¼å­å·
 
-                # ¿ªÊ¼¹¥»÷
+                # å¼€å§‹æ”»å‡»
                 battlestatus = 0
                 for cord in item:
                     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
