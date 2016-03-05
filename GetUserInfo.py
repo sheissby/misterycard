@@ -5,7 +5,7 @@ import StringIO
 import gzip
 import urllib2
 from id import id1
-from id import id3
+
 
 def con(uid, sessionid):
     header1 = {'Host': 'master.xiaomi.mysticalcard.com', 'Cookie': '_sid=57t4jueeikn507j59png1gq7q1',
@@ -306,7 +306,7 @@ def giveEnergy(*id1):
     response = urllib2.urlopen(request)
 
 
-id = id3()
+id = id1()
 
 print '1. 查询基本信息'
 print '2. 查询lls腿毛'
@@ -332,6 +332,5 @@ elif property == 4:
         else:
             getUserJourneysInfo(UserJourneysInfo)
 elif property == 5:
-    id = id1()
     for id1 in id:
         giveEnergy(*id1)
