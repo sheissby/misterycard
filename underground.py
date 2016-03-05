@@ -149,7 +149,7 @@ def fight(*id):
 id = [['2014092692358474', '285154', 'tbmXwubvxzvP4nHa'], ['2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
       ['2015031960117052', '294557', 'tbmXwubvxzvP4nHa'], ['5047214', '198633', 'jlOxpE5vIdZCRceQ'],
       # ['2014082282360039', '283647', 'jAKPM8ITjIyHr5At'],
-      ['3586030', '212385', 'fgTUvLEu1B3rVcUk'],
+      # ['3586030', '212385', 'fgTUvLEu1B3rVcUk'],
       ['2014021515603023', '264491', 'ekyOlt6j4VLipThy'], ['2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
       ['2015032863087404', '295303', 'ekyOlt6j4VLipThy'], ['2015072214671030', '297875', 'ekyOlt6j4VLipThy'],
       ['2015072214675611', '297876', 'ekyOlt6j4VLipThy'], ['59079768', '289074', 'lVMmfvcdVHKt1OeA'],]

@@ -4,7 +4,7 @@ import json
 import StringIO
 import gzip
 import time
-from id import id3
+from id import id1
 
 def con(uid, sessionid):
     header1 = {'Host': 'master.xiaomi.mysticalcard.com', 'Cookie': '_sid=57t4jueeikn507j59png1gq7q1',
@@ -197,7 +197,7 @@ def Worship(*id1):
 
 
 
-id = id3()
+id = id1()
 
 for id1 in id:
     arr = GetUserMapStages(*id1)
