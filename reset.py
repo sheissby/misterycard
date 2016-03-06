@@ -1,4 +1,4 @@
-# encoding:GBK
+# encoding:utf-8
 import requests
 import json
 import time
@@ -17,7 +17,7 @@ def connection(url, data):
             if status == 0:
                 message = jsonresponse.get('message', 0)
                 if message == '':
-                    print 'µÇÂ¼Ê§°Ü'
+                    print 'ç™»å½•å¤±è´¥'
                     time.sleep(1)
                 else:
                     return 1
@@ -70,11 +70,8 @@ def reset_tower(*id1):
         else:
             print id1[0], tower_id, 'reset success'
 
-id = [['#Cm', '2014092692358474', '285154', 'ILjEr8jamXWQSf4v'],
-      ['Em', '2014121327096245', '288121', 'ILjEr8jamXWQSf4v'], ['#Fm', '2015031960117052', '294557', 'ILjEr8jamXWQSf4v'],
+id = [
 
-      ['Ó£Ä¾»¨µÀa', '5047214', '198633', 'jlOxpE5vIdZCRceQ'], ['Àû×ôÒÁ', '2013072511431198', '209850', 'jlOxpE5vIdZCRceQ'],
-      ['À×±´À­', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ']
      ]
 for id1 in id:
     reset_tower(*id1)
