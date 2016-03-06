@@ -1,4 +1,4 @@
-# encoding:GBK
+# encoding:utf-8
 import requests
 import json
 import time
@@ -17,11 +17,11 @@ def connection(url, data):
             if status == 0:
                 message = jsonresponse.get('message', 0)
                 if message == '':
-                    print 'µÇÂ¼Ê§°Ü'
+                    print 'ç™»å½•å¤±è´¥'
                     time.sleep(1)
                 else:
                     print message
-                    return 0
+                    return message
         except requests.ConnectionError, e:
             print e
             status = 0
@@ -60,37 +60,38 @@ def con_log(*id1):
     # print id1[0], 'con_log success!'
 
 
-# »ñµÃÃ¿²ãĞÅÏ¢
+# è·å¾—æ¯å±‚ä¿¡æ¯
 def getlayerinfo(layer, map_id):
-    item = []   # ĞèÒª¹¥»÷µÄ¸ñ×Ó¼¯ºÏ
-    count = 0   # ¼ÆËã¸ñ×ÓºÅ
+    item = []   # éœ€è¦æ”»å‡»çš„æ ¼å­é›†åˆ
+    count = 0   # è®¡ç®—æ ¼å­å·
     data = "Layer=" + ('%d' % layer) + '&MapStageId=' + ('%d' % map_id)
+    print ('%d' % map_id), 'å¡”' + ('%d' % layer), 'å±‚'
     url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Info&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
     jsonresponse = connection(url, data)
-    if jsonresponse == 0:
+    if jsonresponse == u'ä¸Šä¸€å±‚è¿·å®«è¿˜æ²¡æ‰“å®Œå‘¢!':
         return
     else:
-        items = jsonresponse.get('data', 0).get('Map', 0).get('Items', 0)  # ËùÓĞ¸ñ×ÓµÄĞÅÏ¢
-        for cords in items:                            # Ñ­»·ËùÓĞ¸ñ×Ó£¬»ñµÃĞèÒª¹¥»÷µÄĞÅÏ¢
+        items = jsonresponse.get('data', 0).get('Map', 0).get('Items', 0)  # æ‰€æœ‰æ ¼å­çš„ä¿¡æ¯
+        for cords in items:                            # å¾ªç¯æ‰€æœ‰æ ¼å­ï¼Œè·å¾—éœ€è¦æ”»å‡»çš„ä¿¡æ¯
             cords = int(cords)
             if cords == 2 or cords == 3 or cords == 5:
-                item.append(count)                       # Ìí¼Ó¸ñ×ÓºÅµ½¹¥»÷¼¯ºÏ
-            count += 1                           # ¼ÆËãĞèÒª¹¥»÷µÄ¸ñ×ÓºÅ
+                item.append(count)                       # æ·»åŠ æ ¼å­å·åˆ°æ”»å‡»é›†åˆ
+            count += 1                           # è®¡ç®—éœ€è¦æ”»å‡»çš„æ ¼å­å·
         return item
 
 
-# ½øĞĞ¹¥»÷
+# è¿›è¡Œæ”»å‡»
 def fight(layer, map_id, item):
     for cord in item:
         fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
         url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
         jsonresponse = connection(url, fightdata)
-        if jsonresponse == u'ĞĞ¶¯Á¦²»×ã!Ã¿10·ÖÖÓ¿É»Ö¸´1µã!ÄúÒ²¿ÉÒÔÊ¹ÓÃ¾§×ê¹ºÂòĞĞ¶¯Á¦Å¶!':
-            print ('out of power!')
+        if jsonresponse == u'è¡ŒåŠ¨åŠ›ä¸è¶³!æ¯10åˆ†é’Ÿå¯æ¢å¤1ç‚¹!æ‚¨ä¹Ÿå¯ä»¥ä½¿ç”¨æ™¶é’»è´­ä¹°è¡ŒåŠ¨åŠ›å“¦!':
+            # print ('out of power!')
             return 0
 
 
-# Ñ­»·Ë¢Ëş
+# å¾ªç¯åˆ·å¡”
 def play_tower(*id1):
     for map_id in [8, 7, 6]:
         for layer in range(1, 6):
@@ -102,17 +103,15 @@ def play_tower(*id1):
                     if fightresult == 0:
                         return
                 except Exception:
-                    fight(layer, map_id, item)
+                    fightresult = fight(layer, map_id, item)
                     if fightresult == 0:
                         return
+            else:
+                return
 
 
 id = [
-      ['#Cm', '2014092692358474', '285154', 'ILjEr8jamXWQSf4v'],
-      ['Em', '2014121327096245', '288121', 'ILjEr8jamXWQSf4v'], ['#Fm', '2015031960117052', '294557', 'ILjEr8jamXWQSf4v'],
 
-      ['Ó£Ä¾»¨µÀa', '5047214', '198633', 'jlOxpE5vIdZCRceQ'], ['Àû×ôÒÁ', '2013072511431198', '209850', 'jlOxpE5vIdZCRceQ'],
-      ['À×±´À­', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ']
       ]
 for id1 in id:
     print id1[0], 'start'
