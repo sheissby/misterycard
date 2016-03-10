@@ -1,4 +1,6 @@
+# encoding:utf-8
 import httplib,json, StringIO, gzip
+from id import id4
 
 
 def con(uid, sessionid):
@@ -34,9 +36,9 @@ def con(uid, sessionid):
 
 
 def con_log(*id):
-    uid = id1[0]
-    Muid = id1[1]
-    sessionid = id1[2]
+    uid = id1[1]
+    Muid = id1[2]
+    sessionid = id1[3]
     y = con(uid, sessionid)
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
@@ -145,14 +147,14 @@ def fight(*id):
         print layer
         conn.close()
 
-#
-id = [['2014092692358474', '285154', 'tbmXwubvxzvP4nHa'], ['2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
-      ['2015031960117052', '294557', 'tbmXwubvxzvP4nHa'], ['5047214', '198633', 'jlOxpE5vIdZCRceQ'],
-      # ['2014082282360039', '283647', 'jAKPM8ITjIyHr5At'],
-      # ['3586030', '212385', 'fgTUvLEu1B3rVcUk'],
-      ['2014021515603023', '264491', 'ekyOlt6j4VLipThy'], ['2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
-      ['2015032863087404', '295303', 'ekyOlt6j4VLipThy'], ['2015072214671030', '297875', 'ekyOlt6j4VLipThy'],
-      ['2015072214675611', '297876', 'ekyOlt6j4VLipThy'], ['59079768', '289074', 'lVMmfvcdVHKt1OeA'],]
+id = [
+    ['#Cm', '2014092692358474', '285154', 'ILjEr8jamXWQSf4v'],
+      ['Em', '2014121327096245', '288121', 'ILjEr8jamXWQSf4v'], ['#Fm', '2015031960117052', '294557', 'ILjEr8jamXWQSf4v'],
+
+
+      ['樱木花道a', '5047214', '198633', 'jlOxpE5vIdZCRceQ'], ['利佐伊', '2013072511431198', '209850', 'jlOxpE5vIdZCRceQ'],
+      ['雷贝拉', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ'],]
+
 for id1 in id:
-    print id1
+    print id1[0]
     fight(*id1)

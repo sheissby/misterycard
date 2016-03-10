@@ -1,101 +1,88 @@
 # encoding:utf-8
-import httplib
+import requests
 import json
+import time
 
 
-def con(uid):
-    header1 = {'Host': 'master.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
-               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
-               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
-               'x-flash-version': '18,0,0,161',
-               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
-               'Content-Type': 'application/x-www-form-urlencoded'
-               }
-    uid1 = '&uid=' + uid
-    sessionid = '&sessionid=' + id1[3]
-    param0 = "Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1 + sessionid
-    con_status = 0
-    while con_status == 0:
-        conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
-        conn.request("POST",
-                     "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                     param0, header1)
-        res = conn.getresponse()
-        x = res.read()
-        if len(x) != 0:
-            y = json.loads(x)
-            con_status = y.get('status', 0)
-        else:
-            con_status = 0
-    ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
-    sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
-    times = y.get('data', 0).get('uinfo', 0).get('time', 0)
-    return y
-    conn.close()
+header = {'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
+
+
+def connection(url, data):
+    status = 0
+    while status == 0:
+        try:
+            response = requests.post(url, data=data, headers=header)
+            jsonresponse = json.loads(response.content)
+            status = jsonresponse.get('status', 0)
+            if status == 0:
+                message = jsonresponse.get('message', 0)
+                if message == '':
+                    print '��¼ʧ��'
+                    time.sleep(1)
+                else:
+                    return 1
+        except requests.ConnectionError, e:
+            print e
+            status = 0
+            time.sleep(1)
+        except requests.HTTPError, e:
+            print e
+            status = 0
+            time.sleep(1)
+    return jsonresponse
+
+
+def con(uid, sessionid):
+    con_data = "Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + '&uid=' + uid + '&sessionid=' + sessionid
+    url = 'http://s1.xiaomi.mysticalcard.com/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null'
+    jsonresponse = connection(url, con_data)
+    return jsonresponse
 
 
 def con_log(*id1):
     uid = id1[1]
     Muid = id1[2]
-    y = con(uid)
+    sessionid = id1[3]
+    y = con(uid, sessionid)
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = '%d' % y.get('data', 0).get('uinfo', 0).get('time', 0)
-    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
-               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
-               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
-               'x-flash-version': '18,0,0,161',
-               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
-               'Content-Type': 'application/x-www-form-urlencoded'
-               }
     a = '&ppsign=' + ppsign
     b = '&sign=' + sign
     c = '&time=' + times
     d = '&MUid=' + Muid
     e = '&uin=' + uid
     f = '&nick=' + uid
-    con_log_status = 0
-    param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
-    while con_log_status == 0:
-        conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
-        conn.request("POST",
-                     "/login.php?do=mpLogin&v=3338&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                     param0, header1)
-        res = conn.getresponse()
-        x = res.read()
-        if len(x) != 0:
-            y = json.loads(x)
-            con_log_status = y.get('status', 0)
-        else:
-            con_log_status = 0
-    conn.close()
+    conlog_data = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    url = 'http://s1.xiaomi.mysticalcard.com/login.php?do=mpLogin&v=1521&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null'
+    jsonresponse = connection(url, conlog_data)
+    # print id1[0], 'con_log success!'
 
+# 获得团战信息并解析
+def GetLegionInfo():
+    url = 'http://s1.xiaomi.mysticalcard.com/legionattack.php?do=info&v=9083&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
+    data = ''
+    jsonresponse = connection(url, data)
+    for LegionInfo in jsonresponse.get('data').get('info'):
+        Legionstatus = LegionInfo.get('Status')
+        if Legionstatus == 2:  # 2表示有团战
+            legionId = LegionInfo.get('Id')
+            AttackName = LegionInfo.get('AttackLegion').get('Name')
+            DefendName = LegionInfo.get('DefendLegion').get('Name')
+            if AttackName == u'圣 域aaa' or AttackName ==u'HKG' or AttackName ==u'Vongola-Family':
+                return legionId
+            else:
+                print '今天没团战'
 
-def legionattack(*id1):
-    con_log(*id1)
-    legionId = str(legionid)
-    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
-               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
-               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
-               'x-flash-version': '16,0,0,276',
-               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
-               'Content-Type': 'application/x-www-form-urlencoded'
-               }
-    param0 = '&Type=1&Id='+ legionId
-    param1 = '&Type=2&Id='+ legionId
-
-    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                     "/legionattack.php?do=join&v=3339&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
-                     param0, header1)
-    res = conn.getresponse()
-
-    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
-    conn.request("POST",
-                     "/legionattack.php?do=exit&v=3340&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1",
-                     param1, header1)
-    res = conn.getresponse()
-    conn.close()
+# 参战
+def legionattack(legionId):
+    url1 = 'http://s1.xiaomi.mysticalcard.com/legionattack.php?do=join&v=3339&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
+    url2 = 'http://s1.xiaomi.mysticalcard.com/legionattack.php?do=exit&v=3340&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
+    data1 = '&Type=1&Id=' + str(legionId)
+    data2 = '&Type=2&Id=' + str(legionId)
+    jsonresponse = connection(url1, data1)
+    jsonresponse = connection(url2, data2)
 
 
 
@@ -103,6 +90,7 @@ id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
       ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
       ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
       ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
+
       ['jinxiaoxi', '2014011514924154', '289074', 'TqctVYyZJmA6JrGC'],
       ['jinxiaoxiaoxi', '2014021715652853', '265008', 'TqctVYyZJmA6JrGC'],
       ['jinxiaoxiaoxiaoxi', '2015010132895122', '289017', 'TqctVYyZJmA6JrGC'],
@@ -112,6 +100,7 @@ id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
       ['cong', '2015052882088503', '296352', 'TqctVYyZJmA6JrGC'],
       ['feng', '2015052882090943', '296354', 'TqctVYyZJmA6JrGC'],
       ['yu', '2015052882090503', '296353', 'v1soiQ8I8RgIvg2p'],
+
       ['R1', '2014021515603023', '264491', 'ekyOlt6j4VLipThy'],
       ['R2', '2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
       ['XiaoXiaoZhu', '59079768', '289074', 'lVMmfvcdVHKt1OeA'],
@@ -141,22 +130,12 @@ id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
       # ['喷火龙', '2014061866529744', '279166', 'd6YpW93AIdMBso3Z']
       ]
 
-
-global legionid
-print '1.试炼森林'
-print '2.落日荒原'
-print '3.西风岛'
-print '4.翡翠森林'
-print '5.燃烧平原'
-print '6.乌木地下城'
-print '7.末日峡谷'
-print '8.天上界'
-print '9.海龟岛'
-print '10.海底界'
-legionid = raw_input('选择战场：')
-if legionid.strip() == '' or not legionid.isdigit():
-    print 'error'
-else:
-    for id1 in id:
-        legionattack(*id1)
+id1 = ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa']
+# 先登录得到团战信息
+con_log(*id1)
+legionId = GetLegionInfo()
+# 循环登录参战
+for id1 in id:
+    con_log(*id1)
+    legionattack(legionId)
 raw_input('The End')

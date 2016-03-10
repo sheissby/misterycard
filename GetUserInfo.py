@@ -4,43 +4,38 @@ import json
 import StringIO
 import gzip
 import urllib2
-from id import id1
+from id import *
+import requests
+import time
+header = {'Content-Type': 'application/x-www-form-urlencoded',
+          'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
+
+
+def connection(url, data):
+    status = 0
+    while status == 0:
+        try:
+            response = requests.post(url, data=data, headers=header)
+            jsonresponse = json.loads(response.content)
+            status = jsonresponse.get('status', 0)
+            if status == 0:
+                message = jsonresponse.get('message', 0)
+                if message == '':
+                    print '登录失败'
+                    time.sleep(1)
+                else:
+                    return 1
+        except Exception:
+            status = 0
+            time.sleep(1)
+    return jsonresponse
 
 
 def con(uid, sessionid):
-    header1 = {'Host': 'master.xiaomi.mysticalcard.com', 'Cookie': '_sid=57t4jueeikn507j59png1gq7q1',
-               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
-               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
-               'x-flash-version': '18,0,0,161',
-               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
-               'Content-Type': 'application/x-www-form-urlencoded'
-               }
-    uid1 = '&uid=' + uid
-    sessionid1 = '&sessionid=' + sessionid
-    param0 = "Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + uid1 + sessionid1
-    con_status = 0
-    conn = httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
-    while con_status == 0:
-        try:
-            conn.request("POST",
-                         "/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0"
-                         "&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                         param0, header1)
-            res = conn.getresponse()
-            x = res.read()
-            if len(x) != 0:
-                y = json.loads(x)
-                con_status = y.get('status', 0)
-            else:
-                con_status = 0
-        except Exception, e:
-            con_status == 0
-    # print id1[0], 'con success!'
-    ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
-    sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
-    times = y.get('data', 0).get('uinfo', 0).get('time', 0)
-    conn.close()
-    return y
+    con_data = "Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + '&uid=' + uid + '&sessionid=' + sessionid
+    url = 'http://s1.xiaomi.mysticalcard.com/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null'
+    jsonresponse = connection(url, con_data)
+    return jsonresponse
 
 
 def con_log(*id1):
@@ -51,37 +46,19 @@ def con_log(*id1):
     ppsign = y.get('data', 0).get('uinfo', 0).get('ppsign', 0)
     sign = y.get('data', 0).get('uinfo', 0).get('sign', 0)
     times = '%d' % y.get('data', 0).get('uinfo', 0).get('time', 0)
-    header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
-               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
-               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
-               'x-flash-version': '18,0,0,161',
-               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
-               'Content-Type': 'application/x-www-form-urlencoded'
-               }
     a = '&ppsign=' + ppsign
     b = '&sign=' + sign
     c = '&time=' + times
     d = '&MUid=' + Muid
     e = '&uin=' + uid
     f = '&nick=' + uid
-    param0 = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
-    con_log_status = 0
-    conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
-    while con_log_status == 0:
-        conn.request("POST",
-                     "/login.php?do=mpLogin&v=1521&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",
-                     param0, header1)
-        res = conn.getresponse()
-        x = res.read()
-        if len(x) != 0:
-            y = json.loads(x)
-            con_log_status = y.get('status', 0)
-        else:
-            con_log_status = 0
+    conlog_data = "access%5Ftoken=&plat=ANDROID%5FXIAOMI&newguide=1&Devicetoken=&Origin=xiaomi&IDFA=&Udid=64%3A09%3A80%3AD3%3AF3%3A0E" + d + e + f + c + b + a
+    url = 'http://s1.xiaomi.mysticalcard.com/login.php?do=mpLogin&v=1521&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null'
+    jsonresponse = connection(url, conlog_data)
     # print id1[0], 'con_log success!'
-    conn.close()
 
-#获取个人基本信息
+
+# 获取个人基本信息
 def GetUserInfo(*id1):
     con_log(*id1)
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
@@ -116,7 +93,8 @@ def GetUserInfo(*id1):
     conn.close()
     return userinfojson
 
-#解析个人基本信息
+
+# 解析个人基本信息
 def basicInfo(*id1):
     userinfo = GetUserInfo(*id1)
     userLevel = userinfo.get('data', 0).get('Level', 0)    #等级
@@ -135,7 +113,8 @@ def basicInfo(*id1):
           .format(id1[0], userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip))
     # print userName
 
-#获取好友腿毛信息
+
+# 获取好友腿毛信息
 def GetFriendContributeList(*id1):
     con_log(*id1)
     url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=GetFriendContributeList&v=8501&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
@@ -185,7 +164,8 @@ def GetFriendContributeList(*id1):
                 ContributeStatus = Contribute.get('status', 0)
     return Contribute
 
-#解析好友腿毛信息
+
+# 解析好友腿毛信息
 def getFriendContribute(*id1):
     friendidAndpointAll = []      #所有好友id，分数集合
     sum = 0
@@ -210,7 +190,8 @@ def getFriendContribute(*id1):
             print id1[0], sum
     return friendidAndpointAll, sum
 
-#领取好友腿毛
+
+# 领取好友腿毛
 def GetContributePoints(friendidAndpontList, sum):
     con_log(*id1)
     for FriendContributeId in friendidAndpontList:
@@ -240,7 +221,8 @@ def GetContributePoints(friendidAndpontList, sum):
                 GetPointsStatus = GetPointsStatus.get('status', 0)
     print id1[0], '领取', sum
 
-#获取个人lls信息
+
+# 获取个人lls信息
 def GetUserJourneysStatus(*id1):
     con_log(*id1)
     url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=GetUserJourneysStatus&v=4701&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
@@ -279,7 +261,7 @@ def GetUserJourneysStatus(*id1):
     return UserJourneys
 
 
-#解析个人lls信息
+# 解析个人lls信息
 def getUserJourneysInfo(UserJourneysInfo):
     data = UserJourneysInfo.get('data', 0).get('journeyList', 0)
     userpoint = data.get('userPoints', 0)    #个人lls积分
@@ -306,13 +288,34 @@ def giveEnergy(*id1):
     response = urllib2.urlopen(request)
 
 
-id = id1()
+def getHeiDianpoints(*id1):
+    con_log(*id1)
+    url = 'http://s1.xiaomi.mysticalcard.com/devoteMazeActivity.php?do=GetActStatus&v=9208&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
+    jsonresponse = connection(url, data='')
+    try:
+        shougu = jsonresponse.get('data').get('actStatus').get('goods')[0].get('totalPoint')
+        shouya = jsonresponse.get('data').get('actStatus').get('goods')[1].get('totalPoint')
+        changedpoints = jsonresponse.get('data').get('actStatus').get('recordPoint', 0)
+        print id1[0], shougu, '+', shouya, '+', changedpoints, '=', shougu+shouya+changedpoints
+    except Exception:
+        print id1[0], '未参加活动'
+
+
+def changeHeiDianPoints(*id1):
+    con_log(*id1)
+    url = 'http://s1.xiaomi.mysticalcard.com/devoteMazeActivity.php?do=GetReward&v=9236&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&pl'
+    jsonresponse = connection(url, data='')
+
+
+id = Amid()
 
 print '1. 查询基本信息'
 print '2. 查询lls腿毛'
 print '3. 领取全部腿毛'
 print '4. 查询lls积分排名'
 print '5. 送自己体力'
+print '6. 查询黑店积分'
+print '7. 兑换黑店积分'
 property = input('查询类型:')
 if property == 1:
     print ('{0: ^18}{1: ^7}{2: ^18}{3: ^8}{4: ^12}{5: ^10}{6: ^10}{7: ^10}'.format('id', '等级', '金币','晶钻','屌丝券','体力','不明','cost'))
@@ -334,3 +337,9 @@ elif property == 4:
 elif property == 5:
     for id1 in id:
         giveEnergy(*id1)
+elif property == 6:
+    for id1 in id:
+        getHeiDianpoints(*id1)
+elif property == 7:
+    for id1 in id:
+        changeHeiDianPoints(*id1)

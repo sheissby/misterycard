@@ -1,4 +1,4 @@
-# encoding:utf-8
+# encoding:GBK
 import requests
 import json
 import time
@@ -17,10 +17,10 @@ def connection(url, data):
             if status == 0:
                 message = jsonresponse.get('message', 0)
                 if message == '':
-                    print 'ç™»å½•å¤±è´¥'
+                    print 'µÇÂ¼Ê§°Ü'
                     time.sleep(1)
                 else:
-                    print message
+                    # print message
                     return message
         except requests.ConnectionError, e:
             print e
@@ -60,38 +60,40 @@ def con_log(*id1):
     # print id1[0], 'con_log success!'
 
 
-# è·å¾—æ¯å±‚ä¿¡æ¯
+# »ñµÃÃ¿²ãĞÅÏ¢
 def getlayerinfo(layer, map_id):
-    item = []   # éœ€è¦æ”»å‡»çš„æ ¼å­é›†åˆ
-    count = 0   # è®¡ç®—æ ¼å­å·
+    item = []   # ĞèÒª¹¥»÷µÄ¸ñ×Ó¼¯ºÏ
+    count = 0   # ¼ÆËã¸ñ×ÓºÅ
     data = "Layer=" + ('%d' % layer) + '&MapStageId=' + ('%d' % map_id)
-    print ('%d' % map_id), 'å¡”' + ('%d' % layer), 'å±‚'
+    print ('%d' % map_id), 'Ëş' + ('%d' % layer), '²ã'
     url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Info&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
     jsonresponse = connection(url, data)
-    if jsonresponse == u'ä¸Šä¸€å±‚è¿·å®«è¿˜æ²¡æ‰“å®Œå‘¢!':
+    if jsonresponse == u'ÉÏÒ»²ãÃÔ¹¬»¹Ã»´òÍêÄØ!':
+        return
+    elif jsonresponse == u'ÃÔ¹¬ÉĞÎ´¿ªÆô.':
         return
     else:
-        items = jsonresponse.get('data', 0).get('Map', 0).get('Items', 0)  # æ‰€æœ‰æ ¼å­çš„ä¿¡æ¯
-        for cords in items:                            # å¾ªç¯æ‰€æœ‰æ ¼å­ï¼Œè·å¾—éœ€è¦æ”»å‡»çš„ä¿¡æ¯
+        items = jsonresponse.get('data', 0).get('Map', 0).get('Items', 0)  # ËùÓĞ¸ñ×ÓµÄĞÅÏ¢
+        for cords in items:                            # Ñ­»·ËùÓĞ¸ñ×Ó£¬»ñµÃĞèÒª¹¥»÷µÄĞÅÏ¢
             cords = int(cords)
             if cords == 2 or cords == 3 or cords == 5:
-                item.append(count)                       # æ·»åŠ æ ¼å­å·åˆ°æ”»å‡»é›†åˆ
-            count += 1                           # è®¡ç®—éœ€è¦æ”»å‡»çš„æ ¼å­å·
+                item.append(count)                       # Ìí¼Ó¸ñ×ÓºÅµ½¹¥»÷¼¯ºÏ
+            count += 1                           # ¼ÆËãĞèÒª¹¥»÷µÄ¸ñ×ÓºÅ
         return item
 
 
-# è¿›è¡Œæ”»å‡»
+# ½øĞĞ¹¥»÷
 def fight(layer, map_id, item):
     for cord in item:
         fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
         url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
         jsonresponse = connection(url, fightdata)
-        if jsonresponse == u'è¡ŒåŠ¨åŠ›ä¸è¶³!æ¯10åˆ†é’Ÿå¯æ¢å¤1ç‚¹!æ‚¨ä¹Ÿå¯ä»¥ä½¿ç”¨æ™¶é’»è´­ä¹°è¡ŒåŠ¨åŠ›å“¦!':
-            # print ('out of power!')
+        if jsonresponse == u'ĞĞ¶¯Á¦²»×ã!Ã¿10·ÖÖÓ¿É»Ö¸´1µã!ÄúÒ²¿ÉÒÔÊ¹ÓÃ¾§×ê¹ºÂòĞĞ¶¯Á¦Å¶!':
+            print ('out of power!')
             return 0
 
 
-# å¾ªç¯åˆ·å¡”
+# Ñ­»·Ë¢Ëş
 def play_tower(*id1):
     for map_id in [8, 7, 6]:
         for layer in range(1, 6):
@@ -106,12 +108,18 @@ def play_tower(*id1):
                     fightresult = fight(layer, map_id, item)
                     if fightresult == 0:
                         return
-            else:
-                return
+
 
 
 id = [
-
+      ['ÓãÍèºÅÆì½¢','2013042910219954', '132168', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÑ²Ñó½¢','2013050510338482', '138002', 'hk8URzaHObkJbp0r'],
+      ['ÓãÍèºÅÇıÖğ½¢','2013051110431066', '144222', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅ»¤ÎÀ½¢','2013072911496244', '213117', 'hk8URzaHObkJbp0r'],
+      ['ÓãÍèºÅÅÚ½¢','2013072911496578', '213119', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÇ±Ë®Í§','2013082111852712', '223399', 'hk8URzaHObkJbp0r'],
+      ['ÓãÍèÖŞ¼Êµ¼µ¯','2013110613340617', '244513', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÎå×İ¶Ó','2013112813880389', '249308', 'hk8URzaHObkJbp0r'],
+      ['ÓãÍè½¢¶ÓËÄ×İ¶Ó','2013112813880397', '249307', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÈı×İ¶Ó','2013112813880401', '249306', 'hk8URzaHObkJbp0r'],
+      ['ÓãÍè½¢¶Ó¶ş×İ¶Ó','2013112813880408', '249303', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÒ»×İ¶Ó','2013112813880415', '249301', 'hk8URzaHObkJbp0r'],
+      ['ÓãÍè½¢¶ÓÆß×İ¶Ó','2013112813880453', '249274', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÕ½ÁĞ½¢','2013112813880485', '249258', 'hk8URzaHObkJbp0r'],
+      ['ÓãÍè½¢¶ÓÁù×İ¶Ó','2013112813892037', '249363', 'hk8URzaHObkJbp0r']
       ]
 for id1 in id:
     print id1[0], 'start'

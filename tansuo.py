@@ -204,7 +204,6 @@ else:
             print id1[0],'不需探索'
             continue
         elif alwaystansuo == '2':
-            lenth1, status1 = mapstage(*id1)
             lenth1 = ''
             status1 = 1
             while len(lenth1) < 400 and status1 == 1:

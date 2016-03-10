@@ -1,4 +1,4 @@
-# encoding:utf-8
+# encoding:GBK
 import requests
 import json
 import time
@@ -17,7 +17,7 @@ def connection(url, data):
             if status == 0:
                 message = jsonresponse.get('message', 0)
                 if message == '':
-                    print '鐧诲綍澶辫触'
+                    print '登录失败'
                     time.sleep(1)
                 else:
                     return 1
@@ -71,7 +71,14 @@ def reset_tower(*id1):
             print id1[0], tower_id, 'reset success'
 
 id = [
-
+      ['鱼丸号旗舰','2013042910219954', '132168', 'hk8URzaHObkJbp0r'], ['鱼丸号巡洋舰','2013050510338482', '138002', 'hk8URzaHObkJbp0r'],
+      ['鱼丸号驱逐舰','2013051110431066', '144222', 'hk8URzaHObkJbp0r'], ['鱼丸号护卫舰','2013072911496244', '213117', 'hk8URzaHObkJbp0r'],
+      ['鱼丸号炮舰','2013072911496578', '213119', 'hk8URzaHObkJbp0r'], ['鱼丸号潜水艇','2013082111852712', '223399', 'hk8URzaHObkJbp0r'],
+      ['鱼丸洲际导弹','2013110613340617', '244513', 'hk8URzaHObkJbp0r'], ['鱼丸舰队五纵队','2013112813880389', '249308', 'hk8URzaHObkJbp0r'],
+      ['鱼丸舰队四纵队','2013112813880397', '249307', 'hk8URzaHObkJbp0r'], ['鱼丸舰队三纵队','2013112813880401', '249306', 'hk8URzaHObkJbp0r'],
+      ['鱼丸舰队二纵队','2013112813880408', '249303', 'hk8URzaHObkJbp0r'], ['鱼丸舰队一纵队','2013112813880415', '249301', 'hk8URzaHObkJbp0r'],
+      ['鱼丸舰队七纵队','2013112813880453', '249274', 'hk8URzaHObkJbp0r'], ['鱼丸号战列舰','2013112813880485', '249258', 'hk8URzaHObkJbp0r'],
+      ['鱼丸舰队六纵队','2013112813892037', '249363', 'hk8URzaHObkJbp0r']
      ]
 for id1 in id:
     reset_tower(*id1)
