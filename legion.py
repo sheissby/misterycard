@@ -66,11 +66,11 @@ def GetLegionInfo():
     jsonresponse = connection(url, data)
     for LegionInfo in jsonresponse.get('data').get('info'):
         Legionstatus = LegionInfo.get('Status')
-        if Legionstatus == 2:  # 2表示有团战
+        if Legionstatus == 3:  # 3表示参战时间
             legionId = LegionInfo.get('Id')
-            AttackName = LegionInfo.get('AttackLegion').get('Name')
-            DefendName = LegionInfo.get('DefendLegion').get('Name')
-            if AttackName == u'圣 域aaa' or AttackName ==u'HKG' or AttackName ==u'Vongola-Family':
+            AttackLegionId= LegionInfo.get('AttackLegion').get('LegionId')
+            DefendLegionId = LegionInfo.get('DefendLegion').get('LegionId')
+            if AttackLegionId == u'688' or AttackLegionId ==u'689':
                 return legionId
             else:
                 print '今天没团战'
