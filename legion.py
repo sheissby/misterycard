@@ -66,14 +66,14 @@ def GetLegionInfo():
     jsonresponse = connection(url, data)
     for LegionInfo in jsonresponse.get('data').get('info'):
         Legionstatus = LegionInfo.get('Status')
-        if Legionstatus == 3:  # 3表示参战时间
-            legionId = LegionInfo.get('Id')
-            AttackLegionId= LegionInfo.get('AttackLegion').get('LegionId')
-            DefendLegionId = LegionInfo.get('DefendLegion').get('LegionId')
-            if AttackLegionId == u'688' or AttackLegionId ==u'689':
-                return legionId
-            else:
-                print '今天没团战'
+        legionId = LegionInfo.get('Id')
+        AttackLegionId= LegionInfo.get('AttackLegion').get('LegionId')
+        DefendLegionId = LegionInfo.get('DefendLegion').get('LegionId')
+        if Legionstatus == 3 and (AttackLegionId == u'688' or AttackLegionId == u'689'):
+
+            # if AttackLegionId == u'688' or AttackLegionId == u'689':
+            return legionId
+    return -1
 
 # 参战
 def legionattack(legionId):
@@ -86,10 +86,10 @@ def legionattack(legionId):
 
 
 
-id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
-      ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
-      ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
-      ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
+id = [['Am', '1592626', '279696', 'IggFdDB5eE6uERXL'],
+      ['#Cm', '2014092692358474', '285154', 'IggFdDB5eE6uERXL'],
+      ['Em', '2014121327096245', '288121', 'IggFdDB5eE6uERXL'],
+      ['#Fm', '2015031960117052', '294557', 'IggFdDB5eE6uERXL'],
 
       ['jinxiaoxi', '2014011514924154', '289074', 'TqctVYyZJmA6JrGC'],
       ['jinxiaoxiaoxi', '2014021715652853', '265008', 'TqctVYyZJmA6JrGC'],
@@ -101,9 +101,9 @@ id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
       ['feng', '2015052882090943', '296354', 'TqctVYyZJmA6JrGC'],
       ['yu', '2015052882090503', '296353', 'v1soiQ8I8RgIvg2p'],
 
-      ['R1', '2014021515603023', '264491', 'ekyOlt6j4VLipThy'],
-      ['R2', '2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
-      ['XiaoXiaoZhu', '59079768', '289074', 'lVMmfvcdVHKt1OeA'],
+      # ['R1', '2014021515603023', '264491', 'ekyOlt6j4VLipThy'],
+      # ['R2', '2014040452624347', '289393', 'ekyOlt6j4VLipThy'],
+      # ['XiaoXiaoZhu', '59079768', '289074', 'lVMmfvcdVHKt1OeA'],
 
       ['称霸候车亭','2015053082413554', '296380', 'Tzf013aAWWTkpUMF'],
       ['称霸便利店','2015060784933505', '296533', 'Tzf013aAWWTkpUMF'],
@@ -112,38 +112,41 @@ id = [['Am', '1592626', '279696', 'tbmXwubvxzvP4nHa'],
       ['称霸扶桑省','2015080122554779', '298367', 'Tzf013aAWWTkpUMF'],
       ['称霸养老院','2015011537065337', '292571', 'Tzf013aAWWTkpUMF'],
 
-      ['妙蛙种子', '2014052561883286', '278956', 'd6YpW93AIdMBso3Z'],
-      ['绿毛虫', '2014061766465489', '278958', 'd6YpW93AIdMBso3Z'],
-      ['大针蜂', '2014061866519659', '278984', 'd6YpW93AIdMBso3Z'],
-      ['比比鸟', '2014061866519756', '278986', 'd6YpW93AIdMBso3Z'],
-      ['超音蝠', '2014061866528941', '279006', 'd6YpW93AIdMBso3Z'],
-      ['隆隆岩', '2014061866529032', '279007', 'd6YpW93AIdMBso3Z'],
-      ['大岩蛇', '2014061866529097', '279009', 'd6YpW93AIdMBso3Z'],
-      ['乘龙', '2014061866529223', '279045', 'd6YpW93AIdMBso3Z'],
-      ['耿鬼', '2014061866529231', '279049', 'd6YpW93AIdMBso3Z'],
-      ['烈焰马', '2014061866529288', '279053', 'd6YpW93AIdMBso3Z'],
-      ['吸盘魔偶', '2014061866529337', '279054', 'd6YpW93AIdMBso3Z'],
-      ['胖丁', '2014061866529346', '279080', 'd6YpW93AIdMBso3Z'],
-      # ['阿柏蛇', '2014061866529379', '279081', 'd6YpW93AIdMBso3Z'],
-      # ['椰蛋树', '2014061866529407', '279083', 'd6YpW93AIdMBso3Z'],
-      # ['火爆猴', '2014061866529462', '279085', 'd6YpW93AIdMBso3Z'],
-      # ['派拉斯', '2014061866529470', '279086', 'd6YpW93AIdMBso3Z'],
-      # ['比雕', '2014061866529500', '279117', 'd6YpW93AIdMBso3Z'],
-      # ['雷精灵', '2014061866529554', '279119', 'd6YpW93AIdMBso3Z'],
-      # ['皮卡西', '2014061866529628', '279122', 'd6YpW93AIdMBso3Z'],
-      # ['水精灵', '2014061866529641', '279131', 'd6YpW93AIdMBso3Z'],
-      # ['火精灵', '2014061866529643', '279137', 'd6YpW93AIdMBso3Z'],
-      # ['胡地', '2014061866529675', '279164', 'd6YpW93AIdMBso3Z'],
-      # ['风速狗', '2014061866529735', '279165', 'd6YpW93AIdMBso3Z'],
-      # ['喷火龙', '2014061866529744', '279166', 'd6YpW93AIdMBso3Z']
+      ['妙蛙种子', '2014052561883286', '278956', 'QcGtd5Hmsy3g7dS9'],
+      ['绿毛虫', '2014061766465489', '278958', 'QcGtd5Hmsy3g7dS9'],
+      ['大针蜂', '2014061866519659', '278984', 'QcGtd5Hmsy3g7dS9'],
+      ['比比鸟', '2014061866519756', '278986', 'QcGtd5Hmsy3g7dS9'],
+      ['超音蝠', '2014061866528941', '279006', 'QcGtd5Hmsy3g7dS9'],
+      ['隆隆岩', '2014061866529032', '279007', 'QcGtd5Hmsy3g7dS9'],
+      ['大岩蛇', '2014061866529097', '279009', 'QcGtd5Hmsy3g7dS9'],
+      ['乘龙', '2014061866529223', '279045', 'QcGtd5Hmsy3g7dS9'],
+      ['耿鬼', '2014061866529231', '279049', 'QcGtd5Hmsy3g7dS9'],
+      ['烈焰马', '2014061866529288', '279053', 'QcGtd5Hmsy3g7dS9'],
+      ['吸盘魔偶', '2014061866529337', '279054', 'QcGtd5Hmsy3g7dS9'],
+      ['胖丁', '2014061866529346', '279080', 'QcGtd5Hmsy3g7dS9'],
+      # ['阿柏蛇', '2014061866529379', '279081', 'QcGtd5Hmsy3g7dS9'],
+      # ['椰蛋树', '2014061866529407', '279083', 'QcGtd5Hmsy3g7dS9'],
+      # ['火爆猴', '2014061866529462', '279085', 'QcGtd5Hmsy3g7dS9'],
+      # ['派拉斯', '2014061866529470', '279086', 'QcGtd5Hmsy3g7dS9'],
+      # ['比雕', '2014061866529500', '279117', 'QcGtd5Hmsy3g7dS9'],
+      # ['雷精灵', '2014061866529554', '279119', 'QcGtd5Hmsy3g7dS9'],
+      # ['皮卡西', '2014061866529628', '279122', 'QcGtd5Hmsy3g7dS9'],
+      # ['水精灵', '2014061866529641', '279131', 'QcGtd5Hmsy3g7dS9'],
+      # ['火精灵', '2014061866529643', '279137', 'QcGtd5Hmsy3g7dS9'],
+      # ['胡地', '2014061866529675', '279164', 'QcGtd5Hmsy3g7dS9'],
+      # ['风速狗', '2014061866529735', '279165', 'QcGtd5Hmsy3g7dS9'],
+      # ['喷火龙', '2014061866529744', '279166', 'QcGtd5Hmsy3g7dS9']
       ]
 
-id1 = ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa']
+id1 = ['#Cm', '2014092692358474', '285154', 'IggFdDB5eE6uERXL']
 # 先登录得到团战信息
 con_log(*id1)
 legionId = GetLegionInfo()
-# 循环登录参战
-for id1 in id:
-    con_log(*id1)
-    legionattack(legionId)
+if legionId != -1:
+    # 循环登录参战
+    for id1 in id:
+        con_log(*id1)
+        legionattack(legionId)
+else:
+    print '今天没团战'
 raw_input('The End')
