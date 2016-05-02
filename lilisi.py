@@ -1,9 +1,10 @@
-# encoding:GBK
+# encoding:utf-8
 import httplib
 import json
 import StringIO
 import gzip
 import time
+from id import *
 
 
 def con(uid):
@@ -84,7 +85,7 @@ def con_log(*id1):
     conn.close()
 
 
-# µÃµ½µÁÔôÐÅÏ¢
+# å¾—åˆ°ç›—è´¼ä¿¡æ¯
 def GetLilisi(*id1):
     con_log(*id1)
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
@@ -123,23 +124,23 @@ def GetLilisi(*id1):
 
 
 
-# ·µ»Ø0±íÊ¾Ã»ÓÐlls£¬¿ÉÒÔÌ½Ë÷£»·µ»Ø1±íÊ¾ÓÐlls£¬²»ÐèÌ½Ë÷
+# è¿”å›ž0è¡¨ç¤ºæ²¡æœ‰llsï¼Œå¯ä»¥æŽ¢ç´¢ï¼›è¿”å›ž1è¡¨ç¤ºæœ‰llsï¼Œä¸éœ€æŽ¢ç´¢
 def ExistLilisi(Lilisiinfo):
     Lilisiinfo = Lilisiinfo.get('data', 0).get('journeyList', 0).get('journeyList', 0)
     currentuid = id1[0]
-    currentuid = currentuid.decode('GBK')
+    currentuid = currentuid.decode('utf-8')
     enableAwardList = []
     for a in Lilisiinfo:
-        llsNickName = a.get('NickName', 0)   #Ì½Ë÷Õß
-        llsstatus = a.get('Status', 0)       #lls×´Ì¬
-        llsfleetime = a.get('FleeTime', 0)   #llsÌÓÅÜÊ±¼ä
-        llshpcurrent = a.get('HPCurrent', 0) #llsµ±Ç°ÑªÁ¿
-        llsgrade = a.get('Grade', 0)         #llsÄÑ¶È
-        llsid = a.get('UserJourneyId', 0)    #llsµÄid
-        llsenableAward = a.get('enableAward', 0) #ÊÇ·ñ¿ÉÁì·Ö:1±íÊ¾¿ÉÒÔÁì·Ö£»0±íÊ¾²»¿ÉÁì·Ö
+        llsNickName = a.get('NickName', 0)   #æŽ¢ç´¢è€…
+        llsstatus = a.get('Status', 0)       #llsçŠ¶æ€
+        llsfleetime = a.get('FleeTime', 0)   #llsé€ƒè·‘æ—¶é—´
+        llshpcurrent = a.get('HPCurrent', 0) #llså½“å‰è¡€é‡
+        llsgrade = a.get('Grade', 0)         #llséš¾åº¦
+        llsid = a.get('UserJourneyId', 0)    #llsçš„id
+        llsenableAward = a.get('enableAward', 0) #æ˜¯å¦å¯é¢†åˆ†:1è¡¨ç¤ºå¯ä»¥é¢†åˆ†ï¼›0è¡¨ç¤ºä¸å¯é¢†åˆ†
         if llsenableAward == 1:
             enableAwardList.append(llsid)
-        # ÅÐ¶ÏÓÐllsÎ´ËÀ»òÎ´ÅÜ£¬²»ÐèÌ½Ë÷
+        # åˆ¤æ–­æœ‰llsæœªæ­»æˆ–æœªè·‘ï¼Œä¸éœ€æŽ¢ç´¢
         if (llsNickName == currentuid and llsstatus == 1 and llshpcurrent > 0 and llsfleetime > 0) \
                 or (llsNickName == currentuid and llsstatus == 0 and llsfleetime > 0):
             return 1, llsgrade, llsid, enableAwardList
@@ -148,7 +149,7 @@ def ExistLilisi(Lilisiinfo):
     return 0, llsgrade, llsid, enableAwardList
 
 
-# ½øÐÐÌ½Ë÷
+# è¿›è¡ŒæŽ¢ç´¢
 def mapstage(*id1):
     con_log(*id1)
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
@@ -180,7 +181,7 @@ def mapstage(*id1):
     return data
 
 
-# ¹¥»÷µÁÔô£¬·µ»Ø0±íÊ¾½øÈëcd
+# æ”»å‡»ç›—è´¼ï¼Œè¿”å›ž0è¡¨ç¤ºè¿›å…¥cd
 def llsfight(llsid):
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
                'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, '
@@ -192,7 +193,7 @@ def llsfight(llsid):
                'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
                'Content-Type': 'application/x-www-form-urlencoded'
                }
-    # ½«userthievesid×ªÎªstringÀàÐÍ
+    # å°†userthievesidè½¬ä¸ºstringç±»åž‹
     strllsid = str(llsid)
     param0 = 'userJourneyId=' + strllsid
     conn = httplib.HTTPConnection("s1.xiaomi.mysticalcard.com")
@@ -215,15 +216,14 @@ def llsfight(llsid):
         datajson = json.loads(fightdata)
         fightstatus = datajson.get('status', 0)
         fightmessage = datajson.get('message', 0)
-        fightmessage = fightmessage.encode('utf-8')
-        string = 'ÀäÈ´Ê±¼äÎ´µ½£¬ÇëÄÍÐÄµÈ´ý£¡ÄúÒ²¿ÉÒÔÊ¹ÓÃ¾§×êÁ¢¼´½áÊøÀäÈ´Ê±¼ä£¡'
-        if fightstatus == 0 and cmp(fightmessage, string):
-            print id1[0], 'cdÀ²'
+        string = u'å†·å´æ—¶é—´æœªåˆ°ï¼Œè¯·è€å¿ƒç­‰å¾…ï¼æ‚¨ä¹Ÿå¯ä»¥ä½¿ç”¨æ™¶é’»ç«‹å³ç»“æŸå†·å´æ—¶é—´ï¼'
+        if fightstatus == 0 and fightmessage == string:
+            print id1[0], 'cool down'
             return 0
     conn.close()
 
 
-#ÁìÈ¡lls·ÖÊý
+#é¢†å–llsåˆ†æ•°
 def GetJourneyPointReward(awardList):
     header1 = {'Host': 's1.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
            'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, '
@@ -256,28 +256,9 @@ def GetJourneyPointReward(awardList):
     # return awarddata
 
 
-# ÕË»§ÁÐ±í
-id = [
-      ['#Cm', '2014092692358474', '285154', 'tbmXwubvxzvP4nHa'],
-      ['Em', '2014121327096245', '288121', 'tbmXwubvxzvP4nHa'],
-      ['#Fm', '2015031960117052', '294557', 'tbmXwubvxzvP4nHa'],
-      ['Ó£Ä¾»¨µÀa', '5047214', '198633', 'jlOxpE5vIdZCRceQ'],
-      ['Àû×ôÒÁ', '2013072511431198', '209850', 'jlOxpE5vIdZCRceQ'],
-      ['À×±´À­', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ']
+# è´¦æˆ·åˆ—è¡¨
+id = Cmid()
 
-      # ['½ÜÄá¹ê','2014041855227765','273122', '6ANyAXvi6sC76fNP'],
-      # ['Ð¡»ðÁú','2014042155811563','273419', '6ANyAXvi6sC76fNP'], ['ÃîÍÜÖÖ×Ó','2014052561883286','278956', '6ANyAXvi6sC76fNP'],
-      # ['ÂÌÃ«³æ','2014061766465489','278958', '6ANyAXvi6sC76fNP'], ['´óÕë·ä','2014061866519659','278984', '6ANyAXvi6sC76fNP'],
-      # ['±È±ÈÄñ','2014061866519756','278986', '6ANyAXvi6sC76fNP'], ['³¬Òôòð','2014061866528941','279006', '6ANyAXvi6sC76fNP'],
-      # ['Â¡Â¡ÑÒ','2014061866529032','279007', '6ANyAXvi6sC76fNP'], ['´óÑÒÉß','2014061866529097','279009', '6ANyAXvi6sC76fNP'],
-      # ['³ËÁú','2014061866529223','279045', '6ANyAXvi6sC76fNP'], ['¹¢¹í','2014061866529231','279049', '6ANyAXvi6sC76fNP'],
-      # ['ÁÒÑæÂí','2014061866529288','279053', '6ANyAXvi6sC76fNP'], ['ÎüÅÌÄ§Å¼','2014061866529337','279054', '6ANyAXvi6sC76fNP'],
-      # ['ÅÖ¶¡a','2014061866529346','279080', '6ANyAXvi6sC76fNP'], ['°¢°ØÉß','2014061866529379','279081', '6ANyAXvi6sC76fNP'],
-      # ['»ð±¬ºï','2014061866529462','279085', '6ANyAXvi6sC76fNP'],['±Èµñ','2014061866529500','279117', '6ANyAXvi6sC76fNP'],
-      # ['À×¾«Áé','2014061866529554','279119', '6ANyAXvi6sC76fNP'],
-      # ['Ë®¾«Áé','2014061866529641','279131', '6ANyAXvi6sC76fNP'],
-      # ['Åç»ðÁú','2014061866529744','279166', '6ANyAXvi6sC76fNP']
-      ]
 for id1 in id:
     mapstagestatus = 1
     isLilisi = 0
@@ -286,20 +267,20 @@ for id1 in id:
         Lilisiinfo = GetLilisi(*id1)
         isLilisi, llsgrade, llsid, awardList = ExistLilisi(Lilisiinfo)
         if isLilisi == 1:
-            # print id1[0], '²»ÐèÌ½Ë÷'
+            # print id1[0], 'ä¸éœ€æŽ¢ç´¢'
             if llsgrade == 1 or llsgrade == 2:
                 fightresult = llsfight(llsid)
                 if fightresult == 0:
                     break
-                isLilisi = 0      #ÖØÖÃÊÇ·ñ´æÔÚlls±êÊ¶£¬ÒÔ±ã½øÈëÑ­»·ÔÙ´Î¹¥»÷
+                isLilisi = 0      #é‡ç½®æ˜¯å¦å­˜åœ¨llsæ ‡è¯†ï¼Œä»¥ä¾¿è¿›å…¥å¾ªçŽ¯å†æ¬¡æ”»å‡»
             elif llsgrade == 3:
-                print id1[0], 'À§ÄÑµÄ´ò²»¹ý', llsid
+                print id1[0], 'Difficult', llsid
                 break
             elif llsgrade == 4:
-                print id1[0], 'Ø¬ÃÎ»¹Ã»ÅÜÄØ', llsid
+                print id1[0], 'Nightmare!', llsid
                 break
             elif llsgrade == 5:
-                print id1[0], 'Á¶Óü¶¼²»´ò£¡', llsid
+                print id1[0], 'Purgatory!!!', llsid
                 break
         else:
             data = mapstage(*id1)
@@ -312,39 +293,39 @@ for id1 in id:
                 llsid = datajson.get('data', 0).get('JourneyInfo', 0).get('UserJourneyId', 0)
                 if lilisiHP > 150000:
                     if lilisiHP == 236520:
-                        print id1[0], 'ÁÒ»ðØ¬ÃÎ', llsid
+                        print id1[0], 'Nightmare of fire!', llsid
                         break
                     elif lilisiHP == 238980:
-                        print id1[0], 'Ð°ÎüØ¬ÃÎ', llsid
+                        print id1[0], 'Nightmare of xiexi!', llsid
                         break
                     elif lilisiHP == 232340:
-                        print id1[0], 'Ë«¾ÑØ¬ÃÎ', llsid
+                        print id1[0], 'Nightmare of Dual Snipe!', llsid
                         break
                     elif lilisiHP == 226540:
-                        print id1[0], '½µ´«Ø¬ÃÎ', llsid
+                        print id1[0], 'Nightmare of Teleportation!', llsid
                         break
                     elif lilisiHP == 241060:
-                        print id1[0], '±©»÷Ø¬ÃÎ', llsid
+                        print id1[0], 'Nightmare of Concentration!', llsid
                         break
                     elif lilisiHP == 353600:
-                        print id1[0], 'ÏÝÚåÁ¶Óü£¡£¡£¡', llsid
+                        print id1[0], 'Purgatory of Trapï¼ï¼ï¼', llsid
                         break
                     elif lilisiHP == 350450:
-                        print id1[0], 'ËÍ»¹Á¶Óü£¡£¡£¡£¡£¡£¡', llsid
+                        print id1[0], 'Purgatory of Exileï¼ï¼ï¼ï¼ï¼ï¼', llsid
                         break
                     elif lilisiHP == 356800:
-                        print id1[0], '·¨ÇÖÁ¶Óü£¡£¡£¡', llsid
+                        print id1[0], 'Purgatory of Magic Reosionï¼ï¼ï¼', llsid
                         break
                     elif lilisiHP == 350275:
-                        print id1[0], '¶Ü´ÌÁ¶Óü£¡£¡£¡', llsid
+                        print id1[0], 'Purgatory of Retaliationï¼ï¼ï¼', llsid
                         break
                     elif lilisiHP == 352800:
-                        print id1[0], 'Ð°ÎüÁ¶Óü£¡£¡£¡', llsid
+                        print id1[0], 'Purgatory of xiexiï¼ï¼ï¼', llsid
                         break
-                    print id1[0], '³öÏÖ²»Ã÷ÉÁµç', llsid
+                    print id1[0], 'unknown lightning', llsid
                     break
-                # elif lilisiHP > 140000 and lilisiHP < 150000:   #ÊÇ·ñ¹¥»÷À§ÄÑ
-                #     print id1[0], '³öÏÖÀòÀòË¿'
+                # elif lilisiHP > 140000 and lilisiHP < 150000:   #æ˜¯å¦æ”»å‡»å›°éš¾
+                #     print id1[0], 'å‡ºçŽ°èŽ‰èŽ‰ä¸'
                 #     break
                 else:
                     fightresult = llsfight(llsid)
@@ -355,11 +336,15 @@ for id1 in id:
                 datajson = json.loads(data)
                 mapstagestatus = datajson.get('status', 0)
                 message = datajson.get('message', 0)
-                message = message.encode('utf-8')
-                string = 'ÐÐ¶¯Á¦²»×ã!Ã¿10·ÖÖÓ¿É»Ö¸´1µã!ÄúÒ²¿ÉÒÔÊ¹ÓÃ¾§×ê¹ºÂòÐÐ¶¯Á¦Å¶!'
-                if mapstagestatus == 0 and cmp(message, string):
+                string = u'è¡ŒåŠ¨åŠ›ä¸è¶³!æ¯10åˆ†é’Ÿå¯æ¢å¤1ç‚¹!æ‚¨ä¹Ÿå¯ä»¥ä½¿ç”¨æ™¶é’»è´­ä¹°è¡ŒåŠ¨åŠ›å“¦!'
+                if mapstagestatus == 0 and message == string:
                     print id1[0], 'out of power'
                     break
+                else:
+                    # print id1[0], 'error'
+                    isLilisi = 0
+                    mapstagestatus = 1
+                    time.sleep(1)
         time.sleep(0.1)
     GetJourneyPointReward(awardList)
 
