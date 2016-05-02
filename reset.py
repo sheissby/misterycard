@@ -1,7 +1,8 @@
-# encoding:GBK
+# encoding:utf-8
 import requests
 import json
 import time
+from id import *
 
 header = {'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
@@ -17,9 +18,10 @@ def connection(url, data):
             if status == 0:
                 message = jsonresponse.get('message', 0)
                 if message == '':
-                    print 'µÇÂ¼Ê§°Ü'
+                    print 'ç™»å½•å¤±è´¥'
                     time.sleep(1)
                 else:
+                    print message
                     return 1
         except requests.ConnectionError, e:
             print e
@@ -70,16 +72,9 @@ def reset_tower(*id1):
         else:
             print id1[0], tower_id, 'reset success'
 
-id = [
-      ['ÓãÍèºÅÆì½¢','2013042910219954', '132168', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÑ²Ñó½¢','2013050510338482', '138002', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍèºÅÇıÖğ½¢','2013051110431066', '144222', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅ»¤ÎÀ½¢','2013072911496244', '213117', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍèºÅÅÚ½¢','2013072911496578', '213119', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÇ±Ë®Í§','2013082111852712', '223399', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍèÖŞ¼Êµ¼µ¯','2013110613340617', '244513', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÎå×İ¶Ó','2013112813880389', '249308', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍè½¢¶ÓËÄ×İ¶Ó','2013112813880397', '249307', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÈı×İ¶Ó','2013112813880401', '249306', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍè½¢¶Ó¶ş×İ¶Ó','2013112813880408', '249303', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÒ»×İ¶Ó','2013112813880415', '249301', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍè½¢¶ÓÆß×İ¶Ó','2013112813880453', '249274', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÕ½ÁĞ½¢','2013112813880485', '249258', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍè½¢¶ÓÁù×İ¶Ó','2013112813892037', '249363', 'hk8URzaHObkJbp0r']
-     ]
+id = Cmid()
+# id = [['Bm', '2016030615546648', '304592', 'IggFdDB5eE6uERXL']]
+
 for id1 in id:
     reset_tower(*id1)
     time.sleep(1)

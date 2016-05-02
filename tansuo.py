@@ -4,7 +4,7 @@ import json
 import StringIO
 import gzip
 import time
-from id import id4
+from id import *
 
 def con(uid):
     header1 = {'Host': 'master.xiaomi.mysticalcard.com', 'Cookie': '_sid=d3kv2cgc086bs71ujmg746qqd3',
@@ -190,7 +190,7 @@ def thievesfight(userthievesid):
     conn.close()
 
 # 账户列表
-id = id4()
+id = Cmid()
 alwaystansuo = raw_input('有贼是否探索：1.否 2.是：')
 if alwaystansuo.strip() == '' or not alwaystansuo.isdigit():
     print 'error'

@@ -1,23 +1,44 @@
-# encoding:GBK
+# encoding:utf-8
 import requests
 import json
 import time
+from id import *
+# import logging
+# import logging.handlers
+#
+# LOG_FILE = 'log.log'
+#
+# handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes = 1024*1024, backupCount = 5) # å®ä¾‹åŒ–handler
+# fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'
+#
+# formatter = logging.Formatter(fmt)   # å®ä¾‹åŒ–formatter
+# handler.setFormatter(formatter)      # ä¸ºhandleræ·»åŠ formatter
+#
+# logger = logging.getLogger('log')    # è·å–åä¸ºtstçš„logger
+# logger.addHandler(handler)           # ä¸ºloggeræ·»åŠ handler
+# logger.setLevel(logging.DEBUG)
 
 header = {'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
-
 
 def connection(url, data):
     status = 0
     while status == 0:
         try:
             response = requests.post(url, data=data, headers=header)
-            jsonresponse = json.loads(response.content)
+            x = 0
+            while x == 0:
+                try:
+                    jsonresponse = json.loads(response.content)
+                    # logger.info(response.content)
+                    x = 1
+                except Exception:
+                    x = 0
             status = jsonresponse.get('status', 0)
             if status == 0:
                 message = jsonresponse.get('message', 0)
                 if message == '':
-                    print 'µÇÂ¼Ê§°Ü'
+                    print 'ç™»å½•å¤±è´¥'
                     time.sleep(1)
                 else:
                     # print message
@@ -60,69 +81,63 @@ def con_log(*id1):
     # print id1[0], 'con_log success!'
 
 
-# »ñµÃÃ¿²ãĞÅÏ¢
+# è·å¾—æ¯å±‚ä¿¡æ¯
 def getlayerinfo(layer, map_id):
-    item = []   # ĞèÒª¹¥»÷µÄ¸ñ×Ó¼¯ºÏ
-    count = 0   # ¼ÆËã¸ñ×ÓºÅ
+    item = []   # éœ€è¦æ”»å‡»çš„æ ¼å­é›†åˆ
+    count = 0   # è®¡ç®—æ ¼å­å·
     data = "Layer=" + ('%d' % layer) + '&MapStageId=' + ('%d' % map_id)
-    print ('%d' % map_id), 'Ëş' + ('%d' % layer), '²ã'
+    print ('%d' % map_id), 'å¡”' + ('%d' % layer), 'å±‚'
     url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Info&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
     jsonresponse = connection(url, data)
-    if jsonresponse == u'ÉÏÒ»²ãÃÔ¹¬»¹Ã»´òÍêÄØ!':
+    if jsonresponse == u'ä¸Šä¸€å±‚è¿·å®«è¿˜æ²¡æ‰“å®Œå‘¢!':
+        print jsonresponse
         return
-    elif jsonresponse == u'ÃÔ¹¬ÉĞÎ´¿ªÆô.':
+    elif jsonresponse == u'è¿·å®«å°šæœªå¼€å¯.':
+        print jsonresponse
         return
     else:
-        items = jsonresponse.get('data', 0).get('Map', 0).get('Items', 0)  # ËùÓĞ¸ñ×ÓµÄĞÅÏ¢
-        for cords in items:                            # Ñ­»·ËùÓĞ¸ñ×Ó£¬»ñµÃĞèÒª¹¥»÷µÄĞÅÏ¢
+        items = jsonresponse.get('data', 0).get('Map', 0).get('Items', 0)  # æ‰€æœ‰æ ¼å­çš„ä¿¡æ¯
+        for cords in items:                            # å¾ªç¯æ‰€æœ‰æ ¼å­ï¼Œè·å¾—éœ€è¦æ”»å‡»çš„ä¿¡æ¯
             cords = int(cords)
             if cords == 2 or cords == 3 or cords == 5:
-                item.append(count)                       # Ìí¼Ó¸ñ×ÓºÅµ½¹¥»÷¼¯ºÏ
-            count += 1                           # ¼ÆËãĞèÒª¹¥»÷µÄ¸ñ×ÓºÅ
+                item.append(count)                       # æ·»åŠ æ ¼å­å·åˆ°æ”»å‡»é›†åˆ
+            count += 1                           # è®¡ç®—éœ€è¦æ”»å‡»çš„æ ¼å­å·
+        print item
         return item
 
 
-# ½øĞĞ¹¥»÷
+# è¿›è¡Œæ”»å‡»
 def fight(layer, map_id, item):
     for cord in item:
+        # logger.info(cord)
         fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
         url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
         jsonresponse = connection(url, fightdata)
-        if jsonresponse == u'ĞĞ¶¯Á¦²»×ã!Ã¿10·ÖÖÓ¿É»Ö¸´1µã!ÄúÒ²¿ÉÒÔÊ¹ÓÃ¾§×ê¹ºÂòĞĞ¶¯Á¦Å¶!':
+        # print jsonresponse
+        if jsonresponse == u'è¡ŒåŠ¨åŠ›ä¸è¶³!æ¯10åˆ†é’Ÿå¯æ¢å¤1ç‚¹!æ‚¨ä¹Ÿå¯ä»¥ä½¿ç”¨æ™¶é’»è´­ä¹°è¡ŒåŠ¨åŠ›å“¦!':
             print ('out of power!')
             return 0
 
 
-# Ñ­»·Ë¢Ëş
+# å¾ªç¯åˆ·å¡”
 def play_tower(*id1):
     for map_id in [8, 7, 6]:
+        # logger.info(map_id)
         for layer in range(1, 6):
             con_log(*id1)
+            # logger.info(layer)
             item = getlayerinfo(layer, map_id)
             if item:
-                try:
-                    fightresult = fight(layer, map_id, item)
-                    if fightresult == 0:
-                        return
-                except Exception:
-                    fightresult = fight(layer, map_id, item)
-                    if fightresult == 0:
-                        return
+                fightresult = fight(layer, map_id, item)
+                if fightresult == 0:
+                    return
 
 
-
-id = [
-      ['ÓãÍèºÅÆì½¢','2013042910219954', '132168', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÑ²Ñó½¢','2013050510338482', '138002', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍèºÅÇıÖğ½¢','2013051110431066', '144222', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅ»¤ÎÀ½¢','2013072911496244', '213117', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍèºÅÅÚ½¢','2013072911496578', '213119', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÇ±Ë®Í§','2013082111852712', '223399', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍèÖŞ¼Êµ¼µ¯','2013110613340617', '244513', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÎå×İ¶Ó','2013112813880389', '249308', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍè½¢¶ÓËÄ×İ¶Ó','2013112813880397', '249307', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÈı×İ¶Ó','2013112813880401', '249306', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍè½¢¶Ó¶ş×İ¶Ó','2013112813880408', '249303', 'hk8URzaHObkJbp0r'], ['ÓãÍè½¢¶ÓÒ»×İ¶Ó','2013112813880415', '249301', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍè½¢¶ÓÆß×İ¶Ó','2013112813880453', '249274', 'hk8URzaHObkJbp0r'], ['ÓãÍèºÅÕ½ÁĞ½¢','2013112813880485', '249258', 'hk8URzaHObkJbp0r'],
-      ['ÓãÍè½¢¶ÓÁù×İ¶Ó','2013112813892037', '249363', 'hk8URzaHObkJbp0r']
-      ]
+id = Cmid()
+# id = [['Bm', '2016030615546648', '304592', 'IggFdDB5eE6uERXL']]
 for id1 in id:
     print id1[0], 'start'
+    # logger.info(id1[0])
     play_tower(*id1)
     print id1[0], 'end'
 raw_input('The End')
