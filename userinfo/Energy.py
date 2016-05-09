@@ -33,13 +33,15 @@ def getEnergy(*id1):
 
     # 送好友体力
     url = host + '/fenergy.php?do=SendFEnergy&v=9804&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
-    EnergySendList = ['104681', '104886', '105245', '105265', '105290', '105545',
+    EnergySendList = ['104681','104886', '105245', '105265', '105290', '105545',
                       '106192', '106396', '106798', '106752', '107217', '107504',
                       '107663', '108118']
     for EnergySend in EnergySendList:
         data = 'Fid=' + EnergySend
         flg, jsonresponse = connection(url, data=data)
         if flg == 0:
+            if jsonresponse == u'今日已经赠送过该好友！':
+                break
             print id1[0], jsonresponse
 
     # 领取体力
