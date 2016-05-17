@@ -7,6 +7,7 @@ header = {'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
 config = ConfigParser.ConfigParser()
 config.read('init.conf')
+config.read('/storage/emulated/0/com.hipipal.qpyplus/scripts/init.conf')
 host = config.get('Host', 'host')
 
 
