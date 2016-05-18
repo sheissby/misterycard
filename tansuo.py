@@ -3,15 +3,20 @@ import requests
 import json
 import time
 import ConfigParser
+
+import sys
+
 from id import *
 
 header = {'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
 
+curpath = sys.path[0]
+initpath = curpath + '/init.conf'
+
 # 从配置文件获取指定参数
 config = ConfigParser.ConfigParser()
-config.read('init.conf')
-config.read('/storage/emulated/0/com.hipipal.qpyplus/scripts/init.conf')
+config.read(initpath)
 host = config.get('Host', 'host')
 threshold = config.get('threshold', 'threshold')
 autofight = config.get('auto fight', 'autofight')
