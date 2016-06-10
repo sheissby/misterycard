@@ -74,7 +74,7 @@ def thinking():
     Type = jsonresponse.get('data', 0).get('AwardItem', 0).get('Type', 0)
     value = jsonresponse.get('data', 0).get('AwardItem', 0).get('Value', 0)
     # 获得金色碎片
-    if Type ==1 and int(value) == 5:
+    if Type == 1 and int(value) == 5:
         num = num + 1
         return num
     else:
@@ -86,17 +86,22 @@ def clear():
     jsonresponse = connection(url, data)
 
 id = [
-      ['利佐伊', '2013072511431198', '209850', 'jlOxpE5vIdZCRceQ'],
-      ['雷贝拉', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ']
+    # ['Am', '1592626', '279696', 'IggFdDB5eE6uERXL'],
+ ['Bm', '2016030615546648', '304592', 'IggFdDB5eE6uERXL'],
+ #    ['Bm7', '2013072511431198', '209850', 'jlOxpE5vIdZCRceQ'],
+ #    ['Cm7', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ'],
       ]
 
 i = input('输入循环次数：')
 for id1 in id:
     jinsenum = 0
     for times in range(1, i+1):
+        print times
         con_log(*id1)
         for count in range(1, 11):
             Num = thinking()
             jinsenum = jinsenum + Num
+            # print jinsenum
         clear()
+        # print 'clear'
     print id1[0], '获得金色碎片 '+ str(jinsenum) +'个'

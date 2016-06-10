@@ -113,7 +113,7 @@ def fight(layer, map_id, item):
         fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
         url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
         jsonresponse = connection(url, fightdata)
-        # print jsonresponse
+        # print cord, jsonresponse
         if jsonresponse == u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!':
             print ('out of power!')
             return 0
@@ -134,7 +134,7 @@ def play_tower(*id1):
 
 
 id = Cmid()
-# id = [['Bm', '2016030615546648', '304592', 'IggFdDB5eE6uERXL']]
+# id = [['Am', '1592626', '279696', 'IggFdDB5eE6uERXL']]
 for id1 in id:
     print id1[0], 'start'
     # logger.info(id1[0])

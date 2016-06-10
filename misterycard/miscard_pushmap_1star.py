@@ -114,5 +114,4 @@ def Do_maps():
     push_star1(uid,MUid)
     print "program ends"
     return 0;
-      
 Do_maps()

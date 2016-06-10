@@ -66,11 +66,25 @@ def reset_tower(*id1):
     for tower_id in [8, 7, 6]:
         url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Reset&v=6389&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
         data = "MapStageId=" + ('%d' % tower_id)
-        jsonresponse = connection(url, data)
-        if jsonresponse == 1:
-            print id1[0], tower_id, 'reset fail'
+        isreset = towerstatus(data)
+        if isreset == 1:
+            jsonresponse = connection(url, data)
+            if jsonresponse == 1:
+                print id1[0], tower_id, 'reset fail'
+            else:
+                print id1[0], tower_id, 'reset success'
         else:
-            print id1[0], tower_id, 'reset success'
+            continue
+
+def towerstatus(data):
+    try:
+        url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Show&v=6389&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.8.1&pvb=2016-04-12%2009%3A53%3A52&platformtype=1'
+        jsonresponse = connection(url, data)
+        whetherReset = jsonresponse.get('data').get('FreeReset')
+    except Exception:
+        towerstatus(data)
+    return whetherReset
+
 
 id = Cmid()
 # id = [['Bm', '2016030615546648', '304592', 'IggFdDB5eE6uERXL']]

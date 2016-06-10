@@ -132,3 +132,4 @@ for id1 in id:
     if arr:
         EditUserMapStages(arr)
     Worship(*id1)
+    # time.sleep(10)
