@@ -3,11 +3,14 @@ import requests
 import json
 import time
 import ConfigParser
+import sys
+
 header = {'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
+curpath = sys.path[0]
+initpath = curpath + '/init.conf'
 config = ConfigParser.ConfigParser()
-config.read('init.conf')
-config.read('/storage/emulated/0/com.hipipal.qpyplus/scripts/init.conf')
+config.read(initpath)
 host = config.get('Host', 'host')
 
 
