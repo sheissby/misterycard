@@ -6,7 +6,7 @@ def con(uid):
              'User-Agent':'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0','x-flash-version':'18,0,0,161',
              'Connection':'Keep-Alive','Cache-Control':'no-cache','Referer':'app:/assets/CardMain.swf','Content-Type':'application/x-www-form-urlencoded'
              }
-    param0="uid="+uid+"&sessionid=IggFdDB5eE6uERXL&Udid=E0%3A69%3A95%3A82%3A9A%3AD0&plat=ANDROID%5FXIAOMI&newguide=1&IDFA="
+    param0="uid="+uid+"&sessionid=ZmeyMlMTIaQoo1vn&Udid=E0%3A69%3A95%3A82%3A9A%3AD0&plat=ANDROID%5FXIAOMI&newguide=1&IDFA="
     conn=httplib.HTTPConnection("master.xiaomi.mysticalcard.com")
     conn.request("POST","/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null",param0,header1)
     mpassport=conn.getresponse()

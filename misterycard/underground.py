@@ -1,5 +1,6 @@
 # encoding:utf-8
 import httplib,json, StringIO, gzip
+from id import *
 
 
 
@@ -147,19 +148,7 @@ def fight(*id):
         print layer
         conn.close()
 
-id = [
-        ['#Cm', '2014092692358474', '285154', 'IggFdDB5eE6uERXL'],
-        ['Em', '2014121327096245', '288121', 'IggFdDB5eE6uERXL'],
-        ['#Fm', '2015031960117052', '294557', 'IggFdDB5eE6uERXL'],
-        ['Bm', '2016030615546648', '304592', 'IggFdDB5eE6uERXL'],
-        ['Am7', '5047214', '198633', 'jlOxpE5vIdZCRceQ'],
-        ['Bm7', '2013072511431198', '209850', 'jlOxpE5vIdZCRceQ'],
-        ['Cm7', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ'],
-        ['Asus4', '6437079', '226322', 'LnQ6qpKCyY95nIrg'],
-        ['Bsus4', '2013120213991947', '250246', 'LnQ6qpKCyY95nIrg'],
-        ['Csus4', '2013121714341555', '254543', 'LnQ6qpKCyY95nIrg'],
-        ['Dsus4', '2013122514488598', '290176', 'LnQ6qpKCyY95nIrg'],
-]
+id = Cmid()
 
 for id1 in id:
     print id1[0]

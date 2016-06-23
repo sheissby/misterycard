@@ -89,6 +89,7 @@ def getlayerinfo(layer, map_id):
     print ('%d' % map_id), '塔' + ('%d' % layer), '层'
     url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Info&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
     jsonresponse = connection(url, data)
+    # print jsonresponse
     if jsonresponse == u'上一层迷宫还没打完呢!':
         print jsonresponse
         return
@@ -113,7 +114,7 @@ def fight(layer, map_id, item):
         fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
         url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
         jsonresponse = connection(url, fightdata)
-        # print cord, jsonresponse
+        # print jsonresponse
         if jsonresponse == u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!':
             print ('out of power!')
             return 0
