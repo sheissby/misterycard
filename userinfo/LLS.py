@@ -15,6 +15,7 @@ def GetFriendContributeList(*id1):
 # 解析好友腿毛信息
 def getFriendContribute(*id1):
     friendidAndpointAll = []
+    sum = 0
     con_log(*id1)
     jsonresponse = GetFriendContributeList(*id1)
     if jsonresponse != None:
@@ -47,10 +48,10 @@ def GetContributePoints(friendidAndpontList, sum, *id1):
         url = host + '/Journey.php?do=GetContributePoints&v=8502&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
         data = 'friendUid=' + '%d' %FriendContributeId[0]
         flg, jsonresponse = connection(url, data)
-        if flg == 1:
-            print id1[0], '领取', sum
-        else:
-            print id1[0], jsonresponse
+        if flg != 1:
+            return GetContributePoints(friendidAndpontList, sum, *id1)
+        print id1[0], '领取', sum
+
 
 # 获取个人lls信息
 def GetUserJourneysStatus(*id1):

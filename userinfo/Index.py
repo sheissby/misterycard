@@ -45,6 +45,6 @@ elif property == 7:
     for id1 in id:
         changeHeiDianPoints(*id1)
 elif property == 8:
-    id = [['Am', '1592626', '279696', 'IggFdDB5eE6uERXL']]
+    id = [['Am', '1592626', '279696', 'ZmeyMlMTIaQoo1vn']]
     for id1 in id:
         getEnergy(*id1)
