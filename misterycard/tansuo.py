@@ -196,7 +196,7 @@ def thievesfight(thiefid):
         return 0
 
 # 账户列表
-id = Cmid()
+id = Amid()
 alwaystansuo = raw_input('有贼是否探索：1.否 2.是：')
 if alwaystansuo.strip() == '' or not alwaystansuo.isdigit():
     print 'error'

@@ -336,6 +336,7 @@ for id1 in id:
                 datajson = json.loads(data)
                 mapstagestatus = datajson.get('status', 0)
                 message = datajson.get('message', 0)
+                # print message
                 string = u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!'
                 if mapstagestatus == 0 and message == string:
                     print id1[0], 'out of power'

@@ -89,7 +89,6 @@ def getlayerinfo(layer, map_id):
     print ('%d' % map_id), '塔' + ('%d' % layer), '层'
     url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Info&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
     jsonresponse = connection(url, data)
-    # print jsonresponse
     if jsonresponse == u'上一层迷宫还没打完呢!':
         print jsonresponse
         return
@@ -100,7 +99,7 @@ def getlayerinfo(layer, map_id):
         items = jsonresponse.get('data', 0).get('Map', 0).get('Items', 0)  # 所有格子的信息
         for cords in items:                            # 循环所有格子，获得需要攻击的信息
             cords = int(cords)
-            if cords == 2 or cords == 3 or cords == 5:
+            if cords == 2 or cords == 5:
                 item.append(count)                       # 添加格子号到攻击集合
             count += 1                           # 计算需要攻击的格子号
         print item
@@ -114,7 +113,7 @@ def fight(layer, map_id, item):
         fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
         url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
         jsonresponse = connection(url, fightdata)
-        print type(jsonresponse)
+        # print jsonresponse
         if jsonresponse == u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!':
             print ('out of power!')
             return 0
@@ -122,7 +121,7 @@ def fight(layer, map_id, item):
 
 # 循环刷塔
 def play_tower(*id1):
-    for map_id in [8, 7, 6]:
+    for map_id in [8, 7, 6, 5, 4, 3, 2]:
         # logger.info(map_id)
         for layer in range(1, 6):
             con_log(*id1)
@@ -134,8 +133,8 @@ def play_tower(*id1):
                     return
 
 
-id = Cmid()
-# id = [['Bm', '2016030615546648', '304592', 'ZmeyMlMTIaQoo1vn'],['Dsus4', '2013122514488598', '290176', 'LnQ6qpKCyY95nIrg']]
+id = Amid()
+# id = [['Em', '2014121327096245', '288121', 'IggFdDB5eE6uERXL']]
 for id1 in id:
     print id1[0], 'start'
     # logger.info(id1[0])

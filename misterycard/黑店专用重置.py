@@ -2,7 +2,8 @@
 import requests
 import json
 import time
-from id import *
+
+from id import Cmid
 
 header = {'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
@@ -63,32 +64,16 @@ def con_log(*id1):
 
 def reset_tower(*id1):
     con_log(*id1)
-    for tower_id in [8, 7, 6]:
+    for tower_id in [8, 7, 6, 5, 4, 3, 2]:
         url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Reset&v=6389&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
         data = "MapStageId=" + ('%d' % tower_id)
-        isreset = towerstatus(data)
-        if isreset == 1:
-            jsonresponse = connection(url, data)
-            if jsonresponse == 1:
-                print id1[0], tower_id, 'reset fail'
-            else:
-                print id1[0], tower_id, 'reset success'
-        else:
-            continue
-
-def towerstatus(data):
-    try:
-        url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Show&v=6389&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.8.1&pvb=2016-04-12%2009%3A53%3A52&platformtype=1'
         jsonresponse = connection(url, data)
-        whetherReset = jsonresponse.get('data').get('FreeReset')
-    except Exception:
-        towerstatus(data)
-    return whetherReset
-
+        if jsonresponse == 1:
+            print id1[0], tower_id, 'reset fail'
+        else:
+            print id1[0], tower_id, 'reset success'
 
 id = Cmid()
-# id = [['Bm', '2016030615546648', '304592', 'ZmeyMlMTIaQoo1vn'],['Dsus4', '2013122514488598', '290176', 'LnQ6qpKCyY95nIrg']]
-
 for id1 in id:
     reset_tower(*id1)
     time.sleep(1)
