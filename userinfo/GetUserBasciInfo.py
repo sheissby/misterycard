@@ -1,6 +1,6 @@
 # encoding:utf-8
 from userinfo.con_log import *
-
+from prettytable import PrettyTable
 
 # 获取个人基本信息
 def GetUserInfo(*id1):
@@ -30,5 +30,7 @@ def basicInfo(*id1):
         # LevelUpExp = int(userNextExp) - int(userPrevExp)
         LeaderShip = userinfo.get('data', 0).get('LeaderShip', 0)  #Cost
         # print userName, userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip
-        print('{0: ^18}{1: ^5}{2: ^15}{3: ^8}{4: ^8}{5: ^5}{6: ^5}{7: ^6}'
-              .format(userName.encode('utf-8'), userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip))
+        data = [userName.encode('utf-8'), userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip]
+        return data
+        # print('{0: ^18}{1: ^5}{2: ^15}{3: ^8}{4: ^8}{5: ^5}{6: ^5}{7: ^6}'
+        #       .format(userName.encode('utf-8'), userLevel, userCoins, userCash, userTicket, userEnergy, userThievesTimes, LeaderShip))
