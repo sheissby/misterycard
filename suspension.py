@@ -2,14 +2,17 @@
 import requests
 import time
 import json
+import win32api
+import win32con
 
-
+# 获取停复牌信息
 def get_suspension_info():
     date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
     url = 'http://datainterface.eastmoney.com/EM_DataCenter/JS.aspx?' \
           'type=FD&sty=SRB&st=0&sr=-1&p=1&ps=1000&js=var%20veuNVpqs={pages:(pc),data:[(x)]}&mkt=1&fd=' + date + '&rt=49093586'
     r = requests.get(url)
     html = r.content
+    # 编辑返回值以便使用json
     data = html.split('=')[1]
     data = data.replace('pages', '"pages"')
     data = data.replace('data', '"data"')
@@ -37,7 +40,9 @@ def findinfo(stockid_or_name_as_list, suspension_info):
         for suspension in suspension_info:   # 已抓取股票list
             suspension = suspension.split(',')
             if stockidorname == suspension[0].encode('utf-8') or stockidorname == suspension[1].encode('utf-8'):
-                print suspension[0],suspension[1],suspension[2], suspension[8],suspension[4],suspension[5]
+                output = suspension[0] + ' ' + suspension[1] + ' ' + suspension[2] + ' ' + suspension[8] + ' ' \
+                         + suspension[4] + ' ' + suspension[5]
+                win32api.MessageBox(0, output, 'WYM', win32con.MB_OK)
 
 
 if __name__ == '__main__':
