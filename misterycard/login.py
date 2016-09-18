@@ -10,28 +10,22 @@ header = {'Content-Type': 'application/x-www-form-urlencoded',
 host = 'http://s1.xiaomi.mysticalcard.com'
 
 def connection(url, data):
-    status = 0
-    while status == 0:
+    while 1:
         try:
-            response = requests.post(url, data=data, headers=header)
-            jsonresponse = json.loads(response.content)
-            status = jsonresponse.get('status', 0)
+            r = requests.post(url, data=data, headers=header)
+            response = json.loads(r.content)
+            status = response['status']
             if status == 0:
-                message = jsonresponse.get('message', 0)
+                message = response['message']
                 if message == '':
                     print '登录失败'
                     time.sleep(1)
                 else:
-                    return 0, message
-        except requests.ConnectionError, e:
+                    return 1, response
+            return 1, response
+        except requests.ConnectionError or requests.HTTPError, e:
             print e
-            status = 0
             time.sleep(1)
-        except requests.HTTPError, e:
-            print e
-            status = 0
-            time.sleep(1)
-    return 1, jsonresponse
 
 
 def con(uid, sessionid):
@@ -87,21 +81,19 @@ def getAward():
 
 def GetUserMapStages():
     url = 'http://s1.xiaomi.mysticalcard.com/mapstage.php?do=GetUserMapStages&v=7002&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
-    data = ''
-    flg = 0
-    while flg == 0:
-        flg, jsonresponse = connection(url, data)
+    while 1:
+        flg, jsonresponse = connection(url, data='')
         if flg != 0:
-            data = jsonresponse.get('data', 0)
+            data = jsonresponse['data']
+            break
         else:
             print id1[0], 'GetUserMapStages failed!', jsonresponse
-    arr = []
-    for i in data:
-        counterattacktime = data.get(i, 0).get('CounterAttackTime', 0)
-        counterattacktime = int(counterattacktime)
-        if counterattacktime != 0:
-            arr.append(i)
-    return arr
+    if data:
+        arr = [i for i in data if int(data[i]['CounterAttackTime']) != 0]
+        print '1'
+        return arr
+    else:
+        return GetUserMapStages()
 
 
 def EditUserMapStages(arr):
@@ -133,3 +125,4 @@ for id1 in id:
         EditUserMapStages(arr)
     Worship(*id1)
     # time.sleep(10)
+
