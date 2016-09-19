@@ -31,7 +31,7 @@ class Combine():
                 new_width += width
 
         # 产生一张空白图
-        new_img = PI.new('RGB', (new_width, new_height), 255)
+        new_img = PI.new('RGB', (new_width, new_height), (255, 255, 255))
         # 合并
         x = y = 0
         for img_path in self.images_path:
