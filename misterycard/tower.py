@@ -122,10 +122,11 @@ def fight(layer, map_id, item):
 
 # 循环刷塔
 def play_tower(*id1):
-    for map_id in [8, 7, 6]:
+    for map_id in [8]:
+        con_log(*id1)
         # logger.info(map_id)
         for layer in range(1, 6):
-            con_log(*id1)
+
             # logger.info(layer)
             item = getlayerinfo(layer, map_id)
             if item:
@@ -134,8 +135,8 @@ def play_tower(*id1):
                     return
 
 
-id = Cmid()
-# id = [['Bm', '2016030615546648', '304592', 'ZmeyMlMTIaQoo1vn'],['Dsus4', '2013122514488598', '290176', 'LnQ6qpKCyY95nIrg']]
+# id = Cmid()
+id = [['Am', '1592626', '279696', 'ZmeyMlMTIaQoo1vn']]
 for id1 in id:
     print id1[0], 'start'
     # logger.info(id1[0])

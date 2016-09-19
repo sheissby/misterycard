@@ -5,21 +5,24 @@ from userinfo.GetUserBasciInfo import *
 from userinfo.LLS import *
 from userinfo.heidian import *
 
-id = loginid()
 
-print '1. 查询基本信息'
-print '2. 查询lls腿毛'
-print '3. 领取全部腿毛'
-print '4. 查询lls积分排名'
-print '5. 送自己体力'
-print '6. 查询黑店积分'
-print '7. 兑换黑店积分'
-print '8. 领取体力'
-property = input('查询类型:')
+id = Cmid()
+
+property = input('1. 查询基本信息\n'
+                 '2. 查询lls腿毛\n'
+                 '3. 领取全部腿毛\n'
+                 '4. 查询lls积分排名\n'
+                 '5. 送自己体力\n'
+                 '6. 查询黑店积分\n'
+                 '7. 兑换黑店积分\n'
+                 '8. 领取体力\n'
+                 '查询类型:')
 if property == 1:
-    print ('{0: ^18}{1: ^7}{2: ^18}{3: ^8}{4: ^12}{5: ^10}{6: ^10}{7: ^10}'.format('id', '等级', '金币','晶钻','屌丝券','体力','不明','cost'))
+    row = PrettyTable(['id', '等级', '金币', '晶钻', '屌丝券', '体力', '不明', 'cost'])
+    # print ('{0: ^18}{1: ^7}{2: ^18}{3: ^8}{4: ^12}{5: ^10}{6: ^10}{7: ^10}'.format('id', '等级', '金币','晶钻','屌丝券','体力','不明','cost'))
     for id1 in id:
-        basicInfo(*id1)
+        row.add_row(basicInfo(*id1))
+    print row
     raw_input()
 elif property == 2:
     for id1 in id:
