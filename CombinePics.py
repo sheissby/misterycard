@@ -42,7 +42,7 @@ class Combine():
                 x += width
 
         # output_dir = os.getcwd()
-        output_name = (img.filename.split('.'))[0]
+        output_name = (img.filename.split('.'))[0][:-1]
         save_path = output_name + '.jpg'
         new_img.save(save_path)
         self.images_path = []
