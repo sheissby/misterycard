@@ -8,7 +8,7 @@ header = {'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
 config = ConfigParser.ConfigParser()
 config.read('init.conf')
-host = config.get('Host', 'host')
+# host = config.get('Host', 'host')
 
 
 # 成功返回1和response信息，失败返回0和失败信息
@@ -17,7 +17,6 @@ def connection(url, data):
     while status == 0:
         try:
             response = requests.post(url, data=data, headers=header)
-            print response.content
             jsonresponse = json.loads(response.content)
             status = jsonresponse.get('status', 0)
             if status == 0:
@@ -35,10 +34,10 @@ def connection(url, data):
             print e
             status = 0
             time.sleep(1)
-        # except Exception, e:
-        #     print e
-        #     status = 0
-        #     time.sleep(1)
+        except Exception, e:
+            print e
+            status = 0
+            time.sleep(1)
     return 1, jsonresponse
 
 
@@ -85,12 +84,12 @@ def con_log(id):
 
 
 if __name__ == '__main__':
-    id =[
+    ids =[
         # ['R0', '59079768', '289074', 'rgHAKkH6roUMGmeY'],
-        ['Reao1st', '2014021515603023', '264491', '73gstGxATMy4UuUy'],
-        ['Reao2nd', '2014040452624347', '289393', '73gstGxATMy4UuUy'],
+        ['#Cm', '2014092692358474', '285154', 'ZmeyMlMTIaQoo1vn'],
+        ['Em', '2014121327096245', '288121', 'ZmeyMlMTIaQoo1vn'],
     ]
 
-    for id1 in id:
-        con_log(*id1)
+    for id in ids:
+        con_log(id)
         # getmapid()

@@ -294,33 +294,43 @@ for id1 in id:
                 if lilisiHP > 150000:
                     if lilisiHP == 236520:
                         print id1[0], 'Nightmare of fire!', llsid
+                        fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 238980:
                         print id1[0], 'Nightmare of xiexi!', llsid
+                        fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 232340:
                         print id1[0], 'Nightmare of Dual Snipe!', llsid
+                        fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 226540:
                         print id1[0], 'Nightmare of Teleportation!', llsid
+                        fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 241060:
                         print id1[0], 'Nightmare of Concentration!', llsid
+                        fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 353600:
                         print id1[0], 'Purgatory of Trap！！！', llsid
+                        # fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 350450:
                         print id1[0], 'Purgatory of Exile！！！！！！', llsid
+                        # fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 356800:
                         print id1[0], 'Purgatory of Magic Reosion！！！', llsid
+                        # fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 350275:
                         print id1[0], 'Purgatory of Retaliation！！！', llsid
+                        # fightresult = llsfight(llsid)
                         break
                     elif lilisiHP == 352800:
                         print id1[0], 'Purgatory of xiexi！！！', llsid
+                        # fightresult = llsfight(llsid)
                         break
                     print id1[0], 'unknown lightning', llsid
                     break

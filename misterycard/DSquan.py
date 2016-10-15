@@ -99,13 +99,7 @@ def BuyDSquan(*id1):
 
 
 id = [
-      # ['Am', '1592626', '279696', 'ILjEr8jamXWQSf4v'],
-      # ['#Cm', '2014092692358474', '285154', 'ILjEr8jamXWQSf4v'],
-      # ['Em', '2014121327096245', '288121', 'ILjEr8jamXWQSf4v'],
-      # ['#Fm', '2015031960117052', '294557', 'ILjEr8jamXWQSf4v'],
-      #
-      # ['樱木', '5047214', '198633', '0jOBCWaqFzYqZsNi'], ['利佐伊', '2013072511431198', '209850', '0jOBCWaqFzYqZsNi'],
-      # ['雷贝拉', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ']
+['Am', '1592626', '279696', 'ZmeyMlMTIaQoo1vn']
       ]
 i = input('输入循环次数：')
 for id1 in id:

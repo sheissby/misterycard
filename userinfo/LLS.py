@@ -50,7 +50,7 @@ def GetContributePoints(friendidAndpontList, sum, *id1):
         flg, jsonresponse = connection(url, data)
         if flg != 1:
             return GetContributePoints(friendidAndpontList, sum, *id1)
-        print id1[0], '领取', sum
+    print id1[0], '领取', sum
 
 
 # 获取个人lls信息

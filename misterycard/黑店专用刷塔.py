@@ -18,8 +18,13 @@ from id import *
 # logger.addHandler(handler)           # 为logger添加handler
 # logger.setLevel(logging.DEBUG)
 
-header = {'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
+header = {'Host': 'master.xiaomi.mysticalcard.com', 'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5',
+               'Accept': 'text/xml, application/xml, application/xhtml+xml, text/html;q=0.9, text/plain;q=0.8, text/css, image/png, image/jpeg, image/gif;q=0.8, application/x-shockwave-flash, video/mp4;q=0.9, flv-application/octet-stream;q=0.8, video/x-flv;q=0.7, audio/mp4, application/futuresplash, */*;q=0.5',
+               'User-Agent': 'Mozilla/5.0 (Android; U; zh-CN) AppleWebKit/533.19.4 (KHTML, like Gecko) AdobeAIR/18.0',
+               'x-flash-version': '18,0,0,161',
+               'Connection': 'Keep-Alive', 'Cache-Control': 'no-cache', 'Referer': 'app:/assets/CardMain.swf',
+               'Content-Type': 'application/x-www-form-urlencoded'
+          }
 
 def connection(url, data):
     status = 0
@@ -87,7 +92,7 @@ def getlayerinfo(layer, map_id):
     count = 0   # 计算格子号
     data = "Layer=" + ('%d' % layer) + '&MapStageId=' + ('%d' % map_id)
     print ('%d' % map_id), '塔' + ('%d' % layer), '层'
-    url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Info&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
+    url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Info&v=8995&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.8.1&pvb=2016-04-12%2009%3A53%3A52&platformtype=1'
     jsonresponse = connection(url, data)
     if jsonresponse == u'上一层迷宫还没打完呢!':
         print jsonresponse
@@ -110,21 +115,24 @@ def getlayerinfo(layer, map_id):
 def fight(layer, map_id, item):
     for cord in item:
         # logger.info(cord)
+        time.sleep(1)
         fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
-        url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
+        url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.8.1&pvb=2016-04-12%2009%3A53%3A52&platformtype=1'
         jsonresponse = connection(url, fightdata)
-        # print jsonresponse
+        print type(jsonresponse)
         if jsonresponse == u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!':
             print ('out of power!')
             return 0
+
 
 
 # 循环刷塔
 def play_tower(*id1):
     for map_id in [8, 7, 6, 5, 4, 3, 2]:
         # logger.info(map_id)
+        con_log(*id1)
         for layer in range(1, 6):
-            con_log(*id1)
+            # con_log(*id1)
             # logger.info(layer)
             item = getlayerinfo(layer, map_id)
             if item:
@@ -133,8 +141,8 @@ def play_tower(*id1):
                     return
 
 
-id = Amid()
-# id = [['Em', '2014121327096245', '288121', 'IggFdDB5eE6uERXL']]
+# id = Cmid()
+id = [['#Cm', '2014092692358474', '285154', 'ZmeyMlMTIaQoo1vn']]
 for id1 in id:
     print id1[0], 'start'
     # logger.info(id1[0])

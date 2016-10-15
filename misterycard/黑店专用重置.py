@@ -3,7 +3,7 @@ import requests
 import json
 import time
 
-from id import Cmid
+from id import *
 
 header = {'Content-Type': 'application/x-www-form-urlencoded',
           'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
@@ -73,7 +73,7 @@ def reset_tower(*id1):
         else:
             print id1[0], tower_id, 'reset success'
 
-id = Cmid()
+id = Amid()
 for id1 in id:
     reset_tower(*id1)
     time.sleep(1)

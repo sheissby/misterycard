@@ -9,7 +9,7 @@ import sys
 from id import *
 
 header = {'Content-Type': 'application/x-www-form-urlencoded',
-          'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s5'}
+          'Cookie': '_sid=27vjshsgsfpsglp14ts5hba4s1'}
 
 curpath = sys.path[0]
 initpath = curpath + '/init.conf'
@@ -196,7 +196,7 @@ def thievesfight(thiefid):
         return 0
 
 # 账户列表
-id = Amid()
+id = Cmid()
 alwaystansuo = raw_input('有贼是否探索：1.否 2.是：')
 if alwaystansuo.strip() == '' or not alwaystansuo.isdigit():
     print 'error'

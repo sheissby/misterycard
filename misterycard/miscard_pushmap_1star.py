@@ -86,7 +86,7 @@ def push_star1(uid,MUid):
              'Connection':'Keep-Alive','Cache-Control':'no-cache','Referer':'app:/assets/CardMain.swf','Content-Type':'application/x-www-form-urlencoded'
              }
     map_id=input("please enter the map_id: ")
-    for i in range(1,10):
+    for i in range(1,30):
         param0="MapStageDetailId="+('%d' %map_id)+"&isManual=0"
         # print param0
         z=Get_Map_Stages()
@@ -103,7 +103,7 @@ def push_star1(uid,MUid):
             return 1
         else:
             print "fail"
-        con_log(uid,MUid)
+        # con_log(uid,MUid)
     return 0
 
 

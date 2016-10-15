@@ -31,86 +31,86 @@ class MYSQL(object):
         self._cur = self._conn.cursor()
         self._instance = MySQLdb
 
-def query(self,sql):
-    u'执行 SELECT 语句'
-    try:
-      self._cur.execute("SET NAMES utf8")
-      result = self._cur.execute(sql)
-    except MySQLdb.Error, e:
-      self.error_code = e.args[0]
-      print "数据库错误代码:",e.args[0],e.args[1]
-      result = False
-    return result
+    def query(self,sql):
+        u'执行 SELECT 语句'
+        try:
+          self._cur.execute("SET NAMES utf8")
+          result = self._cur.execute(sql)
+        except MySQLdb.Error, e:
+          self.error_code = e.args[0]
+          print "数据库错误代码:",e.args[0],e.args[1]
+          result = False
+        return result
 
-  def update(self,sql):
-    u'执行 UPDATE 及 DELETE 语句'
-    try:
-      self._cur.execute("SET NAMES utf8")
-      result = self._cur.execute(sql)
-      self._conn.commit()
-    except MySQLdb.Error, e:
-      self.error_code = e.args[0]
-      print "数据库错误代码:",e.args[0],e.args[1]
-      result = False
-    return result
+    def update(self,sql):
+    # u'执行 UPDATE 及 DELETE 语句'
+        try:
+            self._cur.execute("SET NAMES utf8")
+            result = self._cur.execute(sql)
+            self._conn.commit()
+        except MySQLdb.Error, e:
+            self.error_code = e.args[0]
+            print "数据库错误代码:",e.args[0],e.args[1]
+            result = False
+        return result
 
-  def insert(self,sql):
-    u'执行 INSERT 语句。如主键为自增长int，则返回新生成的ID'
-    try:
-      self._cur.execute("SET NAMES utf8")
-      self._cur.execute(sql)
-      self._conn.commit()
-      return self._conn.insert_id()
-    except MySQLdb.Error, e:
-      self.error_code = e.args[0]
-      return False
+    def insert(self,sql):
+    #u'执行 INSERT 语句。如主键为自增长int，则返回新生成的ID'
+        try:
+          self._cur.execute("SET NAMES utf8")
+          self._cur.execute(sql)
+          self._conn.commit()
+          return self._conn.insert_id()
+        except MySQLdb.Error, e:
+          self.error_code = e.args[0]
+          return False
 
-  def fetchAllRows(self):
-    u'返回结果列表'
-    return self._cur.fetchall()
+    def fetchAllRows(self):
+    #u'返回结果列表'
+        return self._cur.fetchall()
 
-  def fetchOneRow(self):
-    u'返回一行结果，然后游标指向下一行。到达最后一行以后，返回None'
-    return self._cur.fetchone()
+    def fetchOneRow(self):
+    #u'返回一行结果，然后游标指向下一行。到达最后一行以后，返回None'
+        return self._cur.fetchone()
 
-  def getRowCount(self):
-    u'获取结果行数'
-    return self._cur.rowcount
+    def getRowCount(self):
+    #u'获取结果行数'
+        return self._cur.rowcount
 
-  def commit(self):
-    u'数据库commit操作'
-    self._conn.commit()
+    def commit(self):
+    #u'数据库commit操作'
+        self._conn.commit()
 
-  def rollback(self):
-    u'数据库回滚操作'
-    self._conn.rollback()
+    def rollback(self):
+    #u'数据库回滚操作'
+        self._conn.rollback()
 
-  def __del__(self):
-    u'释放资源（系统GC自动调用）'
-    try:
-      self._cur.close()
-      self._conn.close()
-    except:
-      pass
+    def __del__(self):
+    #u'释放资源（系统GC自动调用）'
+        try:
+          self._cur.close()
+          self._conn.close()
+        except:
+          pass
 
-  def  close(self):
-    u'关闭数据库连接'
-    self.__del__()
+    def  close(self):
+    #u'关闭数据库连接'
+        self.__del__()
 
 
 if __name__ == '__main__':
-  '''使用样例'''
+  #'''使用样例'''
 
   #数据库连接参数
   dbconfig = {'host':'localhost',
         'port': 3306,
         'user':'dbuser',
         'passwd':'dbpassword',
-        'db':'testdb',
+        'dbname':'testdb',
         'charset':'utf8'}
 
   #连接数据库，创建这个类的实例
-  db = MySQL(dbconfig)
+  db = MYSQL(dbconfig)
 
   #操作数据库
   sql = "SELECT * FROM `sample_table`"

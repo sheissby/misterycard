@@ -86,10 +86,8 @@ def clear():
     jsonresponse = connection(url, data)
 
 id = [
-    # ['Am', '1592626', '279696', 'IggFdDB5eE6uERXL'],
- ['Bm', '2016030615546648', '304592', 'IggFdDB5eE6uERXL'],
- #    ['Bm7', '2013072511431198', '209850', 'jlOxpE5vIdZCRceQ'],
- #    ['Cm7', '2013072511431214', '209852', 'jlOxpE5vIdZCRceQ'],
+    ['Csus4', '2013121714341555', '254543', 'LnQ6qpKCyY95nIrg'],
+    ['Dsus4', '2013122514488598', '290176', 'LnQ6qpKCyY95nIrg'],
       ]
 
 i = input('输入循环次数：')
