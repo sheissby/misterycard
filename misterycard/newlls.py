@@ -139,8 +139,8 @@ def need_explore(cd):
                 while llsstatus == 2 and cd == 1:
                     cd, llsstatus = fight_lls(llsid)
                 return cd, llsstatus
-        elif flg == 0:
-            print id[0], 'explore', jsonresponse
+        # elif flg == 0:
+        #     print id[0], 'explore', jsonresponse
 
 
 def noneed_explore(cd, llsgrade):
@@ -178,7 +178,7 @@ if __name__ == "__main__":
         else:
             while cd == 1 and fightresult == 1:
                 cd, fightresult = need_explore(cd)
-            if cd == 1:
+            if cd == 0:
                 print id[0], 'CDing'
         if enableAwardList:
             GetJourneyPointReward(enableAwardList)
