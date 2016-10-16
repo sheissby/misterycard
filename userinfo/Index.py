@@ -30,7 +30,7 @@ elif property == 2:
         print id1[0], sum
 elif property == 3:
     AllfriendidAndpointList = []
-    # id = [['Am', '1592626', '279696', 'ZmeyMlMTIaQoo1vn']]
+    id = [['Am', '1592626', '279696', 'ZmeyMlMTIaQoo1vn']]
     for id1 in id:
         AllfriendidAndpointList, sum = getFriendContribute(*id1)   #获得腿毛列表
         GetContributePoints(AllfriendidAndpointList, sum, *id1)         #拔腿毛

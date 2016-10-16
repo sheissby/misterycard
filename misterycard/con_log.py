@@ -26,16 +26,7 @@ def connection(url, data):
                     time.sleep(1)
                 else:
                     return 0, message
-        except requests.ConnectionError, e:
-            print e
-            status = 0
-            time.sleep(1)
-        except requests.HTTPError, e:
-            print e
-            status = 0
-            time.sleep(1)
-        except Exception, e:
-            print e
+        except Exception:
             status = 0
             time.sleep(1)
     return 1, jsonresponse

@@ -79,7 +79,7 @@ def need_explore(cd):
         string = u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!'
         if jsonresponse == string:
             print id[0], 'out of power'
-            return 0, 'out of power'
+            return 2, 'out of power'
         elif flg == 1 and 'JourneyInfo' in jsonresponse['data'].keys():
             lilisiHP = jsonresponse.get('data', 0).get('JourneyInfo', 0).get('HPCount', 0)
             llsid = jsonresponse.get('data', 0).get('JourneyInfo', 0).get('UserJourneyId', 0)
@@ -131,6 +131,7 @@ def need_explore(cd):
                     return fight_cd, llsstatus
             # 困难
             elif lilisiHP > 140000 and lilisiHP < 150000:
+                print id[0], 'difficult'
                 fight_cd, llsstatus = fight_lls(llsid)
                 return fight_cd, llsstatus
             # 简单和普通
