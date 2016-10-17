@@ -32,12 +32,12 @@ def get_lls_info(id):
                     if (llsNickName == currentuid and llsstatus == 1 and llshpcurrent > 0 and llsfleetime > 0) \
                             or (llsNickName == currentuid and llsstatus == 0 and llsfleetime > 0):
                         # 有自己的lls
-                        return 0, llsgrade, llsid, enableAwardList, llsstatus
+                        return 0, llsgrade, llsid, enableAwardList
                 # 没有自己的lls， llsgrade为0
-                return 1, 0, llsid, enableAwardList, 0
+                return 1, 0, llsid, enableAwardList
             else:
                 # lls列表为空
-                return 1, 0, 0, [], 0
+                return 1, 0, 0, []
         else:
             print id[0], 'get_lls_info', jsonresponse
 
@@ -172,7 +172,7 @@ if __name__ == "__main__":
     for id in ids:
         fightresult = 1
         login.con_log(id)
-        llsflag, llsgrade, llsid, enableAwardList, llsstatus = get_lls_info(id)
+        llsflag, llsgrade, llsid, enableAwardList = get_lls_info(id)
         cd = get_cd(llsid)
         if llsflag == 0 or cd == 0:
             noneed_explore(cd, llsgrade)
