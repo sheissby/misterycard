@@ -10,7 +10,7 @@ def get_lls_info(id):
     # 获取lls信息
     while 1:
         data =''
-        url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=GetUserJourneysStatus&v=8313&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
+        url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=GetUserJourneysStatus&v=1522&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
         flg, jsonresponse = login.connection(url, data)
         if flg == 1:
             # 判断lls信息
@@ -43,12 +43,12 @@ def get_lls_info(id):
 
 
 def get_cd(llsid):
-    login.con_log(id)
+    # login.con_log(id)
     if llsid == 0:
         return
     while 1:
         data = 'userJourneyId=' + str(llsid)
-        url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=GetUserJourneyInfo&v=4860&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.8.1&pvb=2016-04-12%2009%3A53%3A52&platformtype=1'
+        url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=GetUserJourneyInfo&v=1523&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.8.1&pvb=2016-04-12%2009%3A53%3A52&platformtype=1'
         flg, jsonresponse = login.connection(url, data)
         if flg == 1:
             cd = jsonresponse['data']['userJourneyInfo']['CDTimeStatus']  # 1表示没进cd, 0表示进cd
@@ -61,7 +61,7 @@ def get_cd(llsid):
 def fight_lls(llsid):
     while 1:
         data = 'userJourneyId=' + str(llsid)
-        url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=JourneyFight&v=9785&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
+        url = 'http://s1.xiaomi.mysticalcard.com/Journey.php?do=JourneyFight&v=1525&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
         flg, jsonresponse = login.connection(url, data)
         if flg == 1:
             llsstatus = jsonresponse.get('data').get('Win')
@@ -71,10 +71,10 @@ def fight_lls(llsid):
 
 # 返回cd状态或out of power
 def need_explore(cd):
-    login.con_log(id)
+    # login.con_log(id)
     while 1:
         data = "MapStageDetailId=53"
-        url = 'http://s1.xiaomi.mysticalcard.com/mapstage.php?do=Explore&v=4581&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
+        url = 'http://s1.xiaomi.mysticalcard.com/mapstage.php?do=Explore&v=1524&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.1&pvb=2015-09-25%2017%3A07%3A26&platformtype=1'
         flg, jsonresponse = login.connection(url, data)
         string = u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!'
         if jsonresponse == string:
