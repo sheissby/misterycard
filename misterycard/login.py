@@ -90,7 +90,6 @@ def GetUserMapStages():
             print id1[0], 'GetUserMapStages failed!', jsonresponse
     if data:
         arr = [i for i in data if int(data[i]['CounterAttackTime']) != 0]
-        print '1'
         return arr
     else:
         return GetUserMapStages()

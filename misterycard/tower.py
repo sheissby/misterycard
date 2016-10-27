@@ -130,9 +130,10 @@ def fight(layer, map_id, item):
 # 循环刷塔
 def play_tower(*id1):
     for map_id in [8, 7, 6]:
+        con_log(*id1)
         # logger.info(map_id)
         for layer in range(1, 6):
-            con_log(*id1)
+            # con_log(*id1)
             # logger.info(layer)
             item = getlayerinfo(layer, map_id)
             if item:
