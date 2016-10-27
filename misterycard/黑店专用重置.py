@@ -73,7 +73,7 @@ def reset_tower(*id1):
         else:
             print id1[0], tower_id, 'reset success'
 
-id = Amid()
+id = Cmid()
 for id1 in id:
     reset_tower(*id1)
     time.sleep(1)
