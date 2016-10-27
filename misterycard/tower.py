@@ -110,14 +110,21 @@ def getlayerinfo(layer, map_id):
 # 进行攻击
 def fight(layer, map_id, item):
     for cord in item:
-        # logger.info(cord)
-        fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
-        url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
-        jsonresponse = connection(url, fightdata)
-        print type(jsonresponse)
-        if jsonresponse == u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!':
-            print ('out of power!')
-            return 0
+        i = 0
+        while i < 2:
+            # logger.info(cord)
+            fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
+            url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=1'
+            jsonresponse = connection(url, fightdata)
+            print type(jsonresponse)
+            if jsonresponse == u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!':
+                i += 1
+                time.sleep(1)
+                if i == 2:
+                    print ('out of power!')
+                    return 0
+            else:
+                break
 
 
 # 循环刷塔

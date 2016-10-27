@@ -114,15 +114,22 @@ def getlayerinfo(layer, map_id):
 # 进行攻击
 def fight(layer, map_id, item):
     for cord in item:
+        i = 0
         # logger.info(cord)
-        time.sleep(1)
-        fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
-        url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.8.1&pvb=2016-04-12%2009%3A53%3A52&platformtype=1'
-        jsonresponse = connection(url, fightdata)
-        print type(jsonresponse)
-        if jsonresponse == u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!':
-            print ('out of power!')
-            return 0
+        # time.sleep(1)
+        while i < 2:
+            fightdata = "Layer=" + ('%d' % layer) + "&ItemIndex=" + ('%d' % cord) + "&manual=0&OpenCardChip=1" + "&MapStageId=" + ('%d' % map_id)
+            url = 'http://s1.xiaomi.mysticalcard.com/maze.php?do=Battle&v=8996&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.8.1&pvb=2016-04-12%2009%3A53%3A52&platformtype=1'
+            jsonresponse = connection(url, fightdata)
+            print type(jsonresponse)
+            if jsonresponse == u'行动力不足!每10分钟可恢复1点!您也可以使用晶钻购买行动力哦!':
+                i +=1
+                time.sleep(1)
+                if i == 2:
+                    print ('out of power!')
+                    return 0
+            else:
+                break
 
 
 
@@ -141,8 +148,8 @@ def play_tower(*id1):
                     return
 
 
-# id = Cmid()
-id = [['#Cm', '2014092692358474', '285154', 'ZmeyMlMTIaQoo1vn']]
+id = Cmid()
+# id = [['Am', '1592626', '279696', 'ZmeyMlMTIaQoo1vn']]
 for id1 in id:
     print id1[0], 'start'
     # logger.info(id1[0])
