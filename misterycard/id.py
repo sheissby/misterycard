@@ -8,21 +8,7 @@ def Amid():
         ['Em', '2014121327096245', '288121', 'ZmeyMlMTIaQoo1vn'],
         ['#Fm', '2015031960117052', '294557', 'ZmeyMlMTIaQoo1vn'],
         ['Bm', '2016030615546648', '304592', 'ZmeyMlMTIaQoo1vn'],
-        ['Asus4', '6437079', '226322', 'LnQ6qpKCyY95nIrg'],
-        ['Bsus4', '2013120213991947', '250246', 'LnQ6qpKCyY95nIrg'],
-        ['Csus4', '2013121714341555', '254543', 'LnQ6qpKCyY95nIrg'],
-        ['Dsus4', '2013122514488598', '290176', 'LnQ6qpKCyY95nIrg'],
-    ]
-    return id
 
-
-# 不含大号
-def Cmid():
-    id = [
-        ['#Cm', '2014092692358474', '285154', 'ZmeyMlMTIaQoo1vn'],
-        ['Em', '2014121327096245', '288121', 'ZmeyMlMTIaQoo1vn'],
-        ['#Fm', '2015031960117052', '294557', 'ZmeyMlMTIaQoo1vn'],
-        ['Bm', '2016030615546648', '304592', 'ZmeyMlMTIaQoo1vn'],
         ['Asus4', '6437079', '226322', 'LnQ6qpKCyY95nIrg'],
         ['Bsus4', '2013120213991947', '250246', 'LnQ6qpKCyY95nIrg'],
         ['Csus4', '2013121714341555', '254543', 'LnQ6qpKCyY95nIrg'],
@@ -34,6 +20,35 @@ def Cmid():
         ['Dadd9', '2014052561883286', '278956', 'QcGtd5Hmsy3g7dS9'],
         ['Eadd9', '2014061766465489', '278958', 'QcGtd5Hmsy3g7dS9'],
         ['Fadd9', '2014061866529032', '279007', 'QcGtd5Hmsy3g7dS9'],
+
+        ['Amaj7', '2013062110952119', '176120', 'gNkibP3XPbqyGRuk'],
+        ['Bmaj7', '2013062911071342', '184461', 'gNkibP3XPbqyGRuk'],
+    ]
+    return id
+
+
+# 不含大号
+def Cmid():
+    id = [
+        ['#Cm', '2014092692358474', '285154', 'ZmeyMlMTIaQoo1vn'],
+        ['Em', '2014121327096245', '288121', 'ZmeyMlMTIaQoo1vn'],
+        ['#Fm', '2015031960117052', '294557', 'ZmeyMlMTIaQoo1vn'],
+        ['Bm', '2016030615546648', '304592', 'ZmeyMlMTIaQoo1vn'],
+
+        ['Asus4', '6437079', '226322', 'LnQ6qpKCyY95nIrg'],
+        ['Bsus4', '2013120213991947', '250246', 'LnQ6qpKCyY95nIrg'],
+        ['Csus4', '2013121714341555', '254543', 'LnQ6qpKCyY95nIrg'],
+        ['Dsus4', '2013122514488598', '290176', 'LnQ6qpKCyY95nIrg'],
+
+        ['Aadd9', '10550637', '250398', 'QcGtd5Hmsy3g7dS9'],
+        ['Badd9', '2014041855227765', '273122', 'QcGtd5Hmsy3g7dS9'],
+        ['Cadd9', '2014042155811563', '273419', 'QcGtd5Hmsy3g7dS9'],
+        ['Dadd9', '2014052561883286', '278956', 'QcGtd5Hmsy3g7dS9'],
+        ['Eadd9', '2014061766465489', '278958', 'QcGtd5Hmsy3g7dS9'],
+        ['Fadd9', '2014061866529032', '279007', 'QcGtd5Hmsy3g7dS9'],
+
+        ['Amaj7', '2013062110952119', '176120', 'gNkibP3XPbqyGRuk'],
+        ['Bmaj7', '2013062911071342', '184461', 'gNkibP3XPbqyGRuk'],
     ]
     return id
 
