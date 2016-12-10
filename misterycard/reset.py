@@ -92,4 +92,4 @@ id = Cmid()
 for id1 in id:
     reset_tower(*id1)
     time.sleep(1)
-raw_input('End')
+# raw_input('End')
