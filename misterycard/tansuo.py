@@ -179,8 +179,8 @@ def mapstage(*id1):
                 print id1[0], jsonresponse
                 return 0
             else:
-                print id1[0], 'unknown error, continue exploring'
-                time.sleep(5)
+                # print id1[0], 'unknown error, continue exploring'
+                time.sleep(1)
                 flg = 0
 
 
