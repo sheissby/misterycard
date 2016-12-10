@@ -21,7 +21,7 @@ def connection(url, data):
                     print '登录失败'
                     time.sleep(1)
                 else:
-                    return 1, response
+                    return 0, response
             return 1, response
         except requests.ConnectionError or requests.HTTPError, e:
             print e
@@ -31,11 +31,12 @@ def connection(url, data):
 def con(uid, sessionid):
     con_data = "Udid=64%3A09%3A80%3AD3%3AF3%3A0E&plat=ANDROID%5FXIAOMI&newguide=1&IDFA=" + '&uid=' + uid + '&sessionid=' + sessionid
     url = 'http://s1.xiaomi.mysticalcard.com/mpassport.php?do=plogin&v=3337&phpp=ANDROID_XIAOMI&phpl=ZH_CN&pvc=1.7.0&pvb=2015-07-16%2017%3A02%3A55&platformtype=null'
-    flg, jsonresponse = connection(url, con_data)
-    if flg != 0:
-        return jsonresponse
-    else:
-        print jsonresponse
+    while 1:
+        flg, jsonresponse = connection(url, con_data)
+        if flg != 0:
+            return jsonresponse
+        else:
+            print jsonresponse
 
 
 def con_log(*id1):
