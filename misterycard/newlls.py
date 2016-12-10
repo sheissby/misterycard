@@ -93,7 +93,7 @@ def need_explore(cd):
                     print id[0], 'Nightmare of xiexi!'
                     fight_cd, llsstatus = fight_lls(llsid)
                     return fight_cd, llsstatus
-                elif lilisiHP == 232340:
+                elif lilisiHP == 223480:
                     print id[0], 'Nightmare of Dual Snipe!'
                     fight_cd, llsstatus = fight_lls(llsid)
                     return fight_cd, llsstatus
