@@ -149,4 +149,4 @@ for id1 in id:
     # logger.info(id1[0])
     play_tower(*id1)
     print id1[0], 'end'
-raw_input('The End')
+# raw_input('The End')
