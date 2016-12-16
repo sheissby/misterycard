@@ -24,7 +24,7 @@ def getCardUntilGet(id1, targetid):
 
 if __name__ == '__main__':
     ids = [
-        ['Dsus4', '2013122514488598', '290176', 'LnQ6qpKCyY95nIrg']
+
           ]
     targetid = input('please enter targetid:')
     for id in ids:
