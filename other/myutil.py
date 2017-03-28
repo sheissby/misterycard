@@ -11,8 +11,9 @@ def guid():
 
 # 时间戳转换
 def timestampTransfor():
+    # 当前时间
     print datetime.datetime.now()
-    print datetime.datetime.now().timetuple()
+    # unix时间戳
     print time.time()
     print time.mktime(datetime.datetime.now().timetuple())
 
