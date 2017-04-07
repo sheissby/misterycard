@@ -2,6 +2,7 @@
 import uuid
 import time
 import datetime
+import base64
 
 
 # 生成guid
@@ -16,4 +17,5 @@ def timestampTransfor():
     # unix时间戳
     print time.time()
     print time.mktime(datetime.datetime.now().timetuple())
+
 

@@ -42,7 +42,7 @@ def findinfo(stockid_or_name_as_list, suspension_info):
             if stockidorname == suspension[0].encode('utf-8') or stockidorname == suspension[1].encode('utf-8'):
                 output = suspension[0] + ' ' + suspension[1] + ' ' + suspension[2] + ' ' + suspension[8] + ' ' \
                          + suspension[4] + ' ' + suspension[5]
-                win32api.MessageBox(0, output, 'WYM', win32con.MB_OK)
+                win32api.MessageBox(0, output, u'公告信息', win32con.MB_OK)
 
 
 if __name__ == '__main__':
