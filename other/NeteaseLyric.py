@@ -56,7 +56,7 @@ def get_json(url, id):
     return json.loads(response.content)
 
 
-# 将评论写入文本文件
+# 将歌词写入文本文件
 def save_to_file(txt,filename):
     with codecs.open(filename,'a',encoding='utf-8') as f:
         f.writelines(txt)
