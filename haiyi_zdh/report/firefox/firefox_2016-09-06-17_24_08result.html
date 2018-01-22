@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>firefox_测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         { }
+
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+
+a.popup_link:hover {
+    color: red;
+}
+
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    padding: 10px;
+    background-color: #E6E6D6;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    width: 500px;
+}
+
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+}
+#header_row {
+    font-weight: bold;
+    color: white;
+    background-color: #777;
+}
+#result_table td {
+    border: 1px solid #777;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #6c6; }
+.failClass  { background-color: #c60; }
+.errorClass { background-color: #c00; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+
+
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class='heading'>
+<h1>firefox_测试报告</h1>
+<p class='attribute'><strong>Start Time:</strong> 2016-09-06 17:24:08</p>
+<p class='attribute'><strong>Duration:</strong> 0:12:18.373000</p>
+<p class='attribute'><strong>Status:</strong> Pass 4 Error 1</p>
+
+<p class='description'>firefox_用例执行情况：</p>
+</div>
+
+
+
+<p id='show_detail_line'>Show
+<a href='javascript:showCase(0)'>Summary</a>
+<a href='javascript:showCase(1)'>Failed</a>
+<a href='javascript:showCase(2)'>All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row'>
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='errorClass'>
+    <td>gw.bwcpdlc.zdh_bwcp_lc.zdh_bwcp_lc</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+</tr>
+
+<tr id='ft1.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_bwcp_lc: 办文呈批单流程</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.1')" >
+        error</a>
+
+    <div id='div_ft1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft1.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_lc20160906172408
+冯学冠完成提交办文呈批单流程，名称为：bwcp_lc20160906172408
+符晓玲开始会签，会签名称为：bwcp_lc_hq20160906172408分别会签给黄植和谭壮华
+名称"bwcp_lc20160906172408",标题、签批状态、发送人正确
+符晓玲完成会签，会签名称为：bwcp_lc_hq20160906172408分别会签给黄植和谭壮华
+黄植,开始会签签批，并转交给吴忠旺签批
+名称、标题、签批状态"bwcp_lc_hq20160906172408、会签签批、符晓玲",正确
+黄植,完成会签签批，并转交给吴忠旺签批
+吴忠旺开始结束会签
+名称、标题、签批状态"bwcp_lc_hq20160906172408、签批、黄植",正确
+吴忠旺完成结束会签
+谭壮华开始结束会签
+名称、标题、签批状态"bwcp_lc_hq20160906172408、会签签批、符晓玲",正确
+谭壮华完成结束会签
+符晓玲开始提交意见,接收人为：丁娥
+名称、标题、签批状态"bwcp_lc20160906172408、签批、冯学冠",正确
+符晓玲完成提交意见,接收人为：丁娥
+丁娥开始中转给马婧
+名称、标题、签批状态"bwcp_lc20160906172408、签批、符晓玲",正确
+丁娥完成中转给马婧
+冯学冠开始在公文跟踪查询流程
+标题、公文类型、当前节点"bwcp_lc20160906172408、办文呈批单、马婧",正确
+冯学冠完成在公文跟踪查询流程
+马婧开始结束流程
+名称、标题、签批状态"bwcp_lc20160906172408、中转、丁娥",正确
+马婧完成结束流程
+冯学冠开始在公文查询查询流程
+标题、公文类型、创建人"bwcp_lc20160906172408、办文呈批单、冯学冠",正确
+冯学冠完成在公文查询查询流程
+符晓玲开始在公文查询查询流程（签批）
+标题、公文类型、创建人"bwcp_lc_hq20160906172408、办文呈批单会签件、符晓玲",正确
+符晓玲完成在公文查询查询流程（签批）
+冯学冠开始在待阅事务里，查看流程是否正确，并分发给：黄娜
+在待阅事务里存在流程名称：”bwcp_lc20160906172408“，并且信息正确
+在待阅事务里存在流程名称：”bwcp_lc20160906172408“，信息正确，阅读状态为“已阅”
+冯学冠完成在待阅事务里，查看流程是否正确，并分发给：黄娜
+黄娜开始在待阅事务里，查看流程否是正确
+在待阅事务里没有存在流程名称：”bwcp_lc20160906172408“，或者信息不正确
+Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_firefox\gw\bwcpdlc\zdh_bwcp_lc.py", line 921, in tearDown
+    self.assertEqual([], self.verificationErrors)
+AssertionError: Lists differ: [] != ['status or data of Transactio...
+
+Second list contains 1 additional elements.
+First extra element 0:
+status or data of Transaction to be read erro
+
+- []
++ ['status or data of Transaction to be read erro']
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>gw.cbqbhqch.zdh_bwcp_cg_del.zdh_bwcp_cg_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bwcp_cg_del: 办文呈批单草稿删除</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
+        pass</a>
+
+    <div id='div_pt2.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt2.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt2.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_cg_edt20160906173033
+冯学冠完成提交办文呈批单流程，名称为：bwcp_cg_edt20160906173033
+冯学冠开始在公文草稿箱里查询办文呈批单流程名称：bwcp_cg_edt20160906173033,并做删除操作
+在公文草稿箱里存在流程名称：”bwcp_cg_edt20160906173033“，并且信息正确
+删除成功，在在公文草稿箱里删除流程名称：”bwcp_cg_edt20160906173033
+冯学冠完成在公文草稿箱里查询办文呈批单流程名称：bwcp_cg_edt20160906173033,并做删除操作
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>gw.cbqbhqch.zdh_bwcp_sub.zdh_bwcp_sub</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bwcp_sub: 办文呈批单呈报</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
+        pass</a>
+
+    <div id='div_pt3.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_sub20160906173209
+冯学冠完成提交办文呈批单流程，名称为：bwcp_sub20160906173209
+符晓玲开始查询是否存在名称为：bwcp_sub20160906173209,并且判断属性是否一致
+名称"bwcp_sub20160906173209",标题、签批状态、发送人正确
+名称"bwcp_sub20160906173209",属性值与提交的属性值一致
+符晓玲完成查询是否存在名称为：bwcp_sub20160906173209,并且判断属性是否一致
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>gw.cg+qp_edt.zdh_bwcp_cg_edt.zdh_bwcp_cg_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bwcp_cg_edt: 办文呈批单草稿提交</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.1')" >
+        pass</a>
+
+    <div id='div_pt4.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt4.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_cg_edt20160906173318
+冯学冠完成提交办文呈批单流程，名称为：bwcp_cg_edt20160906173318
+在公文草稿箱里存在流程名称：”bwcp_cg_edt20160906173318“，并且信息正确
+流程名称：bwcp_cg_edt20160906173318在草稿箱打开与保存时的属性值一致
+在公文草稿箱里存在流程名称：”bwcp_cg_edt20160906173318“，并且信息正确
+符晓玲开始查询是否存在流程：bwcp_2cg_edt20160906173318
+名称"bwcp_2cg_edt20160906173318",标题、签批状态、发送人正确
+符晓玲完成查询是否存在流程：bwcp_2cg_edt20160906173318
+[Error 3] : 'c:\\users\\lenovo\\appdata\\local\\temp\\tmpvki86v/*.*'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>gw.cg+qp_edt.zdh_bwcp_edt.zdh_bwcp_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bwcp_edt: 办文呈批单签批修改</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
+        pass</a>
+
+    <div id='div_pt5.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt5.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_edt20160906173457
+冯学冠完成提交办文呈批单流程，名称为：bwcp_edt20160906173457
+符晓玲开始查询是否存在流程：bwcp_edt20160906173457,并修改缓急和文件编号
+名称"bwcp_edt20160906173457",标题、签批状态、发送人正确
+名称"bwcp_edt20160906173457",属性值与提交的属性值一致
+名称"bwcp_edt20160906173457",标题、签批状态、发送人正确
+符晓玲修改文件编号和缓急成功修改为：2wjbh20160906173457,急件
+符晓玲开完成查询是否存在流程：bwcp_edt20160906173457,并修改缓急和文件编号
+[Error 3] : 'c:\\users\\lenovo\\appdata\\local\\temp\\tmptarc69/*.*'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>5</td>
+    <td>4</td>
+    <td>0</td>
+    <td>1</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+</body>
+</html>

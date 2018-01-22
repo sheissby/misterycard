@@ -1,0 +1,2947 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>ie_测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+<style type="text/css" media="screen">
+body        { font-family: verdana, arial, helvetica, sans-serif; font-size: 80%; }
+table       { font-size: 100%; }
+pre         { }
+
+/* -- heading ---------------------------------------------------------------------- */
+h1 {
+	font-size: 16pt;
+	color: gray;
+}
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .attribute {
+    margin-top: 1ex;
+    margin-bottom: 0;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- css div popup ------------------------------------------------------------------------ */
+a.popup_link {
+}
+
+a.popup_link:hover {
+    color: red;
+}
+
+.popup_window {
+    display: none;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    /*border: solid #627173 1px; */
+    padding: 10px;
+    background-color: #E6E6D6;
+    font-family: "Lucida Console", "Courier New", Courier, monospace;
+    text-align: left;
+    font-size: 8pt;
+    width: 500px;
+}
+
+}
+/* -- report ------------------------------------------------------------------------ */
+#show_detail_line {
+    margin-top: 3ex;
+    margin-bottom: 1ex;
+}
+#result_table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #777;
+}
+#header_row {
+    font-weight: bold;
+    color: white;
+    background-color: #777;
+}
+#result_table td {
+    border: 1px solid #777;
+    padding: 2px;
+}
+#total_row  { font-weight: bold; }
+.passClass  { background-color: #6c6; }
+.failClass  { background-color: #c60; }
+.errorClass { background-color: #c00; }
+.passCase   { color: #6c6; }
+.failCase   { color: #c60; font-weight: bold; }
+.errorCase  { color: #c00; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+
+
+/* -- ending ---------------------------------------------------------------------- */
+#ending {
+}
+
+</style>
+
+</head>
+<body>
+<script language="javascript" type="text/javascript"><!--
+output_list = Array();
+
+/* level - 0:Summary; 1:Failed; 2:All */
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level < 1) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level > 1) {
+                tr.className = '';
+            }
+            else {
+                tr.className = 'hiddenRow';
+            }
+        }
+    }
+}
+
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        tid0 = 't' + cid.substr(1) + '.' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        if (toHide) {
+            document.getElementById('div_'+tid).style.display = 'none'
+            document.getElementById(tid).className = 'hiddenRow';
+        }
+        else {
+            document.getElementById(tid).className = '';
+        }
+    }
+}
+
+
+function showTestDetail(div_id){
+    var details_div = document.getElementById(div_id)
+    var displayState = details_div.style.display
+    // alert(displayState)
+    if (displayState != 'block' ) {
+        displayState = 'block'
+        details_div.style.display = 'block'
+    }
+    else {
+        details_div.style.display = 'none'
+    }
+}
+
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+
+/* obsoleted by detail in <div>
+function showOutput(id, name) {
+    var w = window.open("", //url
+                    name,
+                    "resizable,scrollbars,status,width=800,height=450");
+    d = w.document;
+    d.write("<pre>");
+    d.write(html_escape(output_list[id]));
+    d.write("\n");
+    d.write("<a href='javascript:window.close()'>close</a>\n");
+    d.write("</pre>\n");
+    d.close();
+}
+*/
+--></script>
+
+<div class='heading'>
+<h1>ie_测试报告</h1>
+<p class='attribute'><strong>Start Time:</strong> 2016-09-06 18:07:31</p>
+<p class='attribute'><strong>Duration:</strong> 15:13:46.820000</p>
+<p class='attribute'><strong>Status:</strong> Pass 62 Error 10</p>
+
+<p class='description'>ie_用例执行情况：</p>
+</div>
+
+
+
+<p id='show_detail_line'>Show
+<a href='javascript:showCase(0)'>Summary</a>
+<a href='javascript:showCase(1)'>Failed</a>
+<a href='javascript:showCase(2)'>All</a>
+</p>
+<table id='result_table'>
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row'>
+    <td>Test Group/Test case</td>
+    <td>Count</td>
+    <td>Pass</td>
+    <td>Fail</td>
+    <td>Error</td>
+    <td>View</td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.bmtxl.zdh_bmtxl_add.zdh_bmtxl_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c1',1)">Detail</a></td>
+</tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bmtxl_add: 添加部门通信录</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        pass</a>
+
+    <div id='div_pt1.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt1.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt1.1: 添加部门通信录，部门名称“add160906180738”，添加成功
+添加的部门通信录列表里存在，部门通信录名称“add160906180738”
+普通用户查看部门通信录列表，存在部门通信录名称“add160906180738”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.bmtxl.zdh_bmtxl_del.zdh_bmtxl_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c2',1)">Detail</a></td>
+</tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bmtxl_del: 删除部门通信录</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
+        pass</a>
+
+    <div id='div_pt2.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt2.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt2.1: 添加部门通信录，部门名称“del160906180827”，添加成功
+查看部门通信录，不存在部门名称“del160906180827”，删除成功
+普通用户查看部门通信录，不存在部门名称“del160906180827”，删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.bmtxl.zdh_bmtxl_edt.zdh_bmtxl_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c3',1)">Detail</a></td>
+</tr>
+
+<tr id='pt3.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bmtxl_edt: 修改部门通信录</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt3.1')" >
+        pass</a>
+
+    <div id='div_pt3.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt3.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt3.1: 添加部门通信录，部门名称“add160906180919”，添加成功
+部门通信录，部门名称“edt160906180919”，修改成功
+部门通信录列表里存在，部门通信录修改后名称“edt160906180919”
+部门通信录修改后名称“edt160906180919”的电话号码修改正确:089868875951
+普通用户查看部门通信录列表，存在部门通信录修改后名称“edt160906180919”
+普通用户查看部门通信录修改后名称“edt160906180919”的电话号码修改正确:089868875951
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.bmtxl.zdh_bmtxl_sch.zdh_bmtxl_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c4',1)">Detail</a></td>
+</tr>
+
+<tr id='pt4.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bmtxl_sch: 查询部门通信录</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt4.1')" >
+        pass</a>
+
+    <div id='div_pt4.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt4.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt4.1: 添加部门通信录，部门名称“sch160906181017”，添加成功
+模糊查询"sch"存在包含"sch"的名称sch160829115300
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.cybg.zdh_cybg_add.zdh_cybg_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c5',1)">Detail</a></td>
+</tr>
+
+<tr id='pt5.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_cybg_add: 添加常用表格</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt5.1')" >
+        pass</a>
+
+    <div id='div_pt5.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt5.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt5.1: 添加用于修改信息，名称“cybg_add20160906181047”，添加成功
+添加的信息列表里存在，名称“cybg_add20160906181047”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>fgw.cybg.zdh_cybg_del.zdh_cybg_del</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c6',1)">Detail</a></td>
+</tr>
+
+<tr id='ft6.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_cybg_del: 删除常用表格</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft6.1')" >
+        error</a>
+
+    <div id='div_ft6.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft6.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft6.1: Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\fgw\cybg\zdh_cybg_del.py", line 72, in test_zdh_cybg_del
+    os.startfile(os.getcwd().split('testcase_ie')[0]+'uploadfile\Ie_fgw_doc.exe')
+WindowsError: [Error 2] : 'E:\\test_zdh\\haiyi_zdhuploadfile\\Ie_fgw_doc.exe'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>fgw.cybg.zdh_cybg_edt.zdh_cybg_edt</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c7',1)">Detail</a></td>
+</tr>
+
+<tr id='ft7.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_cybg_edt: 修改常用表格</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft7.1')" >
+        error</a>
+
+    <div id='div_ft7.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft7.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft7.1: Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\fgw\cybg\zdh_cybg_edt.py", line 72, in test_zdh_cybg_edt
+    os.startfile(os.getcwd().split('testcase_ie')[0]+'uploadfile\Ie_fgw_doc.exe')
+WindowsError: [Error 2] : 'E:\\test_zdh\\haiyi_zdhuploadfile\\Ie_fgw_doc.exe'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>fgw.cybg.zdh_cybg_rel.zdh_cybg_rel</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c8',1)">Detail</a></td>
+</tr>
+
+<tr id='ft8.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_cybg_rel: 发布常用表格</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft8.1')" >
+        error</a>
+
+    <div id='div_ft8.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft8.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft8.1: Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\fgw\cybg\zdh_cybg_rel.py", line 72, in test_zdh_cybg_rel
+    os.startfile(os.getcwd().split('testcase_Ie')[0]+'uploadfile\ie_fgw_doc.exe')
+WindowsError: [Error 2] : 'E:\\test_zdh\\haiyi_zdhuploadfile\\ie_fgw_doc.exe'
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>fgw.cybg.zdh_cybg_sch.zdh_cybg_sch</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c9',1)">Detail</a></td>
+</tr>
+
+<tr id='ft9.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_cybg_sch: 查询常用表格</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft9.1')" >
+        error</a>
+
+    <div id='div_ft9.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft9.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft9.1: Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\fgw\cybg\zdh_cybg_sch.py", line 68, in test_zdh_cybg_sch
+    driver.switch_to_frame("PostFrame")
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 574, in switch_to_frame
+    self._switch_to.frame(frame_reference)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\switch_to.py", line 68, in frame
+    self._driver.execute(Command.SWITCH_TO_FRAME, {'id': frame_reference})
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 192, in check_response
+    raise exception_class(message, screen, stacktrace)
+NoSuchFrameException: Message: No frame found
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.cymb.zdh_cymb_add.zdh_cymb_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c10',1)">Detail</a></td>
+</tr>
+
+<tr id='pt10.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_cymb_add: 添加常用模板</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt10.1')" >
+        pass</a>
+
+    <div id='div_pt10.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt10.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt10.1: 添加信息，名称“cymb_add20160907080123”，添加成功
+添加的信息列表里存在，名称“cymb_add20160907080123”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.cymb.zdh_cymb_del.zdh_cymb_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c11',1)">Detail</a></td>
+</tr>
+
+<tr id='pt11.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_cymb_del: 删除常用模板</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt11.1')" >
+        pass</a>
+
+    <div id='div_pt11.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt11.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt11.1: 添加信息，名称“cymb_del20160907080233”，添加成功
+cymb_del20160907080233删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.cymb.zdh_cymb_edt.zdh_cymb_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c12',1)">Detail</a></td>
+</tr>
+
+<tr id='pt12.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_cymb_edt: 修改常用模板</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt12.1')" >
+        pass</a>
+
+    <div id='div_pt12.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt12.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt12.1: 添加信息，名称“ywgk_edt20160907080358”，添加成功
+名称“ywgk_edt20160907080358”，修改成功
+信息列表里存在，修改后名称“ywgk_2edt20160907080438”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.cymb.zdh_cymb_rel.zdh_cymb_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c13',1)">Detail</a></td>
+</tr>
+
+<tr id='pt13.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_cymb_rel: 发布常用模板</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt13.1')" >
+        pass</a>
+
+    <div id='div_pt13.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt13.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt13.1: 添加信息，名称“cymb_rel20160907080510”，添加成功
+发布成功，名称cymb_rel20160907080510已审批
+发布成功，用普通用户登录查看，存在名称cymb_rel20160907080510
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.cymb.zdh_cymb_sch.zdh_cymb_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c14',1)">Detail</a></td>
+</tr>
+
+<tr id='pt14.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_cymb_sch: 查询常用模板</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt14.1')" >
+        pass</a>
+
+    <div id='div_pt14.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt14.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt14.1: 添加信息，名称“cymb_sch20160907080645”，添加成功
+模糊查询"sch"存在包含"sch"的名称cymb_sch20160907080645
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dsj.zdh_dsj_add.zdh_dsj_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c15',1)">Detail</a></td>
+</tr>
+
+<tr id='pt15.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dsj_add: 添加大事记</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt15.1')" >
+        pass</a>
+
+    <div id='div_pt15.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt15.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt15.1: 添加信息，名称“dsj_add20160907080751”，添加成功
+添加的信息列表里存在，名称“dsj_add20160907080751”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dsj.zdh_dsj_del.zdh_dsj_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c16',1)">Detail</a></td>
+</tr>
+
+<tr id='pt16.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dsj_del: 删除大事记</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt16.1')" >
+        pass</a>
+
+    <div id='div_pt16.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt16.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt16.1: 添加信息，名称“dsj_del20160907080902”，添加成功
+dsj_del20160907080902删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dsj.zdh_dsj_edt.zdh_dsj_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c17',1)">Detail</a></td>
+</tr>
+
+<tr id='pt17.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dsj_edt: 修改大事记</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt17.1')" >
+        pass</a>
+
+    <div id='div_pt17.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt17.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt17.1: 添加信息，名称“dsj_edt20160907081004”，添加成功
+名称“dsj_edt20160907081004”，修改成功
+信息列表里存在，修改后名称“dsj_2edt20160907081022”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dsj.zdh_dsj_rel.zdh_dsj_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c18',1)">Detail</a></td>
+</tr>
+
+<tr id='pt18.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dsj_rel: 发布大事记</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt18.1')" >
+        pass</a>
+
+    <div id='div_pt18.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt18.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt18.1: 添加信息，名称“dsj_rel20160907081053”，添加成功
+发布成功，名称dsj_rel20160907081053已审批
+发布成功，用普通用户登录查看，存在名称dsj_rel20160907081053
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dsj.zdh_dsj_sch.zdh_dsj_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c19',1)">Detail</a></td>
+</tr>
+
+<tr id='pt19.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dsj_sch: 查询大事记</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt19.1')" >
+        pass</a>
+
+    <div id='div_pt19.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt19.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt19.1: 添加信息，名称“dsj_sch20160907081207”，添加成功
+模糊查询"sch"存在包含"sch"的名称dsj_sch20160907081207
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dwgk.zdh_dwgk_add.zdh_dwgk_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c20',1)">Detail</a></td>
+</tr>
+
+<tr id='pt20.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dwgk_add: 添加党务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt20.1')" >
+        pass</a>
+
+    <div id='div_pt20.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt20.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt20.1: 添加信息，名称“dwgk_add20160907081253”，添加成功
+添加的信息列表里存在，名称“dwgk_add20160907081253”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dwgk.zdh_dwgk_del.zdh_dwgk_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c21',1)">Detail</a></td>
+</tr>
+
+<tr id='pt21.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dwgk_del: 删除党务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt21.1')" >
+        pass</a>
+
+    <div id='div_pt21.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt21.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt21.1: 添加信息，名称“dwgk_rel20160907081355”，添加成功
+dwgk_rel20160907081355删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dwgk.zdh_dwgk_edt.zdh_dwgk_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c22',1)">Detail</a></td>
+</tr>
+
+<tr id='pt22.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dwgk_edt: 修改党务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt22.1')" >
+        pass</a>
+
+    <div id='div_pt22.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt22.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt22.1: 添加信息，名称“dwgk_edt20160907081459”，添加成功
+名称“dwgk_edt20160907081459”，修改成功
+信息列表里存在，修改后名称“dwgk_2edt20160907081519”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dwgk.zdh_dwgk_rel.zdh_dwgk_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c23',1)">Detail</a></td>
+</tr>
+
+<tr id='pt23.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dwgk_rel: 发布党务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt23.1')" >
+        pass</a>
+
+    <div id='div_pt23.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt23.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt23.1: 添加信息，名称“dwgk_rel20160907081549”，添加成功
+发布成功，名称dwgk_rel20160907081549已审批
+发布成功，用普通用户登录查看，存在名称dwgk_rel20160907081549
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.dwgk.zdh_dwgk_sch.zdh_dwgk_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c24',1)">Detail</a></td>
+</tr>
+
+<tr id='pt24.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_dwgk_sch: 查询党务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt24.1')" >
+        pass</a>
+
+    <div id='div_pt24.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt24.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt24.1: 添加信息，名称“dwgk_sch20160907081700”，添加成功
+模糊查询"sch"存在包含"sch"的名称dwgk_sch20160907081700
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ghyd.zdh_ghyd_add.zdh_ghyd_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c25',1)">Detail</a></td>
+</tr>
+
+<tr id='pt25.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ghyd_add: 添加工会园地</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt25.1')" >
+        pass</a>
+
+    <div id='div_pt25.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt25.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt25.1: 添加信息，名称“ghyd_add20160907081746”，添加成功
+添加的信息列表里存在，名称“ghyd_add20160907081746”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ghyd.zdh_ghyd_del.zdh_ghyd_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c26',1)">Detail</a></td>
+</tr>
+
+<tr id='pt26.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ghyd_del: 删除工会园地</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt26.1')" >
+        pass</a>
+
+    <div id='div_pt26.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt26.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt26.1: 添加信息，名称“ghyd_del20160907081857”，添加成功
+ghyd_del20160907081857删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ghyd.zdh_ghyd_edt.zdh_ghyd_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c27',1)">Detail</a></td>
+</tr>
+
+<tr id='pt27.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ghyd_edt: 修改工会园地</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt27.1')" >
+        pass</a>
+
+    <div id='div_pt27.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt27.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt27.1: 添加信息，名称“ywgk_edt20160907082001”，添加成功
+名称“ywgk_edt20160907082001”，修改成功
+信息列表里存在，修改后名称“ywgk_2edt20160907082020”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ghyd.zdh_ghyd_rel.zdh_ghyd_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c28',1)">Detail</a></td>
+</tr>
+
+<tr id='pt28.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ghyd_rel: 发布工会园地</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt28.1')" >
+        pass</a>
+
+    <div id='div_pt28.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt28.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt28.1: 添加信息，名称“ghyd_rel20160907082050”，添加成功
+发布成功，名称ghyd_rel20160907082050已审批
+发布成功，用普通用户登录查看，存在名称ghyd_rel20160907082050
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ghyd.zdh_ghyd_sch.zdh_ghyd_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c29',1)">Detail</a></td>
+</tr>
+
+<tr id='pt29.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ghyd_sch: 查询工会园地</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt29.1')" >
+        pass</a>
+
+    <div id='div_pt29.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt29.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt29.1: 添加信息，名称“ghyd_sch20160907082202”，添加成功
+模糊查询"sch"存在包含"sch"的名称ghyd_sch20160907082202
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.glgd.zdh_glgd_add.zdh_glgd_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c30',1)">Detail</a></td>
+</tr>
+
+<tr id='pt30.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_glgd_add: 添加管理规定</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt30.1')" >
+        pass</a>
+
+    <div id='div_pt30.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt30.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt30.1: 添加信息，名称“glgd_add20160907082249”，添加成功
+添加的信息列表里存在，名称“glgd_add20160907082249”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>fgw.glgd.zdh_glgd_del.zdh_glgd_del</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c31',1)">Detail</a></td>
+</tr>
+
+<tr id='ft31.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_glgd_del: 删除管理规定</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft31.1')" >
+        error</a>
+
+    <div id='div_ft31.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft31.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft31.1: Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\fgw\glgd\zdh_glgd_del.py", line 84, in test_zdh_glgd_del
+    driver.find_element_by_xpath(".//*[@id='ibSaveAndContinue']").click()
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 293, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 752, in find_element
+    'value': value})['value']
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 191, in check_response
+    raise exception_class(message, screen, stacktrace, value['alert'].get('text'))
+UnexpectedAlertPresentException: Alert Text: 请选择浏览范围
+Message: Modal dialog present
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.glgd.zdh_glgd_edt.zdh_glgd_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c32',1)">Detail</a></td>
+</tr>
+
+<tr id='pt32.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_glgd_edt: 修改管理规定</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt32.1')" >
+        pass</a>
+
+    <div id='div_pt32.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt32.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt32.1: 添加信息，名称“ywgk_edt20160907082433”，添加成功
+名称“ywgk_edt20160907082433”，修改成功
+信息列表里存在，修改后名称“ywgk_2edt20160907082452”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.glgd.zdh_glgd_rel.zdh_glgd_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c33',1)">Detail</a></td>
+</tr>
+
+<tr id='pt33.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_glgd_rel: 发布管理规定</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt33.1')" >
+        pass</a>
+
+    <div id='div_pt33.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt33.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt33.1: 添加信息，名称“glgd_rel20160907082522”，添加成功
+发布成功，名称glgd_rel20160907082522已审批
+发布成功，用普通用户登录查看，存在名称glgd_rel20160907082522
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.glgd.zdh_glgd_sch.zdh_glgd_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c34',1)">Detail</a></td>
+</tr>
+
+<tr id='pt34.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_glgd_sch: 查询管理规定</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt34.1')" >
+        pass</a>
+
+    <div id='div_pt34.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt34.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt34.1: 添加信息，名称“glgd_sch20160907082637”，添加成功
+模糊查询"sch"存在包含"sch"的名称glgd_sch20160907082637
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.gsl.zdh_szyw_add.zdh_szyw_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c35',1)">Detail</a></td>
+</tr>
+
+<tr id='pt35.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_szyw_add: 添加时政要闻</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt35.1')" >
+        pass</a>
+
+    <div id='div_pt35.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt35.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt35.1: 添加信息，名称“gsl_add20160907082723”，添加成功
+添加的信息列表里存在，名称“gsl_add20160907082723”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.gsl.zdh_szyw_del.zdh_szyw_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c36',1)">Detail</a></td>
+</tr>
+
+<tr id='pt36.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_szyw_del: 删除时政要闻</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt36.1')" >
+        pass</a>
+
+    <div id='div_pt36.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt36.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt36.1: 添加信息，名称“gsl_del20160907082828”，添加成功
+gsl_del20160907082828删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.gsl.zdh_szyw_edt.zdh_szyw_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c37',1)">Detail</a></td>
+</tr>
+
+<tr id='pt37.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_szyw_edt: 修改时政要闻</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt37.1')" >
+        pass</a>
+
+    <div id='div_pt37.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt37.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt37.1: 添加信息，名称“gsl_edt20160907082930”，添加成功
+名称“gsl_edt20160907082930”，修改成功
+信息列表里存在，修改后名称“gsl_2edt20160907082947”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.gsl.zdh_szyw_rel.zdh_szyw_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c38',1)">Detail</a></td>
+</tr>
+
+<tr id='pt38.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_szyw_rel: 发布时政要闻</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt38.1')" >
+        pass</a>
+
+    <div id='div_pt38.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt38.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt38.1: 添加信息，名称“gsl_rel20160907083018”，添加成功
+发布成功，名称gsl_rel20160907083018已审批
+发布成功，用普通用户登录查看，存在名称gsl_rel20160907083018
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.gsl.zdh_szyw_sch.zdh_szyw_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c39',1)">Detail</a></td>
+</tr>
+
+<tr id='pt39.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_szyw_sch: 查询时政要闻</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt39.1')" >
+        pass</a>
+
+    <div id='div_pt39.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt39.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt39.1: 添加信息，名称“gsl_sch20160907083135”，添加成功
+模糊查询"sch"存在包含"sch"的名称gsl_sch20160907083135
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.txl.zdh_txl_add.zdh_txl_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c40',1)">Detail</a></td>
+</tr>
+
+<tr id='pt40.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_txl_add</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt40.1')" >
+        pass</a>
+
+    <div id='div_pt40.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt40.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt40.1: 添加用户的通讯录成功
+添加的信息列表里存在，用户名“系统管理”
+存在确定、取消对话框，取消功能正常
+取消删除后添加的信息列表里存在，用户名“系统管理”
+存在确定、取消对话框，确定功能正常
+删除信息，名称“系统管理”，删除成功提示语
+系统管理通讯录删除数据成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.txl.zdh_txl_edt.zdh_txl_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c41',1)">Detail</a></td>
+</tr>
+
+<tr id='pt41.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_txl_edt</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt41.1')" >
+        pass</a>
+
+    <div id='div_pt41.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt41.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt41.1: 添加用户的通讯录成功
+添加的信息列表里存在，移动电话为13398992001用户
+电话类型字段值员工电话与添加时的值员工电话一致
+员工姓名字段值“系统管理"与添加时的值"系统管理"一致"”
+所属机构字段值重庆金算盘软件有限公司与添加时的值重庆金算盘软件有限公司一致
+所属职位字段值科长与添加时的值科长一致
+办公电话字段值089812345678与添加时的值089812345678一致
+移动电话字段值“13398992001"与添加时的值"13398992001"一致"”
+电子邮件字段值123@126.com与添加时的值123@126.com一致
+排序值字段值1与添加时的值1一致
+修改移动电话信息，名称“13398992002”，修改成功
+添加的信息列表里存在，移动电话为13398992002用户
+存在确定、取消对话框，取消功能正常
+取消删除后添加的信息列表里存在，移动电话"13398992002"用户"”
+存在确定、取消对话框，确定功能正常
+删除信息，名称“13398992002”，删除成功提示语
+13398992001通讯录删除数据成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.txl.zdh_txl_sch.zdh_txl_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c42',1)">Detail</a></td>
+</tr>
+
+<tr id='pt42.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_txl_sch</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt42.1')" >
+        pass</a>
+
+    <div id='div_pt42.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt42.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt42.1: 添加用户的通讯录成功
+添加的信息列表里存在，移动电话为13398992001用户
+存在确定、取消对话框，取消功能正常
+取消删除后添加的信息列表里存在，移动电话"13398992001"用户"”
+存在确定、取消对话框，确定功能正常
+删除信息，名称“13398992001”，删除成功提示语
+13398992001通讯录删除数据成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.tz.zdh_tztg_add.zdh_tztg_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c43',1)">Detail</a></td>
+</tr>
+
+<tr id='pt43.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_tztg_add: 添加通知通告</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt43.1')" >
+        pass</a>
+
+    <div id='div_pt43.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt43.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt43.1: 添加信息，名称“tztg_add20160907083509”，添加成功
+添加的信息列表里存在，名称“tztg_add20160907083509”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.tz.zdh_tztg_del.zdh_tztg_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c44',1)">Detail</a></td>
+</tr>
+
+<tr id='pt44.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_tztg_del: 删除通知通告</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt44.1')" >
+        pass</a>
+
+    <div id='div_pt44.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt44.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt44.1: 添加信息，名称“tztg_del20160907083614”，添加成功
+tztg_del20160907083614删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.tz.zdh_tztg_edt.zdh_tztg_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c45',1)">Detail</a></td>
+</tr>
+
+<tr id='pt45.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_tztg_edt: 修改通知通告</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt45.1')" >
+        pass</a>
+
+    <div id='div_pt45.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt45.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt45.1: 添加信息，名称“ywgk_edt20160907083719”，添加成功
+名称“ywgk_edt20160907083719”，修改成功
+信息列表里存在，修改后名称“ywgk_2edt20160907083737”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.tz.zdh_tztg_rel.zdh_tztg_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c46',1)">Detail</a></td>
+</tr>
+
+<tr id='pt46.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_tztg_rel: 发布通知通告</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt46.1')" >
+        pass</a>
+
+    <div id='div_pt46.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt46.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt46.1: 添加信息，名称“tztg_rel20160907083807”，添加成功
+发布成功，名称tztg_rel20160907083807已审批
+发布成功，用普通用户登录查看，存在名称tztg_rel20160907083807
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.tz.zdh_tztg_sch.zdh_tztg_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c47',1)">Detail</a></td>
+</tr>
+
+<tr id='pt47.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_tztg_sch: 查询通知通告</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt47.1')" >
+        pass</a>
+
+    <div id='div_pt47.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt47.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt47.1: 添加信息，名称“tztg_sch20160907083923”，添加成功
+模糊查询"sch"存在包含"sch"的名称tztg_sch20160907083923
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ywgk.zdh_ywgk_add.zdh_ywgk_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c48',1)">Detail</a></td>
+</tr>
+
+<tr id='pt48.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ywgk_add: 添加院务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt48.1')" >
+        pass</a>
+
+    <div id='div_pt48.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt48.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt48.1: 添加信息，名称“ywgk_add20160907084008”，添加成功
+添加的信息列表里存在，名称“ywgk_add20160907084008”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ywgk.zdh_ywgk_del.zdh_ywgk_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c49',1)">Detail</a></td>
+</tr>
+
+<tr id='pt49.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ywgk_del: 删除院务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt49.1')" >
+        pass</a>
+
+    <div id='div_pt49.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt49.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt49.1: 添加用于删除信息，名称“ywgk_del20160907084112”，添加成功
+ywgk_del20160907084112删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ywgk.zdh_ywgk_edt.zdh_ywgk_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c50',1)">Detail</a></td>
+</tr>
+
+<tr id='pt50.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ywgk_edt: 修改院务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt50.1')" >
+        pass</a>
+
+    <div id='div_pt50.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt50.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt50.1: 添加用于修改信息，名称“ywgk_edt20160907084214”，添加成功
+名称“ywgk_edt20160907084214”，修改成功
+信息列表里存在，修改后名称“ywgk_2edt20160907084232”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ywgk.zdh_ywgk_rel.zdh_ywgk_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c51',1)">Detail</a></td>
+</tr>
+
+<tr id='pt51.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ywgk_rel: 发布院务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt51.1')" >
+        pass</a>
+
+    <div id='div_pt51.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt51.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt51.1: 添加信息，名称“ywgk_rel20160907084301”，添加成功
+发布成功，名称ywgk_rel20160907084301已审批
+发布成功，用普通用户登录查看，存在名称ywgk_rel20160907084301
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.ywgk.zdh_ywgk_sch.zdh_ywgk_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c52',1)">Detail</a></td>
+</tr>
+
+<tr id='pt52.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_ywgk_sch: 查询院务公开</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt52.1')" >
+        pass</a>
+
+    <div id='div_pt52.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt52.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt52.1: 添加信息，名称“ywgk_sch20160907084418”，添加成功
+模糊查询"sch"存在包含"sch"的名称ywgk_sch20160907084418
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yydt.zdh_yydt_add.zdh_yydt_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c53',1)">Detail</a></td>
+</tr>
+
+<tr id='pt53.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yydt_add: 添加医院动态</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt53.1')" >
+        pass</a>
+
+    <div id='div_pt53.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt53.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt53.1: 添加信息，名称“ywgk_add20160907084504”，添加成功
+添加的信息列表里存在，名称“ywgk_add20160907084504”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yydt.zdh_yydt_del.zdh_yydt_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c54',1)">Detail</a></td>
+</tr>
+
+<tr id='pt54.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yydt_del: 删除医院动态</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt54.1')" >
+        pass</a>
+
+    <div id='div_pt54.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt54.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt54.1: 添加信息，名称“yydt_del20160907084609”，添加成功
+yydt_del20160907084609删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yydt.zdh_yydt_edt.zdh_yydt_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c55',1)">Detail</a></td>
+</tr>
+
+<tr id='pt55.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yydt_edt: 修改医院动态</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt55.1')" >
+        pass</a>
+
+    <div id='div_pt55.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt55.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt55.1: 添加信息，名称“ywgk_edt20160907084732”，添加成功
+名称“ywgk_edt20160907084732”，修改成功
+信息列表里存在，修改后名称“ywgk_2edt20160907084817”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yydt.zdh_yydt_rel.zdh_yydt_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c56',1)">Detail</a></td>
+</tr>
+
+<tr id='pt56.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yydt_rel: 发布医院动态</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt56.1')" >
+        pass</a>
+
+    <div id='div_pt56.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt56.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt56.1: 添加信息，名称“yydt_rel20160907084848”，添加成功
+发布成功，名称yydt_rel20160907084848已审批
+发布成功，用普通用户登录查看，存在名称yydt_rel20160907084848
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yydt.zdh_yydt_sch.zdh_yydt_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c57',1)">Detail</a></td>
+</tr>
+
+<tr id='pt57.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yydt_sch: 查询医院动态</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt57.1')" >
+        pass</a>
+
+    <div id='div_pt57.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt57.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt57.1: 添加信息，名称“yydt_sch20160907085031”，添加成功
+模糊查询"sch"存在包含"sch"的名称yydt_sch20160907085031
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yywh.zdh_yywh_add.zdh_yywh_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c58',1)">Detail</a></td>
+</tr>
+
+<tr id='pt58.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yywh_add: 添加医院文化</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt58.1')" >
+        pass</a>
+
+    <div id='div_pt58.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt58.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt58.1: 添加信息，名称“yyhw_add20160907085136”，添加成功
+添加的信息列表里存在，名称“yyhw_add20160907085136”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yywh.zdh_yywh_del.zdh_yywh_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c59',1)">Detail</a></td>
+</tr>
+
+<tr id='pt59.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yywh_del: 添加医院文化</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt59.1')" >
+        pass</a>
+
+    <div id='div_pt59.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt59.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt59.1: 添加信息，名称“yywh_del20160907085239”，添加成功
+yywh_del20160907085239删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>fgw.yywh.zdh_yywh_edt.zdh_yywh_edt</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c60',1)">Detail</a></td>
+</tr>
+
+<tr id='ft60.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_yywh_edt: 修改医院文化</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft60.1')" >
+        error</a>
+
+    <div id='div_ft60.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft60.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft60.1: 添加信息，名称“ywgk_edt20160907085341”，添加成功
+Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\fgw\yywh\zdh_yywh_edt.py", line 169, in test_zdh_yywh_edt
+    text=alert.text
+  File "D:\Python27\lib\site-packages\selenium\webdriver\common\alert.py", line 65, in text
+    return self.driver.execute(Command.GET_ALERT_TEXT)["value"]
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 192, in check_response
+    raise exception_class(message, screen, stacktrace)
+NoAlertPresentException: Message: No alert is active
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yywh.zdh_yywh_rel.zdh_yywh_rel</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c61',1)">Detail</a></td>
+</tr>
+
+<tr id='pt61.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yywh_rel: 发布医院文化</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt61.1')" >
+        pass</a>
+
+    <div id='div_pt61.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt61.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt61.1: 添加信息，名称“yywh_rel20160907085429”，添加成功
+发布成功，名称yywh_rel20160907085429已审批
+发布成功，用普通用户登录查看，存在名称yywh_rel20160907085429
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yywh.zdh_yywh_sch.zdh_yywh_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c62',1)">Detail</a></td>
+</tr>
+
+<tr id='pt62.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yywh_sch: 查询医院文化</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt62.1')" >
+        pass</a>
+
+    <div id='div_pt62.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt62.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt62.1: 添加信息，名称“yywh_sch20160907085546”，添加成功
+模糊查询"sch"存在包含"sch"的名称yywh_sch20160907085546
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yywj.zdh_yywj_add.zdh_yywj_add</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c63',1)">Detail</a></td>
+</tr>
+
+<tr id='pt63.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yywj_add: 添加医院文件</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt63.1')" >
+        pass</a>
+
+    <div id='div_pt63.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt63.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt63.1: 添加信息，名称“yywj_add20160907085630”，添加成功
+添加的信息列表里存在，名称“yywj_add20160907085630”
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yywj.zdh_yywj_del.zdh_yywj_del</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c64',1)">Detail</a></td>
+</tr>
+
+<tr id='pt64.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yywj_del: 删除医院文件</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt64.1')" >
+        pass</a>
+
+    <div id='div_pt64.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt64.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt64.1: 添加信息，名称“yywj_del20160907085738”，添加成功
+yywj_del20160907085738删除成功
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>fgw.yywj.zdh_yywj_edt.zdh_yywj_edt</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c65',1)">Detail</a></td>
+</tr>
+
+<tr id='ft65.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_yywj_edt: 修改医院文件</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft65.1')" >
+        error</a>
+
+    <div id='div_ft65.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft65.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft65.1: 添加信息，名称“yyej_edt20160907085841”，添加成功
+Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\fgw\yywj\zdh_yywj_edt.py", line 199, in test_zdh_yywj_edt
+    text=alert.text
+  File "D:\Python27\lib\site-packages\selenium\webdriver\common\alert.py", line 65, in text
+    return self.driver.execute(Command.GET_ALERT_TEXT)["value"]
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 192, in check_response
+    raise exception_class(message, screen, stacktrace)
+NoAlertPresentException: Message: No alert is active
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>fgw.yywj.zdh_yywj_rel.zdh_yywj_rel</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c66',1)">Detail</a></td>
+</tr>
+
+<tr id='ft66.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_yywj_rel: 发布医院文件</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft66.1')" >
+        error</a>
+
+    <div id='div_ft66.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft66.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft66.1: 添加信息，名称“yywj_rel20160907085929”，添加成功
+Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\fgw\yywj\zdh_yywj_rel.py", line 136, in test_zdh_yywj_rel
+    text=driver.find_element_by_xpath(".//*[@id='dgListRecord']/tbody/tr[2]/td[5]").text
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 293, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 752, in find_element
+    'value': value})['value']
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 192, in check_response
+    raise exception_class(message, screen, stacktrace)
+NoSuchElementException: Message: Unable to find element with xpath == .//*[@id='dgListRecord']/tbody/tr[2]/td[5]
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>fgw.yywj.zdh_yywj_sch.zdh_yywj_sch</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c67',1)">Detail</a></td>
+</tr>
+
+<tr id='pt67.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_yywj_sch: 查询医院文件</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt67.1')" >
+        pass</a>
+
+    <div id='div_pt67.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt67.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt67.1: 添加信息，名称“yywj_sch20160907090458”，添加成功
+模糊查询"sch"存在包含"sch"的名称yywj_sch20160907090458
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>gw.bwcpdlc.zdh_bwcp_lc.zdh_bwcp_lc</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c68',1)">Detail</a></td>
+</tr>
+
+<tr id='ft68.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_bwcp_lc: 办文呈批单流程</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft68.1')" >
+        error</a>
+
+    <div id='div_ft68.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft68.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft68.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_lc20160907090535
+冯学冠完成提交办文呈批单流程，名称为：bwcp_lc20160907090535
+符晓玲开始会签，会签名称为：bwcp_lc_hq20160907090535分别会签给黄植和谭壮华
+名称"bwcp_lc20160907090535",标题、签批状态、发送人正确
+符晓玲完成会签，会签名称为：bwcp_lc_hq20160907090535分别会签给黄植和谭壮华
+黄植,开始会签签批，并转交给吴忠旺签批
+名称、标题、签批状态"bwcp_lc_hq20160907090535、会签签批、符晓玲",正确
+黄植,完成会签签批，并转交给吴忠旺签批
+吴忠旺开始结束会签
+名称、标题、签批状态"bwcp_lc_hq20160907090535、签批、黄植",正确
+吴忠旺完成结束会签
+谭壮华开始结束会签
+名称、标题、签批状态"bwcp_lc_hq20160907090535、会签签批、符晓玲",正确
+谭壮华完成结束会签
+符晓玲开始提交意见,接收人为：丁娥
+名称、标题、签批状态"bwcp_lc20160907090535、签批、冯学冠",正确
+符晓玲完成提交意见,接收人为：丁娥
+丁娥开始中转给马婧
+名称、标题、签批状态"bwcp_lc20160907090535、签批、符晓玲",正确
+丁娥完成中转给马婧
+冯学冠开始在公文跟踪查询流程
+标题、公文类型、当前节点"bwcp_lc20160907090535、办文呈批单、马婧",正确
+冯学冠完成在公文跟踪查询流程
+马婧开始结束流程
+名称、标题、签批状态"bwcp_lc20160907090535、中转、丁娥",正确
+马婧完成结束流程
+冯学冠开始在公文查询查询流程
+标题、公文类型、创建人"bwcp_lc20160907090535、办文呈批单、冯学冠",正确
+冯学冠完成在公文查询查询流程
+符晓玲开始在公文查询查询流程（签批）
+标题、公文类型、创建人"bwcp_lc_hq20160907090535、办文呈批单会签件、符晓玲",正确
+符晓玲完成在公文查询查询流程（签批）
+冯学冠开始在待阅事务里，查看流程是否正确，并分发给：黄娜
+当前1/4页  
+在待阅事务里存在流程名称：”bwcp_lc20160907090535“，并且信息正确
+在待阅事务里存在流程名称：”bwcp_lc20160907090535“，信息正确，阅读状态为“已阅”
+冯学冠完成在待阅事务里，查看流程是否正确，并分发给：黄娜
+黄娜开始在待阅事务里，查看流程否是正确
+在待阅事务里没有存在流程名称：”bwcp_lc20160907090535“，或者信息不正确
+Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\gw\bwcpdlc\zdh_bwcp_lc.py", line 1018, in tearDown
+    self.assertEqual([], self.verificationErrors)
+AssertionError: Lists differ: [] != ['status or data of Transactio...
+
+Second list contains 1 additional elements.
+First extra element 0:
+status or data of Transaction to be read erro
+
+- []
++ ['status or data of Transaction to be read erro']
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='errorClass'>
+    <td>gw.cbqbhqch.zdh_bwcp_cg_del.zdh_bwcp_cg_del</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td><a href="javascript:showClassDetail('c69',1)">Detail</a></td>
+</tr>
+
+<tr id='ft69.1' class='none'>
+    <td class='errorCase'><div class='testcase'>test_zdh_bwcp_cg_del: 办文呈批单草稿删除</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft69.1')" >
+        error</a>
+
+    <div id='div_ft69.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_ft69.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+ft69.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_cg_edt20160907091342
+冯学冠完成提交办文呈批单流程，名称为：bwcp_cg_edt20160907091342
+冯学冠开始在公文草稿箱里查询办文呈批单流程名称：bwcp_cg_edt20160907091342,并做删除操作
+在公文草稿箱里存在流程名称：”bwcp_cg_edt20160907091342“，并且信息正确
+Traceback (most recent call last):
+  File "E:\test_zdh\haiyi_zdh\testcase_ie\gw\cbqbhqch\zdh_bwcp_cg_del.py", line 220, in test_zdh_bwcp_cg_del
+    bt_text=driver.find_element_by_xpath(xpath1).text
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 293, in find_element_by_xpath
+    return self.find_element(by=By.XPATH, value=xpath)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 752, in find_element
+    'value': value})['value']
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\webdriver.py", line 236, in execute
+    self.error_handler.check_response(response)
+  File "D:\Python27\lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 192, in check_response
+    raise exception_class(message, screen, stacktrace)
+NoSuchElementException: Message: Unable to find element with xpath == .//*[@id='dgQuery']/tbody/tr[4]/td[2]/label
+
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>gw.cbqbhqch.zdh_bwcp_sub.zdh_bwcp_sub</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c70',1)">Detail</a></td>
+</tr>
+
+<tr id='pt70.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bwcp_sub: 办文呈批单呈报</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt70.1')" >
+        pass</a>
+
+    <div id='div_pt70.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt70.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt70.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_sub20160907091606
+冯学冠完成提交办文呈批单流程，名称为：bwcp_sub20160907091606
+符晓玲开始查询是否存在名称为：bwcp_sub20160907091606,并且判断属性是否一致
+名称"bwcp_sub20160907091606",标题、签批状态、发送人正确
+名称"bwcp_sub20160907091606",属性值与提交的属性值一致
+符晓玲完成查询是否存在名称为：bwcp_sub20160907091606,并且判断属性是否一致
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>gw.cg+qp_edt.zdh_bwcp_cg_edt.zdh_bwcp_cg_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c71',1)">Detail</a></td>
+</tr>
+
+<tr id='pt71.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bwcp_cg_edt: 办文呈批单草稿提交</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt71.1')" >
+        pass</a>
+
+    <div id='div_pt71.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt71.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt71.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_cg_edt20160907091738
+冯学冠完成提交办文呈批单流程，名称为：bwcp_cg_edt20160907091738
+在公文草稿箱里存在流程名称：”bwcp_cg_edt20160907091738“，并且信息正确
+流程名称：bwcp_cg_edt20160907091738在草稿箱打开与保存时的属性值一致
+在公文草稿箱里存在流程名称：”bwcp_cg_edt20160907091738“，并且信息正确
+符晓玲开始查询是否存在流程：bwcp_2cg_edt20160907091738
+名称"bwcp_2cg_edt20160907091738",标题、签批状态、发送人正确
+符晓玲完成查询是否存在流程：bwcp_2cg_edt20160907091738
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr class='passClass'>
+    <td>gw.cg+qp_edt.zdh_bwcp_edt.zdh_bwcp_edt</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td><a href="javascript:showClassDetail('c72',1)">Detail</a></td>
+</tr>
+
+<tr id='pt72.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_zdh_bwcp_edt: 办文呈批单签批修改</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt72.1')" >
+        pass</a>
+
+    <div id='div_pt72.1' class="popup_window">
+        <div style='text-align: right; color:red;cursor:pointer'>
+        <a onfocus='this.blur();' onclick="document.getElementById('div_pt72.1').style.display = 'none' " >
+           [x]</a>
+        </div>
+        <pre>
+        
+pt72.1: 冯学冠开始提交办文呈批单流程，名称为：bwcp_edt20160907091934
+冯学冠完成提交办文呈批单流程，名称为：bwcp_edt20160907091934
+符晓玲开始查询是否存在流程：bwcp_edt20160907091934,并修改缓急和文件编号
+名称"bwcp_edt20160907091934",标题、签批状态、发送人正确
+名称"bwcp_edt20160907091934",属性值与提交的属性值一致
+名称"bwcp_edt20160907091934",标题、签批状态、发送人正确
+符晓玲修改文件编号和缓急成功修改为：2wjbh20160907091934,急件
+符晓玲开完成查询是否存在流程：bwcp_edt20160907091934,并修改缓急和文件编号
+
+
+        </pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='total_row'>
+    <td>Total</td>
+    <td>72</td>
+    <td>62</td>
+    <td>0</td>
+    <td>10</td>
+    <td>&nbsp;</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+
+</body>
+</html>
