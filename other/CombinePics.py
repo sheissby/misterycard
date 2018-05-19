@@ -1,6 +1,7 @@
 # encoding: utf-8
 import PIL.Image as PI
 from Tkinter import *
+from tkMessageBox import showwarning
 import os
 import tkFileDialog
 
@@ -17,10 +18,15 @@ class Combine():
     def openfile(self):
         filepath = tkFileDialog.askopenfilename(initialdir='E:/Python')
         self.images_path.append(filepath)
+        print self.images_path
 
     def combine(self):
         new_width = 0
         new_height = 0
+        if not self.images_path or not self.images_path[0]:
+            showwarning(title='提示', message='未选择图片')
+            return 0
+
         # 计算合成后图片的高度（以最高的为准）和宽度
         for img_path in self.images_path:
             if os.path.exists(img_path):
