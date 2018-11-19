@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
 
-servers = ['192.9.100.50', '$2a$10$D'], ['192.9.100.51', '$3a$10$D'], ['192.9.100.53', '$4a$10$D']
+servers = ['ip1', 'pw1'], ['ip2', 'pw2'], ['ip3', 'pw3']
 
 
 def print_log(sshcon, server_name, ws):
