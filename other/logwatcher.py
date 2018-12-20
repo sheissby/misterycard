@@ -1,7 +1,7 @@
 # encoding: utf-8
 import select, paramiko
 
-servers = ['192.9.100.50', '$2a$10$D'], ['192.9.100.51', '$3a$10$D'], ['192.9.100.53', '$4a$10$D']
+servers = ['',''], ['','']]
 
 
 def print_log(sshcon, server_name):
