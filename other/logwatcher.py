@@ -1,7 +1,7 @@
 # encoding: utf-8
 import select, paramiko
 
-servers = ['',''], ['','']]
+servers = [['',''], ['','']]
 
 
 def print_log(sshcon, server_name):
