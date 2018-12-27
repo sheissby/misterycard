@@ -1,0 +1,73 @@
+<!--<!DOCTYPE HTML>-->
+<!--<html>-->
+<!--<head>-->
+    <!--<title>Log Watcher</title>-->
+    <!--<script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>-->
+    <!--<script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>-->
+    <!--<script type="text/javascript" charset="utf-8">-->
+    <!--$(document).ready(function() {-->
+        <!--var socket = io.connect();-->
+
+        <!--socket.on('connect', function() {-->
+            <!--socket.emit('connect_event', {data: 'websocket connected!'});-->
+        <!--})-->
+
+        <!--socket.on('server_response', function(msg) {-->
+            <!--$('#log').append('<br>' + $('<div/>').text(msg.data).html());-->
+        <!--});-->
+
+        <!--socket.on('server_log', function(msg) {-->
+            <!--$('#info').append('<br>' + $('<div/>').text(msg.data).html());-->
+        <!--});-->
+
+        <!--$('form#emit').submit(function(event) {-->
+                <!--socket.emit('client_event', $('#emit_data').val());-->
+                <!--return false;-->
+            <!--});-->
+    <!--});-->
+
+    <!--</script>-->
+<!--</head>-->
+<!--<body>-->
+    <!--<form id="emit" method="POST">-->
+        <!--<input type="text" name="emit_data" id="emit_data" placeholder="Message">-->
+        <!--<input type="submit" value="GO">-->
+    <!--</form>-->
+    <!--<div id='log'></div>-->
+    <!--<div id="info"></div>-->
+<!--</body>-->
+<!--</html>-->
+<body>
+<div>
+    <h2>发送消息</h2>
+    <input id="msg" type="text"  />
+    <input type="button" value="发送" onclick="sendMsg()">
+    <h2>接收消息</h2>
+    <div id="container"> </div>
+    <p id="last"></p>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+        ws = new WebSocket('ws://127.0.0.1:5001/logwatcher');
+        ws.onmessage = function (event) {
+            var tag = document.createElement('div');
+            tag.className = 'msg-item';
+            tag.innerText = event.data;
+            $('#container').append(tag);
+            $('#last').focus();
+        }
+
+        function sendMsg() {
+            ws.send($('#msg').val());
+        }
+
+        ws.onclose = function() {
+            reconnect();
+        }
+
+        ws.onerror = function() {
+            reconnect();
+        }
+    </script>
+</body>
