@@ -1,9 +1,9 @@
 # encoding: utf-8
 import PIL.Image as PI
-from Tkinter import *
-from tkMessageBox import showwarning
+from tkinter import *
 import os
-import tkFileDialog
+from tkinter import filedialog
+from tkinter.messagebox import showwarning
 
 
 class Combine():
@@ -16,9 +16,9 @@ class Combine():
         Button(root, text='合并图片', command=self.combine).pack()
 
     def openfile(self):
-        filepath = tkFileDialog.askopenfilename(initialdir='E:/Python')
+        filepath = filedialog.askopenfilename(initialdir='E:/Python')
         self.images_path.append(filepath)
-        print self.images_path
+        print(self.images_path)
 
     def combine(self):
         new_width = 0
@@ -53,8 +53,8 @@ class Combine():
         new_img.save(save_path)
         self.images_path = []
 
+
 if __name__ == '__main__':
     root = Tk()
     gui = Combine()
-    # gui.combinepic()
     root.mainloop()
