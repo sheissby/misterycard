@@ -17,7 +17,7 @@ def clawl(spider, site):
         for i in salary:
             sum += i
         avg_salary = sum / len(salary)
-        print '%s抓取%d个职位，平均%s薪资为%d' % (site, len(salary), level, avg_salary)
+        print('%s抓取%d个职位，平均%s薪资为%d' % (site, len(salary), level, avg_salary))
 
 
 if __name__ == '__main__':

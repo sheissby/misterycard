@@ -32,8 +32,9 @@ def writecue(path, files):
             f.write('    TITLE "%s"\n' % name)
             f.write('    INDEX 01 00:00:00\n')
 
+
 if __name__ == '__main__':
-    dir = raw_input().decode('utf-8')
+    dir = input()
     if os.path.exists(dir):
         path, files = GetFilesAndPath(dir)
         writecue(path, files)

@@ -18,7 +18,7 @@ def match(source, template):
 
 
 def draw(source, max_loc):
-	# 画矩形(文件、起点坐标、对角线坐标、颜色、线宽)
+    # 画矩形(文件、起点坐标、对角线坐标、颜色、线宽)
     cv2.rectangle(source, max_loc, (max_loc[0] + h, max_loc[1] + w), (0, 0, 255), 2)
     cv2.imshow('Detected', source)
     cv2.waitKey(0)

@@ -37,13 +37,13 @@ def get_response():
                             data['url'] = url
                             position_info.append(data)
                             if salary_json['max'] > 10000:
-                                print position, salary, workplace, company, url
+                                print(position, salary, workplace, company, url)
                         elif salary == u'面议':
-                            print position, salary, workplace, company, url
+                            print(position, salary, workplace, company, url)
             else:
-                print '第%d页' % page + r.status_code
-        except Exception, e:
-            print 'error：', e
+                print('第%d页' % page + r.status_code)
+        except Exception as e:
+            print('error：', e)
     return position_info
 
 

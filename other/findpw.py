@@ -4,11 +4,12 @@ from Crypto.Cipher import AES
 import win32clipboard as w
 import win32con
 
+
 def encrypt():
     # 密文
     password = 'baiyang000000000'
     # 秘钥
-    key = raw_input("Enter key:")
+    key = input("Enter key:")
     if key:
         # 秘钥补足16位
         lenth = 16
@@ -22,7 +23,7 @@ def encrypt():
         ciphertext = ciphertext.replace('/', '')
         # 截取特定位数
         ciphertext = ciphertext[0: 8]
-        print ciphertext
+        print(ciphertext)
         return ciphertext
     else: return encrypt()
 
@@ -32,6 +33,7 @@ def setText(ciphertext):
     w.EmptyClipboard()
     w.SetClipboardData(win32con.CF_TEXT, ciphertext)
     w.CloseClipboard()
+
 
 if __name__ == '__main__':
     setText(encrypt())

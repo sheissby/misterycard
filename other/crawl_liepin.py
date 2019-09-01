@@ -28,8 +28,8 @@ def request(page):
         r = requests.get(url=base_url, params=page, timeout=10)
         if r.status_code == 200:
             return r.content
-    except requests.HTTPError, e:
-        print '请求错误：', e
+    except requests.HTTPError as e:
+        print('请求错误：', e)
     finally:
         pass
 
@@ -46,7 +46,7 @@ def parse(html):
         salary = position_detail[0]
         if '-' in salary:
             global i
-            print '开始解析第%d条' % i
+            print('开始解析第%d条' % i)
             salary = salary[:-3].strip()
             salary_json['max'] = int(salary.split('-')[1])*10000/12
             salary_json['min'] = int(salary.split('-')[0])*10000/12
@@ -73,8 +73,9 @@ def parse(html):
             SavetoDB(data, i)
             i += 1
 
+
 def SavetoDB(data, i):
-    print '开始写入第%d条' % i
+    print('开始写入第%d条' % i)
     db.connect()
     origin.create(position_name=data['position_name'],
                   salary_min=data['salary']['min'],
@@ -91,7 +92,7 @@ def SavetoDB(data, i):
 
 if __name__ == '__main__':
     for page in range(0, 10):  # curPage=0是第一页
-        print '开始抓取第%d页' % (page+1)
+        print('开始抓取第%d页' % (page+1))
         param = '&curPage=' + str(page)
         html = request(param)
         parse(html)

@@ -29,7 +29,7 @@ def createPassword():
     seed = pwdl+pwdu+pwdd
     shuffler = random.sample(seed, len(seed))
     pwd = "".join(shuffler)
-    print pwd
+    print(pwd)
 
 if __name__ == '__main__':
     createPassword()

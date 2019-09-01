@@ -2,10 +2,12 @@
 import json
 import requests
 import time
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from urllib3.exceptions import InsecureRequestWarning
+from urllib3 import disable_warnings
 from peewee import *
+
 # 禁用安全请求警告
-requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+disable_warnings(InsecureRequestWarning)
 base_url = 'https://www.lagou.com/jobs/positionAjax.json?city=%E5%8C%97%E4%BA%AC&needAddtionalResult=false&isSchoolJob=0'
 header = {'Accept': 'application/json, text/javascript, */*; q=0.01',
           'User-Agent': 'Mozilla/5.0(Windows NT 6.3;WOW64;rv:52.0) Gecko / 20100101Firefox / 52.0',
@@ -41,8 +43,8 @@ def request(page):
         if r.status_code == 200:
             res = json.loads(r.content)
             return res
-    except requests.HTTPError, e:
-        print '请求错误：', e
+    except requests.HTTPError as e:
+        print('请求错误：', e)
     finally:
         pass
 
@@ -51,7 +53,7 @@ def parse(html):
         position_list = html['content']['positionResult']['result']
         for positioninfo in position_list:
             global i
-            print '开始解析第%d条' % i
+            print('开始解析第%d条' % i)
             data = {}
             salary_json = {}
             position_name = positioninfo['positionName']
@@ -92,7 +94,7 @@ def parse(html):
 
 
 def SavetoDB(data, i):
-    print '开始写入第%d条' % i
+    print('开始写入第%d条' % i)
     db.connect()
     origin.create(position_name=data['position_name'],
                   salary_min=data['salary']['min'],
@@ -107,9 +109,10 @@ def SavetoDB(data, i):
                   )
     db.close()
 
+
 if __name__ == '__main__':
     for page in range(0, 10):  # curPage=0是第一页
-        print '开始抓取第%d页' % (page+1)
+        print('开始抓取第%d页' % (page+1))
         param = 'first=true&kd=%e9%ab%98%e7%ba%a7%e6%b5%8b%e8%af%95%e5%b7%a5%e7%a8%8b%e5%b8%88&pn=' + str(page)
         html = request(param)
         parse(html)

@@ -12,7 +12,7 @@ def getimage():
     image = PI.open(img)
     image.save('OCR.jpg')
     vcode = pytesseract.image_to_string(image)
-    print vcode
+    print(vcode)
 
 
 if __name__ == '__main__':
