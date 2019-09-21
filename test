@@ -1,0 +1,52 @@
+from paramiko import SSHClient, SSHConfig, SSHException
+import getpass
+import paramiko
+
+
+# def getSSHConnection(hostName):
+#      config = SSHConfig()
+#
+#
+#      user = getpass.getuser()
+#      config.parse(open('C:/Users/' + user +'/.ssh/config'))
+#      host=config.lookup(hostName)
+#
+#
+#      # setup SSH client
+#      client = SSHClient()
+#      client.load_system_host_keys()
+#      client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#
+#      #Check for proxy settings
+#      try:
+#         print (host ['proxycommand'])
+#         proxy = paramiko.ProxyCommand(host['proxycommand'])
+#      except:
+#         proxy = None
+#      #Setup the SSH connection
+#      try:
+#         if (proxy is None):
+#             client.connect(host['hostname'],22, username=host['user'],key_filename=host['identityfile'])
+#         else:
+#             client.connect(host['hostname'],22, username=host['user'],  key_filename=host['identityfile'], sock=proxy)
+#      except SSHException as ex:
+#         print(ex)
+#
+#      return client
+
+proxy = paramiko.ProxyCommand('ssh -W 169.254.1.2:22 remoteA')
+
+client = SSHClient()
+client.load_system_host_keys()
+client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+client.connect(hostname='hostname', port=22, username='user', password='password', sock=proxy)
+
+ssh_client = client()
+
+# run a command
+print("\nRun a command")
+cmd = 'ps aux'
+stdin, stdout, stderr = ssh_client.exec_command(cmd)
+
+print(stdout.read())
