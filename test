@@ -50,3 +50,19 @@ cmd = 'ps aux'
 stdin, stdout, stderr = ssh_client.exec_command(cmd)
 
 print(stdout.read())
+
+
+
+
+
+import paramiko
+from sshtunnel import SSHTunnelForwarder
+#192.168.35.97为跳转机的IP，172.28.55.64为目标主机的IP，
+with SSHTunnelForwarder(('192.168.35.97', 22), ssh_username='test', ssh_password='Test@1234', remote_bind_address=('172.28.55.64', 22), local_bind_address=('0.0.0.0', 10022)) as server:
+    client = paramiko.SSHClient()
+    client.load_system_host_keys()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname='127.0.0.1', port=10022, username='test', password='Test@1234')
+    stdin, stdout, stderr = client.exec_command('ls')
+    print stdout.read()
+    client.close()
